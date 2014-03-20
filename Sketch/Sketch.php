@@ -14,8 +14,8 @@ class Sketch {
     private $controllers    = [];
     public  $errors         = [];
     public  $status         = 200;
-    private $start          = 0;
-    private $end            = 0;
+    private $endMemory      = 0;
+    
     /**
      * 
      * @param array $config
@@ -23,13 +23,13 @@ class Sketch {
     public function __construct(array $config){
         session_start();                        // Start the Session for the page
         ob_start("ob_gzhandler");
-        $this->node = (object)[];
-        $this->node->updated = new \DateTime();
-        $this->start = microtime( true );
-        SELF::$instance = $this;                // Record Instance of Sketch
-        $this->config = $config;                // Save configuration
+        $this->node             = (object)[];
+        $this->node->updated    = new \DateTime();
+        SELF::$instance         = $this;        // Record Instance of Sketch
+        $this->config           = $config;      // Save configuration
         $this->deploy();                        // Create Website / update DB
         $i = $this->route();                    // Route the URL
+        $this->endMemory       = memory_get_usage(false) - START_MEMORY;
         ob_end_flush();
         $this->benchmark();
     }
@@ -40,9 +40,11 @@ class Sketch {
             ?>
             <script type="text/javascript">
                 try{
-                console.info("PHP Processing time:  <?php echo number_format((microtime(true)-$this->start),3); ?> seconds");
+                console.info("PHP Processing time:  <?php echo number_format((microtime(true)-START_TIME),3); ?> seconds");
+                console.info("Sketch Start Memory: <?php echo number_format(START_MEMORY/1048576,10); ?> MB");
+                console.info("Sketch End Memory: <?php echo number_format($this->endMemory/1048576,10); ?> MB");
                 <?php if(function_exists("memory_get_peak_usage")){ ?>
-                        console.info("Peak PHP Memory used: <?php echo number_format(memory_get_peak_usage()/1048576,3); ?> MB"); 
+                        console.info("Peak PHP Memory used: <?php echo number_format(memory_get_peak_usage()/1048576,10); ?> MB"); 
                 <?php } ?>
                 }catch(e){}
             </script>
@@ -82,6 +84,9 @@ class Sketch {
         }
     }
     
+    /**
+     * 
+     */
     private function deploy(){
         if(isset($_GET['deploy'])){
             $em = $this->getEntityManager()->buildDatabase();
@@ -137,10 +142,20 @@ class Sketch {
         }
     }
     
+    /**
+     * 
+     * @param type $item
+     * @return type
+     */
     public function getMenuValues($item){
         return $this->node->$item;
     }
     
+    /**
+     * 
+     * @param string $item
+     * @return mixed
+     */
     public function getPageValues($item){
         return isset($this->node->page->$item) ? $this->node->page->$item : false;
     }

@@ -21,12 +21,12 @@ class View{
         if(is_file($file)){
             include($file);
         }else{
+            \Sketch\Sketch::$instance->status       = 404;
+            \Sketch\Sketch::$instance->errors[]     = "File not found: ".$file;
+            $this->controller->doHeaders();
             if($file != SITE_ROOT."/views/errors/error404.php"){
-                \Sketch\Sketch::$instance->status       = 404;
-                \Sketch\Sketch::$instance->errors[]     = "File not found: ".$file;
                 $this->render(SITE_ROOT."/views/errors/error404.php");
             }else{
-                $this->controller->doHeaders();
                 echo $this->errorMessages();
             }
         }

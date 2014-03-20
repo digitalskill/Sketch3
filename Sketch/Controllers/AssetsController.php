@@ -17,21 +17,23 @@ class AssetsController extends Controller{
             default :
                 $this->view->notFound();
         } 
+        if(!is_file(SKETCH_CORE."/".join("/",\Sketch\Sketch::$instance->url))){
+           \Sketch\Sketch::$instance->status==404; 
+        }
         $this->view->layout = SKETCH_CORE."/".join("/",\Sketch\Sketch::$instance->url);
         return $this->view;
     }
     
-    public function outputHeaders(){
+    /**
+     * 
+     */
+    public function doHeaders(){
+        parent::doHeaders();
         if(\Sketch\Sketch::$instance->status==200){
-            header( 'Vary: Accept-Encoding' );
-            header( 'Content-Type: '.$this->type.'; charset=utf-8' );
-            header( 'Last-Modified: ' . \gmdate( 'D, d M Y H:i:s', \filemtime( $this->view->layout ) ) . ' GMT' );
-            header( "Expires: " . \gmdate( "D, d M Y H:i:s", ( \time() + \Sketch\Sketch::$instance->getConfig('cacheseconds')) ) . " GMT" );
-            header( "Cache-Control: max-age=" . \Sketch\Sketch::$instance->getConfig('cacheseconds') . ", must-revalidate" );
             if ( isset( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) && ( \strtotime( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) == \filemtime( $this->view->layout ) ) ) {
-                    header( 'HTTP/1.1 304 Not Modified' );
-                    exit( );
-            } 
+                header( 'HTTP/1.1 304 Not Modified' );
+                exit( );
+            }
         }
     }
 }

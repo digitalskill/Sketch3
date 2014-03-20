@@ -1,0 +1,36 @@
+<!--[if lt IE 7]> <html class="ie6 oldie"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="en">
+<meta name="author" content="WebSpring Ltd">
+<meta name="robots" content="INDEX,FOLLOW">
+<meta name="title" content="">
+<meta name="og:title" content="">
+<meta name="og:type" content="webpage">
+<meta name="keywords" content="">
+<meta name="description" content="">               
+<title><?php echo $this->title; ?></title> 
+<link href="<?php echo $this->basePath("favicon.ico");?>" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<?php 
+    echo $this->HeadLink()
+                ->prependFile($this->basePath("assets/Normalize/v1/css/normalize.css"))
+                ->prependFile($this->basePath("assets/Stickyfooter/v1/css/stickyfooter.css"))
+                ->appendFile($this->basePath("assets/Foundation/v1/css/foundation.min.css"));
+    echo $this->headScript()
+                ->appendFile($this->basePath("assets/modernizr/v1/js/modernizr.js"));
+?>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>  
+<?php //echo $this->partial('partials/analytics.phtml'); ?>  
