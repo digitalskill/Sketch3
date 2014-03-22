@@ -15,22 +15,22 @@ class Sketch {
     public  $errors         = [];
     public  $status         = 200;
     private $endMemory      = 0;
-    
+    public $url             = '';
+
     /**
      * 
      * @param array $config
      */
     public function __construct(array $config){
         session_start();                        // Start the Session for the page
-        ob_start("ob_gzhandler");
         $this->node             = (object)[];
         $this->node->updated    = new \DateTime();
         SELF::$instance         = $this;        // Record Instance of Sketch
         $this->config           = $config;      // Save configuration
         $this->deploy();                        // Create Website / update DB
+        $this->clearCache();                    // Clear the cache if asked for
         $i = $this->route();                    // Route the URL
         $this->endMemory       = memory_get_usage(false) - START_MEMORY;
-        ob_end_flush();
         $this->benchmark();
     }
     
@@ -53,6 +53,16 @@ class Sketch {
         }
     }
     
+    private function clearCache(){
+        if(isset($_GET['clearCache']) || isset($_GET['deploy'])){
+            $files = scandir(SKETCH_CORE."/cache/");
+            foreach($files as $file){
+                if($file != ".." && $file != '.'){
+                    unlink(SKETCH_CORE."/cache/".$file);
+                }
+            }
+        }
+    }
     /**
      * Route - Decides what controller should be loaded
      */
@@ -61,7 +71,7 @@ class Sketch {
         $this->url          = explode("/",$url);  
         switch (strtolower(trim($this->url[0]))){
             case "assets":
-                return $this->loadController("assets");
+                return $this->loadController("Assets");
                 break;
             case "files":
                 return $this->loadController("files");
@@ -75,8 +85,11 @@ class Sketch {
             case "images":
                 return $this->loadController("images");
                 break;
-            case "files":
-                return $this->loadController("files");
+            case "minifycss":
+                return $this->loadController("Minifycss");
+                break;
+            case "minifyjs":
+                return $this->loadController("Minifyjs");
                 break;
             default:
                 return $this->loadController("index");
@@ -151,12 +164,26 @@ class Sketch {
         return $this->node->$item;
     }
     
+    public function basePath($file=''){
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $domainName = $_SERVER['HTTP_HOST'].'/'.$file;
+        return $protocol.$domainName;
+    }
     /**
      * 
      * @param string $item
      * @return mixed
      */
     public function getPageValues($item){
-        return isset($this->node->page->$item) ? $this->node->page->$item : false;
+        if(isset($this->node['page'][$item])){
+           return $this->node['page'][$item];
+        }
+        if(isset($this->node[$item])){
+            return $this->node[$item];
+        }
+        if(isset($this->node['site'][$item])){
+            return $this->node['site'][$item];
+        }
+        return false;
     }
 } // END SKETCH CLASS

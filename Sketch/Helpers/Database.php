@@ -107,6 +107,7 @@ class Database{
             die("Cannot update database: ". $e->getMessage());
         }
     }
+    
     /**
      * 
      */
@@ -119,6 +120,14 @@ class Database{
         }catch(\Exception $e){
             $schemaTool->updateSchema($classes);
         }
+        
+        // Create Site
+        $site = new \Sketch\Entities\Site();
+        $site->name = 'Sketch';
+        $site->published = 1;
+        $site->domainname = $_SERVER['HTTP_HOST'];
+        $this->entityManager->persist($site);
+        
         // Create Page
         $menu = new \Sketch\Entities\Menu();
         $menu->setTitle("home");
@@ -129,6 +138,7 @@ class Database{
         $menuPage->content  = "<h1>Welcome to Sketch</h1>";
         $menuPage->edit     = "<h1>Welcome to Sketch</h1>";
         $menu->page = $menuPage;
+        $menu->site = $site;
         
         $this->entityManager->persist($menuPage);
         $this->entityManager->persist($menu);
@@ -141,6 +151,7 @@ class Database{
         $aboutPage->content = "<h1>Welcome to Sketch</h1>";
         $aboutPage->edit    = "<h1>Welcome to Sketch</h1>";
         $about->page = $aboutPage;
+        $about->site = $site;
         $this->entityManager->persist($aboutPage);
         $this->entityManager->persist($about);
         
@@ -153,6 +164,7 @@ class Database{
         $contactPage->content = "<h1>Welcome to Sketch</h1>";
         $contactPage->edit    = "<h1>Welcome to Sketch</h1>";
         $contact->page = $contactPage;
+        $contact->site = $site;
         
         $this->entityManager->persist($contactPage);
         $this->entityManager->persist($contact);

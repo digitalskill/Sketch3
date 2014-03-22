@@ -3,7 +3,7 @@ namespace Sketch\Views;
 
 class View{
     public static $instance;
-    private $controller;
+    public $controller;
     public function __construct($controller){
         SELF::$instance      = $this;
         $this->controller    = $controller;
@@ -11,7 +11,12 @@ class View{
         $this->view          = SITE_ROOT."/views/content/index.php";
     }
    
+    public function compress_page($buffer){
+        return preg_replace(array('/<!--(.*)-->/Uis',"/[[:blank:]]+/"),array('',' '),str_replace(array("\n","\r","\t"),'',$buffer));
+    }
+    
     public function render($file = ""){
+        ob_start(array(__CLASS__,"compress_page"));
         if($file==""){
             $file = $this->layout;
             if(\Sketch\Sketch::$instance->status != 200){
@@ -30,6 +35,7 @@ class View{
                 echo $this->errorMessages();
             }
         }
+        ob_end_flush();
     }
    
     public function content($file=""){
@@ -53,9 +59,7 @@ class View{
     }
     
     public function basePath($file = ''){
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-        $domainName = $_SERVER['HTTP_HOST'].'/'.$file;
-        return $protocol.$domainName;
+        return \Sketch\Sketch::$instance->basePath($file);
     }
     
     public function inlineScript(){
@@ -70,6 +74,6 @@ class View{
     }
     
     public function __get($name){
-        return \Sketch\Sketch::$instance->node->page->$name;
+        return \Sketch\Sketch::$instance->getPageValues($name);
     }
 }

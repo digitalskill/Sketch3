@@ -7,10 +7,12 @@ class Controller{
     public static   $instance;
     public $view    = "";
     public function __construct() {
-        $this->view     =   new \Sketch\Views\HTMLview($this);
         SELF::$instance =  $this;
-        $this->indexAction()->render();
+        $view = $this->indexAction();
         $this->doHeaders();
+        $this->compress();
+        $view->render();
+        $this->finish();
     }
 
     public function indexAction(){
@@ -33,6 +35,23 @@ class Controller{
         }else{
             $codes = \Sketch\Helpers\ErrorCodes::getCodes();
             header($_SERVER['SERVER_PROTOCOL'] . ' '.\Sketch\Sketch::$instance->status.' '.$codes[\Sketch\Sketch::$instance->status], true, \Sketch\Sketch::$instance->status);
+        }
+    }
+    
+    public function compress(){
+        if(\Sketch\Sketch::$instance->status == 200 && \Sketch\Sketch::$instance->getConfig('compress') ){
+            if (extension_loaded('zlib')) { 
+                ob_start(); 
+                ob_implicit_flush(0);
+            }else{
+                ob_start( "ob_gzhandler" );
+            }
+        }        
+    }
+    
+    public function finish(){
+        if ( \Sketch\Sketch::$instance->getConfig('compress') && \Sketch\Sketch::$instance->status == 200 ) {
+            ob_end_flush();
         }
     }
 }

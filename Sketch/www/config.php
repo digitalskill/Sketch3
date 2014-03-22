@@ -16,8 +16,6 @@ return array(
     'remove_from_path'   => "",     // Set this value to a folder or path that must not appear in the url
     'googleapi'          => true,   // CHANGE this to true to use googles API to load jQuery
     'cache'              => true,   // Change this true when completed developing CSS and javascript
-    'proxy_css_js'       => true,   // Change this false if you dont want proxies serving css and javascript pages
-    'www'                => false,  // It will just add "www" to all sketch->urlPath() calls and Style sheet image urls
 
     // Site Security                // Restrict access to site using basic auth
     'auth'               => false,

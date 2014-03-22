@@ -54,6 +54,31 @@ class Menu
      * @ORM\OneToOne(targetEntity="Page")
      */
     private $page;
+    
+     /**
+     * @ORM\ManyToOne(targetEntity="Site")
+     */
+    private $site;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $landing;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $holding = 0;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $onMenu = 1;
+    
+    /**
+     * @ORM\Column(type="float", precision=2, scale=10 )
+     */
+    private $pageRank = 0.5;
 
     public function getId()
     {
