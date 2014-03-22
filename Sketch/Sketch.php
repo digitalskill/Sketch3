@@ -15,7 +15,8 @@ class Sketch {
     public  $errors         = [];
     public  $status         = 200;
     private $endMemory      = 0;
-    public $url             = '';
+    public  $url            = '';
+    public  $node           = null;
 
     /**
      * 
@@ -23,14 +24,12 @@ class Sketch {
      */
     public function __construct(array $config){
         session_start();                        // Start the Session for the page
-        $this->node             = (object)[];
-        $this->node->updated    = new \DateTime();
         SELF::$instance         = $this;        // Record Instance of Sketch
         $this->config           = $config;      // Save configuration
         $this->deploy();                        // Create Website / update DB
         $this->clearCache();                    // Clear the cache if asked for
         $i = $this->route();                    // Route the URL
-        $this->endMemory       = memory_get_usage(false) - START_MEMORY;
+        $this->endMemory        = memory_get_usage(false) - START_MEMORY;
         $this->benchmark();
     }
     
@@ -132,7 +131,7 @@ class Sketch {
      * @return string
      */
     public function getConfig($item){
-        return isset($this->config[$item]) ? $this->config[$item] : false;
+        return isset($this->config[$item]) ? $this->config[$item] : $this->getSiteValues($item);
     }
     
     public function notFound(){
@@ -157,33 +156,39 @@ class Sketch {
     
     /**
      * 
-     * @param type $item
+     * @param type $file
      * @return type
      */
-    public function getMenuValues($item){
-        return $this->node->$item;
-    }
-    
     public function basePath($file=''){
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $domainName = $_SERVER['HTTP_HOST'].'/'.$file;
         return $protocol.$domainName;
     }
+    
+    /**
+     * 
+     * @param type $item
+     * @return type
+     */
+    public function getMenuValues($item){
+        return isset($this->node[$item])? $this->node[$item] : false;
+    }
+    
+    /**
+     * 
+     * @param type $item
+     * @return type
+     */
+    public function getSiteValues($item){
+        return isset($this->node['site'][$item])? $this->node['site'][$item] : false;
+    }
+    
     /**
      * 
      * @param string $item
      * @return mixed
      */
     public function getPageValues($item){
-        if(isset($this->node['page'][$item])){
-           return $this->node['page'][$item];
-        }
-        if(isset($this->node[$item])){
-            return $this->node[$item];
-        }
-        if(isset($this->node['site'][$item])){
-            return $this->node['site'][$item];
-        }
-        return false;
+        return isset($this->node['page'][$item])? $this->node['page'][$item] : false;
     }
 } // END SKETCH CLASS

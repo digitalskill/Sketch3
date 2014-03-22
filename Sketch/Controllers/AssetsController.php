@@ -55,6 +55,8 @@ class AssetsController extends Controller{
                 exit( );
             }
         }else{
+            header( 'Vary: Accept-Encoding' );
+            header( 'Content-Type: '.$this->type );
             $codes = \Sketch\Helpers\ErrorCodes::getCodes();
             header($_SERVER['SERVER_PROTOCOL'] . ' '.\Sketch\Sketch::$instance->status.' '.$codes[\Sketch\Sketch::$instance->status], true, \Sketch\Sketch::$instance->status);
             exit();

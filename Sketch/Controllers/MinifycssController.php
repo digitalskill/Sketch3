@@ -12,7 +12,11 @@ class MinifycssController extends Controller{
     }
     
     public function render(){
-        readfile($this->cachePath);
+        if(\Sketch\Sketch::$instance->getConfig('cache')== true && is_file()){
+            readfile($this->cachePath);
+        }else{
+            echo $this->css;
+        }
     }
     
     public function createCache(){
@@ -20,30 +24,38 @@ class MinifycssController extends Controller{
             $files = explode(":",str_replace("minifycss/","",join("/",\Sketch\Sketch::$instance->url)));
             foreach($files as $file){
                 list($folder,) = explode("css/",$file);
-                $folder = \Sketch\Sketch::$instance->basePath($folder);
-                if(is_file(SKETCH_CORE."/".$file)){
-                    $this->css .= (str_replace("../",$folder,file_get_contents(SKETCH_CORE."/".$file)));
-                }elseif(is_file(SITE_ROOT."/".$file)){
+                $checkcss = explode(".",$file);
+                if(is_file(SKETCH_CORE."/Assets/".$file) && end($checkcss)=="css"){
+                    $folder = \Sketch\Sketch::$instance->basePath("Assets/".$folder);
+                    $this->css .= (str_replace("../",$folder,file_get_contents(SKETCH_CORE."/Assets/".$file)));
+                }elseif(is_file(SITE_ROOT."/".$file) && end($checkcss)=="css"){
+                    $folder = \Sketch\Sketch::$instance->basePath($folder);
                     $this->css .= (str_replace("../",$folder,file_get_contents(SITE_ROOT."/".$file)));
                 }
             }
             $this->css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', str_replace(': ', ':',preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->css)));
-            file_put_contents($this->cachePath,str_replace('; ',';',str_replace(' }','}',str_replace('{ ','{',str_replace(array("\r\n","\r","\n","\t",'  ','    ','    '),"",preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!','', $this->css))))));       
+            if(\Sketch\Sketch::$instance->getConfig('cache') == true){
+                file_put_contents($this->cachePath,str_replace('; ',';',str_replace(' }','}',str_replace('{ ','{',str_replace(array("\r\n","\r","\n","\t",'  ','    ','    '),"",preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!','', $this->css))))));       
+            }     
         }
     }
     
     public function doHeaders() {
-        if(\Sketch\Sketch::$instance->status == 200 && is_file($this->cachePath)){
+        if(\Sketch\Sketch::$instance->status == 200){
             header( 'Vary: Accept-Encoding' );
             header( 'Content-Type: '.$this->type );
-            header( 'Last-Modified: ' . \gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
-            header( "Expires: " . \gmdate( "D, d M Y H:i:s", ( \time() + \Sketch\Sketch::$instance->getConfig('cacheseconds') ) ) . " GMT" );
-            header( "Cache-Control: max-age=".\Sketch\Sketch::$instance->getConfig('cacheseconds') );
-            if ( isset( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) && ( strtotime( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) >= filemtime( $this->cachePath ) ) && \Sketch\Sketch::$instance->getConfig('cache')==true ) {  
-                header( 'HTTP/1.1 304 Not Modified' );
-                exit( );
+            if(is_file($this->cachePath) && \Sketch\Sketch::$instance->getConfig('cache') == true){
+                header( 'Last-Modified: ' . \gmdate( 'D, d M Y H:i:s',filemtime( $this->cachePath ) ) . ' GMT' );
+                header( "Expires: " . \gmdate( "D, d M Y H:i:s", ( \time() + \Sketch\Sketch::$instance->getConfig('cacheseconds') ) ) . " GMT" );
+                header( "Cache-Control: max-age=".\Sketch\Sketch::$instance->getConfig('cacheseconds') );
+                if ( isset( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) && ( strtotime( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) >= filemtime( $this->cachePath ) ) && \Sketch\Sketch::$instance->getConfig('cache')==true ) {  
+                    header( 'HTTP/1.1 304 Not Modified' );
+                    exit( );
+                }
             }
         }else{
+            header( 'Vary: Accept-Encoding' );
+            header( 'Content-Type: '.$this->type );
             $codes = \Sketch\Helpers\ErrorCodes::getCodes();
             header($_SERVER['SERVER_PROTOCOL'] . ' '.\Sketch\Sketch::$instance->status.' '.$codes[\Sketch\Sketch::$instance->status], true, \Sketch\Sketch::$instance->status);
             exit( );

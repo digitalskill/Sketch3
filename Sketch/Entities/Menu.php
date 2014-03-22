@@ -6,6 +6,13 @@ use \Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Sketch\Entities\Repository\MenuRepository")
+ * @ORM\Table(name="Menu",indexes={
+ *      @ORM\Index(name="sort_idx",     columns={"sort"}),
+ *      @ORM\Index(name="lvl_idx",      columns={"lvl"}),
+ *      @ORM\Index(name="onmenu_idx",   columns={"onMenu"}),
+ *      @ORM\Index(name="path_idx",     columns={"path"})
+ * }),
+ * uniqueConstraints={@ORM\UniqueConstraint(name="path_unq",columns={"path"})}
  * @Gedmo\Tree(type="materializedPath")
  */
 class Menu
@@ -44,6 +51,11 @@ class Menu
      * @ORM\Column(name="lvl", type="integer", nullable=true)
      */
     private $level;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sort = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="Menu", mappedBy="parent")
@@ -74,6 +86,31 @@ class Menu
      * @ORM\Column(type="integer")
      */
     private $onMenu = 1;
+    
+    /**
+     * @ORM\Column(length=80)
+     */
+    private $menuclass = "";
+    
+    /**
+     * @ORM\Column(length=80)
+     */
+    private $menuimage = "";
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $deleted = 0;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $doMegaMenu = 0;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $menuDescription;
     
     /**
      * @ORM\Column(type="float", precision=2, scale=10 )

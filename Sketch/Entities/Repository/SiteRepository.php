@@ -13,4 +13,14 @@ class SiteRepository extends \Doctrine\ORM\EntityRepository
                 ->getQuery()
                 ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
+    
+    public function getSiteById($id){
+        return $this->_em->createQueryBuilder()
+                ->select("s")
+                ->from($this->getClassName(),"s")
+                ->where("s.id = :id")
+                ->setParameter(":id", $id)
+                ->getQuery()
+                ->getOneOrNullResult();
+    }
 }

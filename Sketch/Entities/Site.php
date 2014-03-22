@@ -18,31 +18,34 @@ class Site
     private $id;
     
     /** @ORM\Column(length=255) */
-    private $name;
+    private $sitename;
     
     /** @ORM\Column(length=255, nullable=true) */
-    private $email;
+    private $siteemail;
     
     /** @ORM\Column(length=15, nullable=true) */
-    private $phone;
+    private $sitephone;
     
      /** @ORM\Column(length=15, nullable=true) */
-    private $mobile;
+    private $sitemobile;
     
     /** @ORM\Column(length=255, nullable=true) */
-    private $address;
+    private $siteaddress;
 
     /** @ORM\Column(length=255, nullable=true) */
-    private $suburb;
+    private $sitesuburb;
     
     /** @ORM\Column(length=50, nullable=true) */
-    private $state;
+    private $sitestate;
     
     /** @ORM\Column(length=10, nullable=true) */
-    private $zip;
+    private $sitezip;
     
     /** @ORM\Column(length=255, nullable=true) */
-    private $logo;
+    private $sitelogo;
+    
+    /** @ORM\Column(type="string", nullable=true) */
+    private $sitetagline;
     
     /** @ORM\Column(length=100, nullable=true) */
     private $domainname;
@@ -70,4 +73,7 @@ class Site
     
     /** @ORM\Column(length=255, nullable=true) */
     private $paymentFetch;
+    
+    /** @ORM\Column(length=255) */
+    private $themePath = "views";
 }

@@ -3,7 +3,7 @@
 					<ul>	<!-- SLIDE  -->
 						<li data-transition="fade" data-slotamount="7" data-masterspeed="1500" >
 							<!-- MAIN IMAGE -->
-							<img src="img/slider/slide2.jpg"  alt=""  data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat">
+							<img src="/img/slider/slide2.jpg"  alt=""  data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat">
 							
 							<!-- LAYERS -->
 							<!-- LAYER NR. 1 -->
@@ -71,7 +71,7 @@
 								data-start="3600"
 								data-easing="Power3.easeInOut"
 								data-endspeed="300"
-								style="z-index: 5"><img class="slide-img img-responsive" src="img/slider/s21.png" alt="" />
+								style="z-index: 5"><img class="slide-img img-responsive" src="/img/slider/s21.png" alt="" />
 							</div>
 							<!-- LAYER NR. 3.1 -->
 							<div class="tp-caption customin customout"
@@ -83,7 +83,7 @@
 								data-start="3900"
 								data-easing="Power3.easeInOut"
 								data-endspeed="300"
-								style="z-index: 6"><img class="slide-img img-responsive" src="img/slider/s22.png" alt="" />
+								style="z-index: 6"><img class="slide-img img-responsive" src="/img/slider/s22.png" alt="" />
 							</div>
 							<!-- LAYER NR. 3.2 -->
 							<div class="tp-caption customin customout"
@@ -95,7 +95,7 @@
 								data-start="4200"
 								data-easing="Power3.easeInOut"
 								data-endspeed="300"
-								style="z-index: 7"><img class="slide-img img-responsive" src="img/slider/s23.png" alt="" />
+								style="z-index: 7"><img class="slide-img img-responsive" src="/img/slider/s23.png" alt="" />
 							</div>
 							<!-- LAYER NR. 3.3 -->
 							<div class="tp-caption customin customout"
@@ -107,12 +107,12 @@
 								data-start="4500"
 								data-easing="Power3.easeInOut"
 								data-endspeed="300"
-								style="z-index: 8"><img class="slide-img img-responsive" src="img/slider/s24.png" alt="" />
+								style="z-index: 8"><img class="slide-img img-responsive" src="/img/slider/s24.png" alt="" />
 							</div>
 						</li>
 						<li data-transition="zoomin" data-slotamount="6" data-masterspeed="400" >
 							<!-- MAIN IMAGE -->
-							<img src="img/slider/transparent.png" style="background-color:#fff" alt=""  data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat">
+							<img src="/img/slider/transparent.png" style="background-color:#fff" alt=""  data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat">
 							
 							<!-- LAYERS -->
 							<!-- LAYER NR. 1 -->
@@ -154,7 +154,7 @@
 								data-easing="Power4.easeOut"
 								data-endspeed="500"
 								data-endeasing="Power4.easeIn"
-								style="z-index: 3"><img class="img-responsive" src="img/slider/s11.png" alt="" />
+								style="z-index: 3"><img class="img-responsive" src="/img/slider/s11.png" alt="" />
 							</div>
 							<!-- LAYER NR. 2.1 -->
 							<div class="tp-caption customin customout"
@@ -167,7 +167,7 @@
 								data-easing="Power4.easeOut"
 								data-endspeed="500"
 								data-endeasing="Power4.easeIn"
-								style="z-index: 3"><img class="img-responsive" src="img/slider/s12.png" alt="" />
+								style="z-index: 3"><img class="img-responsive" src="/img/slider/s12.png" alt="" />
 							</div>
 							<!-- LAYER NR. 2.2 -->
 							<div class="tp-caption customin customout"
@@ -180,7 +180,7 @@
 								data-easing="Power4.easeOut"
 								data-endspeed="500"
 								data-endeasing="Power4.easeIn"
-								style="z-index: 3"><img class="img-responsive" src="img/slider/s13.png" alt="" />
+								style="z-index: 3"><img class="img-responsive" src="/img/slider/s13.png" alt="" />
 							</div>
 							<!-- LAYER NR. 2.3 -->
 							<div class="tp-caption sft"
@@ -223,7 +223,7 @@
 						</li>
 						<li data-transition="slidehorizontal" data-slotamount="1" data-masterspeed="600" >
 							<!-- MAIN IMAGE -->
-							<img src="img/slider/transparent.png" style="background-color:#fea501" alt=""  data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat">
+							<img src="/img/slider/transparent.png" style="background-color:#fea501" alt=""  data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat">
 							<!-- LAYERS NR. 1 -->
 							<div class="tp-caption lfl"
 								data-x="left"
@@ -233,7 +233,7 @@
 								data-easing="Power4.easeOut"
 								data-endspeed="300"
 								data-endeasing="Linear.easeNone"
-								data-captionhidden="off"><img class="img-responsive" src="img/slider/s35.png" alt="" />
+								data-captionhidden="off"><img class="img-responsive" src="/img/slider/s35.png" alt="" />
 							</div>
 							<!-- LAYERS NR. 2 -->
 							<div class="tp-caption lfr large_bold_grey heading white"
@@ -296,7 +296,7 @@
 						</li>
 						<li data-transition="cube" data-slotamount="7" data-masterspeed="600" >
 							<!-- MAIN IMAGE -->
-							<img src="img/slider/slide2.jpg"  alt=""  data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat">
+							<img src="/img/slider/slide2.jpg"  alt=""  data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat">
 							<!-- LAYERS NR. 1 -->
 							<div class="tp-caption lfl"
 								data-x="110"
@@ -306,7 +306,7 @@
 								data-easing="Power4.easeOut"
 								data-endspeed="300"
 								data-endeasing="Power4.easeIn"
-								data-captionhidden="off"><img src="img/slider/s31.png" class="img-responsive" alt="" />
+								data-captionhidden="off"><img src="/img/slider/s31.png" class="img-responsive" alt="" />
 							</div>
 							<!-- LAYERS NR. 2 -->
 							<div class="tp-caption lfl"
@@ -317,7 +317,7 @@
 								data-easing="Power4.easeOut"
 								data-endspeed="300"
 								data-endeasing="Power4.easeIn"
-								data-captionhidden="off"><img src="img/slider/s33.png" class="img-responsive" alt="" />
+								data-captionhidden="off"><img src="/img/slider/s33.png" class="img-responsive" alt="" />
 							</div>
 							<!-- LAYERS NR. 3 -->
 							<div class="tp-caption lfl"
@@ -328,7 +328,7 @@
 								data-easing="Power4.easeOut"
 								data-endspeed="300"
 								data-endeasing="Power4.easeIn"
-								data-captionhidden="off"><img src="img/slider/s34.png" class="img-responsive" alt="" />
+								data-captionhidden="off"><img src="/img/slider/s34.png" class="img-responsive" alt="" />
 							</div>
 							<!-- LAYERS NR. 4 -->
 							<div class="tp-caption sfr  thinheadline_dark white"

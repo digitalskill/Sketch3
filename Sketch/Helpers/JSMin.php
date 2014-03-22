@@ -61,6 +61,9 @@ class JSMin {
   // -- Public Static Methods --------------------------------------------------
 
   public static function minify($js) {
+    if(\Sketch\Sketch::$instance->getConfig('cache') != true){
+        return $js;
+    }
     $jsmin = new JSMin($js);
     return $jsmin->min();
   }

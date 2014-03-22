@@ -12,7 +12,7 @@ class View{
     }
    
     public function compress_page($buffer){
-        return preg_replace(array('/<!--(.*)-->/Uis',"/[[:blank:]]+/"),array('',' '),str_replace(array("\n","\r","\t"),'',$buffer));
+        return preg_replace(array('/<!--(.*)-->/Uis',"/[[:blank:]]+/"),array('',' '),str_replace(array("\t"),'',$buffer));
     }
     
     public function render($file = ""){
@@ -46,8 +46,13 @@ class View{
        }    
     }
    
-    public function partial($file){
-        $this->render(SITE_ROOT."/views/".$file);
+    public function partial($file,$data=array()){
+        if(count($data)==0){
+            $this->render(SITE_ROOT."/views/".$file);
+        }else{
+            $view = new \Sketch\Views\partialView($data);
+            $view->render(SITE_ROOT."/views/".$file);
+        }
     }
    
     public function headLink(){
@@ -73,7 +78,20 @@ class View{
         return "<!DOCTYPE html>";
     }
     
-    public function __get($name){
-        return \Sketch\Sketch::$instance->getPageValues($name);
+    public function __get($item){
+        return \Sketch\Sketch::$instance->getPageValues($item);
+    }
+    
+    public function getMenuValues($item){
+       return \Sketch\Sketch::$instance->getMenuValues($item); 
+    }
+    
+    public function getSiteValues($item){
+         return \Sketch\Sketch::$instance->getSiteValues($item); 
+    }
+    
+    public function getMenu($depth = 2){
+        $em     = \Sketch\Sketch::$instance->getEntityManager()->entityManager;
+        return $em->getRepository("Sketch\Entities\Menu")->getTopLevelMenuItems(\Sketch\Sketch::$instance->node['site']['id'],$depth);        
     }
 }

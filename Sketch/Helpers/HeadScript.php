@@ -14,7 +14,7 @@ class HeadScript{
         if(!isset($this->files[$media])){
             $this->files[$media] = array();
         }
-        $this->files[$media] = array_merge($this->files[$media],array($path));
+        $this->files[$media] = array_merge($this->files[$media],array(str_replace("Assets/","",$path)));
         $this->links = array_merge($this->links,$this->createLink($path,$media));
         return $this;
     }
@@ -22,7 +22,7 @@ class HeadScript{
         if(!isset($this->files[$media])){
             $this->files[$media] = array();
         }
-        $this->files[$media] = array_merge(array($path),$this->files[$media]);
+        $this->files[$media] = array_merge(array(str_replace("Assets/","",$path)),$this->files[$media]);
         $this->links = array_merge($this->createLink($path,$media),$this->links);
         return $this;
     }
