@@ -4,9 +4,9 @@ namespace Sketch\Entities;
 use \Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Sketch\Entities\Repository\BlockRepository")
+ * @ORM\Entity(repositoryClass="Sketch\Entities\Repository\CommentRepository")
  */
-class Block
+class Comment
 {
     use \Sketch\Traits\GetterSetter;
     /**
@@ -27,22 +27,17 @@ class Block
     private $content;
     
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $sort;
+    private $approved = 0;
     
     /**
-     * @ORM\Column(length=255, nullable=true)
+     * @ORM\Column(type="datetime")
      */
-    private $image;
+    private $commentdate;
     
     /**
-     * @ORM\Column(length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="User")
      */
-    private $link;
-    
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $type;
+    private $user;
 }

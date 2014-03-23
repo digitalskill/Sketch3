@@ -60,7 +60,7 @@ class Page
     private $pageStatus;        // Published / Deleted / Pending
     
     /**
-     * @ORM\ManyToOne(targetEntity="Users", inversedBy="Page")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="Page")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      **/
     private $updatedBy;         
@@ -72,12 +72,22 @@ class Page
     private $pageTemplate;      // Template for Page
   
     /**
-     * @ORM\ManyToMany(targetEntity="Block", mappedBy="blocks")
+     * @ORM\ManyToMany(targetEntity="Block")
      */
     private $blocks;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     */
+    private $author;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag")
+     */
+    private $tag;
 
     public function __construct() {
         $this->blocks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tag    = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 }

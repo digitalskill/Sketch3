@@ -115,15 +115,10 @@ class Database{
         if(is_file(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php")){
             $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
             $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
-            try{
-                $schemaTool->dropDatabase();
-                $schemaTool->createSchema($classes);
-            }catch(\Exception $e){
-                $schemaTool->updateSchema($classes);
-            }
-        
-            include_once(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php");
+            $schemaTool->dropDatabase();
+            $schemaTool->createSchema($classes);
             
+            include_once(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php");
             $r = unlink(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php");
             if(!$r){
                 echo "SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php";
