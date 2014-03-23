@@ -34,7 +34,7 @@ class Database{
             'password'=>$m->getConfig("password"),
             'dbname'  =>$m->getConfig("dbname"),
             ]);
-        SELF::$instance = $this;
+        self::$instance = $this;
     }
     
     /**
@@ -112,101 +112,33 @@ class Database{
      * 
      */
     public function buildDatabase(){
-        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
-        $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
-        try{
-            $schemaTool->dropDatabase();
-            $schemaTool->createSchema($classes);
-        }catch(\Exception $e){
-            $schemaTool->updateSchema($classes);
-        }
-        
-        // Create Site
-        $site = new \Sketch\Entities\Site();
-        $site->sitename     = 'Sketch';
-        $site->sitetagline  = "Welcome to Sketch CMS system";
-        $site->published    = 1;
-        $site->sitephone    = "0273461011";
-        $site->domainname   = $_SERVER['HTTP_HOST'];
-        $this->entityManager->persist($site);
-        
-        // Create Page
-        $menu = new \Sketch\Entities\Menu();
-        $menu->setTitle("home");
-        $menu->landing          = 1;
-        $menuPage = new \Sketch\Entities\Page();
-        $menuPage->description  = "Welcome to Sketch";
-        $menuPage->title        = "Home Page";
-        $menuPage->content      = "<h1>Welcome to Sketch</h1>";
-        $menuPage->edit         = "<h1>Welcome to Sketch</h1>";
-        $menu->page             = $menuPage;
-        $menu->site             = $site;
-        $menu->menuclass        = "img-responsive";
-        $menu->menuimage        = "img/nav-menu/nav1.jpg";
-        $this->entityManager->persist($menuPage);
-        $this->entityManager->persist($menu);
-        
-        $this->createLotsaPages($menu,$site,1,'home');
-        
-        $about = new \Sketch\Entities\Menu();
-        $about->setTitle("About");
-        $aboutPage = new \Sketch\Entities\Page();
-        $aboutPage->title       = "About Page";
-        $aboutPage->description = "Welcome to Sketch";
-        $aboutPage->content     = "<h1>Welcome to Sketch</h1>";
-        $aboutPage->edit        = "<h1>Welcome to Sketch</h1>";
-        $about->page            = $aboutPage;
-        $about->site            = $site;
-        $about->doMegaMenu      = 1;
-        $about->menuclass       = "img-responsive";
-        $about->menuimage       = "img/nav-menu/nav2.jpg";
-        $this->entityManager->persist($aboutPage);
-        $this->entityManager->persist($about);        
-        
-        $this->createLotsaPages($about,$site,1,"about");
-        
-        $contact = new \Sketch\Entities\Menu();
-        $contact->setTitle("Contact");
-        $contact->menuimage       = "img/nav-menu/nav3.jpg";
-        $contact->menuclass       = "img-responsive";
-        $contactPage = new \Sketch\Entities\Page();
-        $contactPage->title    = "Contact";
-        $contactPage->description = "Welcome to Sketch";
-        $contactPage->content   = "<h1>Welcome to Sketch</h1>";
-        $contactPage->edit      = "<h1>Welcome to Sketch</h1>";
-        $contact->page          = $contactPage;
-        $contact->site          = $site;
-        
-        $this->entityManager->persist($contactPage);
-        $this->entityManager->persist($contact);
-        
-        $this->createLotsaPages($contact,$site,1,"contact");
-        
-        $this->entityManager->flush();
-    }
-    
-    public function createLotsaPages($parent = null,$site,$depth,$p=''){
-        // CREATE MORE PAGES
-        for($i = 0 ; $i < 10 ; $i++){
-            $tmp        = new \Sketch\Entities\Menu();
-            $tmp->setTitle("page-".$depth."-".$i."-".$p);
-            $tmpPage = new \Sketch\Entities\Page();
-            $tmpPage->description = "Welcome to Sketch";
-            $tmpPage->content   = "<h1>Welcome to Sketch</h1>";
-            $tmpPage->edit      = "<h1>Welcome to Sketch</h1>";
-            $tmp->page          = $tmpPage;
-            $tmp->site          = $site;
-            if($parent){
-                $tmp->setParent($parent);
+        if(is_file(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php")){
+            $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
+            $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
+            try{
+                $schemaTool->dropDatabase();
+                $schemaTool->createSchema($classes);
+            }catch(\Exception $e){
+                $schemaTool->updateSchema($classes);
             }
-            $this->entityManager->persist($tmpPage);
-            $this->entityManager->persist($tmp);
+        
+            include_once(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php");
             
-            if($depth == 1){
-                $this->createLotsaPages($tmp,$site,0,$p."2");
+            $r = unlink(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php");
+            if(!$r){
+                echo "SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php";
+                die();
             }
-            
+        }else{
+            header("HTTP/1.1 401 Unauthorized");
+            try{
+                $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
+                $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
+                $schemaTool->updateSchema($classes);
+            }catch(\Exception $e){
+                die("Databases cannot be updated");
+            }
+            die("Site has been setup - Databases updated");
         }
-        // */ 
     }
 }

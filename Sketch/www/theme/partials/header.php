@@ -26,10 +26,10 @@
 <link href="<?php echo $this->basePath("favicon.ico");?>" rel="shortcut icon" type="image/vnd.microsoft.icon">
 <?php 
     echo $this->HeadLink()
-                ->prependFile($this->basePath("css/import.css"))
                 ->prependFile($this->basePath("Assets/Normalize/v1/css/normalize.css"))
                 ->prependFile($this->basePath("Assets/Bootstrap/v1/css/bootstrap.min.css"))
                 ->prependFile($this->basePath("Assets/Stickyfooter/v1/css/stickyfooter.css"))
+                ->prependFile($this->basePath("css/import.css"))
                 ->appendFile($this->basePath("Assets/Prettyphoto/v1/css/prettyphoto.css"))
                 ->appendFile($this->basePath("Assets/Fontawesome/v1/css/font-awesome.min.css"))
                 ->appendFile($this->basePath("css/less-style.css"))

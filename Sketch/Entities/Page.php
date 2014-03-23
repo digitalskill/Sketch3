@@ -4,7 +4,10 @@ namespace Sketch\Entities;
 use \Gedmo\Mapping\Annotation as Gedmo;
 use \Doctrine\ORM\Mapping AS ORM;
 
-/** @ORM\Entity */
+/**
+ * @ORM\Entity(repositoryClass="Sketch\Entities\Repository\PageRepository")
+ * 
+ */
 class Page
 {
     use \Sketch\Traits\GetterSetter;
@@ -39,6 +42,9 @@ class Page
      */
     private $created;
     
+    /** @ORM\Column(type="integer") */
+    private $deleted = 0;
+    
     /** 
      * @Gedmo\Timestampable(on="change", field="pageStatus", value="Published")
      * @ORM\Column(type="datetime",nullable=true)*/
@@ -64,4 +70,14 @@ class Page
     
      /** @ORM\Column(length=255, nullable=true) */
     private $pageTemplate;      // Template for Page
+  
+    /**
+     * @ORM\ManyToMany(targetEntity="Block", mappedBy="blocks")
+     */
+    private $blocks;
+
+    public function __construct() {
+        $this->blocks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
 }

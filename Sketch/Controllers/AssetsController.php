@@ -31,7 +31,7 @@ class AssetsController extends Controller{
             default :
                 \Sketch\Sketch::$instance->status=404;
         } 
-        $this->view->layout = SKETCH_CORE."/".join("/",\Sketch\Sketch::$instance->url); 
+        $this->view->layout = SKETCH_CORE.FOLDER_SEPERATOR.join(FOLDER_SEPERATOR,\Sketch\Sketch::$instance->url); 
         if(!is_file($this->view->layout)){
            \Sketch\Sketch::$instance->status=404;
         }

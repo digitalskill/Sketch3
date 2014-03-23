@@ -5,14 +5,16 @@ class View{
     public static $instance;
     public $controller;
     public function __construct($controller){
-        SELF::$instance      = $this;
+        self::$instance      = $this;
         $this->controller    = $controller;
-        $this->layout        = SITE_ROOT."/views/layouts/index.php";
-        $this->view          = SITE_ROOT."/views/content/index.php";
+        
+        // Setup default layout and View for the page
+        $this->layout        = SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."layouts".FOLDER_SEPERATOR."index.php";
+        $this->view          = SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."content".FOLDER_SEPERATOR."index.php";
     }
    
     public function compress_page($buffer){
-        return preg_replace(array('/<!--(.*)-->/Uis',"/[[:blank:]]+/"),array('',' '),str_replace(array("\t"),'',$buffer));
+        return preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", preg_replace(array('/<!--(.*)-->/Uis',"/[[:blank:]]+/"),array('',' '),str_replace(array("\n\n","\r","\t"),'',$buffer)));
     }
     
     public function render($file = ""){
@@ -20,7 +22,7 @@ class View{
         if($file==""){
             $file = $this->layout;
             if(\Sketch\Sketch::$instance->status != 200){
-                $file = SITE_ROOT."/views/errors/error".\Sketch\Sketch::$instance->status.".php";
+                $file = SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."errors".FOLDER_SEPERATOR."error".\Sketch\Sketch::$instance->status.".php";
             }
         }       
         if(is_file($file)){
@@ -29,8 +31,8 @@ class View{
             \Sketch\Sketch::$instance->status       = 404;
             \Sketch\Sketch::$instance->errors[]     = "File not found: ".$file;
             $this->controller->doHeaders();
-            if($file != SITE_ROOT."/views/errors/error404.php"){
-                $this->render(SITE_ROOT."/views/errors/error404.php");
+            if($file != SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."errors".FOLDER_SEPERATOR."error404.php"){
+                $this->render(SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."errors".FOLDER_SEPERATOR."error404.php");
             }else{
                 echo $this->errorMessages();
             }
@@ -42,16 +44,16 @@ class View{
         if($file==""){
             $this->render($this->view);
         }else{
-            $this->render(SITE_ROOT."/views/".$file);
+            $this->render(SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR.$file);
        }    
     }
    
     public function partial($file,$data=array()){
         if(count($data)==0){
-            $this->render(SITE_ROOT."/views/".$file);
+            $this->render(SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR.$file);
         }else{
             $view = new \Sketch\Views\partialView($data);
-            $view->render(SITE_ROOT."/views/".$file);
+            $view->render(SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR.$file);
         }
     }
    

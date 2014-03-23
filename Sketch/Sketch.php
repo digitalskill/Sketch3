@@ -24,7 +24,7 @@ class Sketch {
      */
     public function __construct(array $config){
         session_start();                        // Start the Session for the page
-        SELF::$instance         = $this;        // Record Instance of Sketch
+        self::$instance         = $this;        // Record Instance of Sketch
         $this->config           = $config;      // Save configuration
         $this->deploy();                        // Create Website / update DB
         $this->clearCache();                    // Clear the cache if asked for
@@ -54,10 +54,10 @@ class Sketch {
     
     private function clearCache(){
         if(isset($_GET['clearCache']) || isset($_GET['deploy'])){
-            $files = scandir(SKETCH_CORE."/cache/");
+            $files = scandir(SKETCH_CORE.FOLDER_SEPERATOR."cache".FOLDER_SEPERATOR);
             foreach($files as $file){
                 if($file != ".." && $file != '.'){
-                    unlink(SKETCH_CORE."/cache/".$file);
+                    unlink(SKETCH_CORE.FOLDER_SEPERATOR."cache".FOLDER_SEPERATOR.$file);
                 }
             }
         }

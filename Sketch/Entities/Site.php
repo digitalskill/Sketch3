@@ -75,5 +75,5 @@ class Site
     private $paymentFetch;
     
     /** @ORM\Column(length=255) */
-    private $themePath = "views";
+    private $themePath = "theme";
 }

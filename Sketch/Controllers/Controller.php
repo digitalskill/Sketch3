@@ -7,7 +7,7 @@ class Controller{
     public static   $instance;
     public $view    = "";
     public function __construct() {
-        SELF::$instance =  $this;
+        self::$instance =  $this;
         $view = $this->indexAction();
         $this->doHeaders();
         $this->compress();

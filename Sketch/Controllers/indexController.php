@@ -10,7 +10,7 @@ class indexController extends Controller{
     }
     
     public function getPage(){
-        $this->view     =   new \Sketch\Views\HTMLview($this);
+        $this->view     = new \Sketch\Views\HTMLview($this);
         $em             = \Sketch\Sketch::$instance->getEntityManager()->entityManager;
         $s              = $em->getRepository("Sketch\Entities\Site")->getSite($_SERVER['HTTP_HOST']);           // Check that we have a site
         if($s){

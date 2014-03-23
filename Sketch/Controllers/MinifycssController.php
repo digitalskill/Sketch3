@@ -6,13 +6,13 @@ class MinifycssController extends Controller{
     public $css     = "";
     public function indexAction(){
         $this->view         = $this;
-        $this->cachePath    = SKETCH_CORE."/cache/".md5(join("/",\Sketch\Sketch::$instance->url)).".css";
+        $this->cachePath    = SKETCH_CORE.FOLDER_SEPERATOR."cache".FOLDER_SEPERATOR.md5(join("/",\Sketch\Sketch::$instance->url)).".css";
         $this->createCache();
         return $this->view;
     }
     
     public function render(){
-        if(\Sketch\Sketch::$instance->getConfig('cache')== true && is_file()){
+        if(\Sketch\Sketch::$instance->getConfig('cache')== true && is_file($this->cachePath)){
             readfile($this->cachePath);
         }else{
             echo $this->css;
@@ -25,12 +25,12 @@ class MinifycssController extends Controller{
             foreach($files as $file){
                 list($folder,) = explode("css/",$file);
                 $checkcss = explode(".",$file);
-                if(is_file(SKETCH_CORE."/Assets/".$file) && end($checkcss)=="css"){
+                if(is_file(SKETCH_CORE.FOLDER_SEPERATOR."Assets".FOLDER_SEPERATOR.$file) && end($checkcss)=="css"){
                     $folder = \Sketch\Sketch::$instance->basePath("Assets/".$folder);
-                    $this->css .= (str_replace("../",$folder,file_get_contents(SKETCH_CORE."/Assets/".$file)));
-                }elseif(is_file(SITE_ROOT."/".$file) && end($checkcss)=="css"){
+                    $this->css .= (str_replace("../",$folder,file_get_contents(SKETCH_CORE.FOLDER_SEPERATOR."Assets".FOLDER_SEPERATOR.$file)));
+                }elseif(is_file(SITE_ROOT.FOLDER_SEPERATOR.$file) && end($checkcss)=="css"){
                     $folder = \Sketch\Sketch::$instance->basePath($folder);
-                    $this->css .= (str_replace("../",$folder,file_get_contents(SITE_ROOT."/".$file)));
+                    $this->css .= (str_replace("../",$folder,file_get_contents(SITE_ROOT.FOLDER_SEPERATOR.$file)));
                 }
             }
             $this->css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', str_replace(': ', ':',preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->css)));

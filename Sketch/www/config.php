@@ -22,8 +22,8 @@ return array(
     'driver'            => "pdo_mysql",
     
     'entityFiles'       => 'Entities',
-    'themePath'         => "views",
+    'themePath'         => "theme",
     'cache'             => false,
-    'cacheseconds'      =>31536000,
-    'compress'          => true,
+    'cacheseconds'      => 31536000,
+    'compress'          => false,
 );

@@ -6,7 +6,7 @@ class MinifyjsController extends MinifycssController{
     public $js    = "";
     public function indexAction(){
         $this->view         = $this;
-        $this->cachePath    = SKETCH_CORE."/cache/".md5(join("/",\Sketch\Sketch::$instance->url)).".js";
+        $this->cachePath    = SKETCH_CORE.FOLDER_SEPERATOR."cache".FOLDER_SEPERATOR.md5(join("/",\Sketch\Sketch::$instance->url)).".js";
         $this->createCache();
         return $this->view;
     }
@@ -24,10 +24,10 @@ class MinifyjsController extends MinifycssController{
             $files = explode(":",str_replace("minifyjs/","",join("/",\Sketch\Sketch::$instance->url)));
             foreach($files as $file){
                 $checkjs = explode(".",$file);
-                if(is_file(SKETCH_CORE."/Assets/".$file) && end($checkjs)=="js"){
-                    $this->js .= ";". \Sketch\Helpers\JSMin::minify(file_get_contents(SKETCH_CORE."/Assets/".$file));
-                }elseif(is_file(SITE_ROOT."/".$file) && end($checkjs)=="js"){
-                    $this->js .=";". \Sketch\Helpers\JSMin::minify(file_get_contents(SITE_ROOT."/".$file));
+                if(is_file(SKETCH_CORE.FOLDER_SEPERATOR."Assets".FOLDER_SEPERATOR.$file) && end($checkjs)=="js"){
+                    $this->js .= ";". \Sketch\Helpers\JSMin::minify(file_get_contents(SKETCH_CORE.FOLDER_SEPERATOR."Assets".FOLDER_SEPERATOR.$file));
+                }elseif(is_file(SITE_ROOT.FOLDER_SEPERATOR.$file) && end($checkjs)=="js"){
+                    $this->js .=";". \Sketch\Helpers\JSMin::minify(file_get_contents(SITE_ROOT.FOLDER_SEPERATOR.$file));
                 }
             }
             if(\Sketch\Sketch::$instance->getConfig('cache')== true){
