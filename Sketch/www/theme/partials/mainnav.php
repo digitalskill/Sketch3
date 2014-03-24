@@ -12,7 +12,7 @@ $menuArray = $this->getMenu(1); // 0 = Get No Children - Top Level Only | 1 = ge
             $this->partial("partials/megaMenu.php",array("menu"=>$menu)); 
         }else{ ?>
             <li class="<?php echo (count($menu['__children']) > 0)? "dropdown" : ""; ?>">
-                <a href="<?php echo $this->basePath($menu['path']); ?>"  <?php   if(count($menu['__children']) > 0){ ?> class="dropdown-toggle" data-toggle="dropdown"<?php } ?>>
+                <a href="<?php echo $this->basePath($menu['path'])=="index"? "/" : $this->basePath($menu['path']); ?>"  <?php   if(count($menu['__children']) > 0){ ?> class="dropdown-toggle" data-toggle="dropdown"<?php } ?>>
                     <img src="<?php echo $this->basePath($menu['menuimage']); ?>" class="<?php echo $menu['menuclass']; ?>" alt="" />
                     <?php echo $menu['title']; ?>
                     <?php   if(count($menu['__children']) > 0){ ?>

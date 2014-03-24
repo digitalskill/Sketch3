@@ -36,6 +36,7 @@
                 ->appendFile($this->basePath("css/style.css"))
                 ->appendFile($this->basePath("Assets/Revolution/v1/css/settings.css"))
                 ->appendFile($this->basePath("Assets/Flexslider/v1/css/flexslider.css"))
+                ->appendFile($this->basePath("css/custom-styles.css"))
                 ->minify();
     echo $this->headScript()
                 ->appendFile($this->basePath("Assets/modernizr/v1/js/modernizr.js"));

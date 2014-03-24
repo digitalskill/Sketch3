@@ -44,5 +44,5 @@ class Block
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $type;
+    private $type = 0; // 0 = banner : 1 =  call to action : 2
 }

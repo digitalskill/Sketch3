@@ -1,37 +1,30 @@
 <div class="footer padd">
     <div class="container">
-        <div class="row">
+        <div class="row hidden">
             <div class="col-md-3 col-sm-6">
                     <!-- Footer widget -->
                     <div class="footer-widget">
                             <!-- Logo area -->
                             <div class="logo">
                                     <img class="img-responsive" src="img/logo.png" alt="" />
-                                    <!-- Heading -->
-                                    <h1>CakeFactory</h1>
+                                    <h1><?php echo $this->getSiteValues('sitename'); ?></h1>
                             </div>
-                            <!-- Paragraph -->
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et magna aliqua.</p>
+                            <p><?php echo $this->getSiteValues('footertext'); ?></p>
                             <hr />
-                            <!-- Heading -->
                             <h6>On-line Payment Clients</h6>
-                            <!-- Images -->
-                            <a href="#"><img class="payment img-responsive" src="img/payment/2co.gif" alt="" /></a>
-                            <a href="#"><img class="payment img-responsive" src="img/payment/authorizenet.gif" alt="" /></a>
-                            <a href="#"><img class="payment img-responsive" src="img/payment/discover.gif" alt="" /></a>
-                            <a href="#"><img class="payment img-responsive" src="img/payment/egold.gif" alt="" /></a>
+                            <!--<a href="#"><img class="payment img-responsive" src="img/payment/2co.gif" alt="" /></a>// !-->
+                            <!--<a href="#"><img class="payment img-responsive" src="img/payment/authorizenet.gif" alt="" /></a>// !-->
+                            <!--<a href="#"><img class="payment img-responsive" src="img/payment/discover.gif" alt="" /></a>// !-->
+                            <!-- <a href="#"><img class="payment img-responsive" src="img/payment/egold.gif" alt="" /></a> // !-->
                             <a href="#"><img class="payment img-responsive" src="img/payment/mastercard.gif" alt="" /></a>
                             <a href="#"><img class="payment img-responsive" src="img/payment/paypal.gif" alt="" /></a>
                             <a href="#"><img class="payment img-responsive" src="img/payment/visa.gif" alt="" /></a>
-                            <a href="#"><img class="payment img-responsive" src="img/payment/worldpay.gif" alt="" /></a>
-                    </div> <!--/ Footer widget end -->
+                            <!--<a href="#"><img class="payment img-responsive" src="img/payment/worldpay.gif" alt="" /></a>// !-->
+                    </div>
             </div>
             <div class="col-md-3 col-sm-6">
-                    <!-- Footer widget -->
                     <div class="footer-widget">
-                            <!-- Heading -->
                             <h4>Famous Dishes</h4>
-                            <!-- Images -->
                             <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
                             <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
                             <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
@@ -41,18 +34,14 @@
                             <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
                             <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
                             <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    </div> <!--/ Footer widget end -->
+                    </div>
             </div>
             <div class="clearfix visible-sm"></div>
             <div class="col-md-3 col-sm-6">
-                    <!-- Footer widget -->
                     <div class="footer-widget">
-                            <!-- Heading -->
-                            <h4>Join Us Today</h4>
-                            <!-- Paragraph -->
-                            <p>There is no one who loves pain itself, who seeks after it and wants to have it.</p>
-                            <!-- Subscribe form -->
-                            <form role="form">
+                            <h4>Email Us Today</h4>
+                            <p>Fill out the form below to contact <?php echo $this->getSiteValues('sitename'); ?></p>
+                            <form role="form" method="post">
                                     <div class="form-group">
                                             <input class="form-control" type="text" placeholder="Your name" />
                                     </div>
@@ -61,21 +50,22 @@
                                     </div>
                                     <button class="btn btn-danger" type="button">Subscribe</button>
                             </form>
-                    </div> <!--/ Footer widget end -->
+                    </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="footer-widget">
                     
                     <h4>Contact Us</h4>
                     <div class="contact-details">
-                            <!-- Address / Icon -->
-                            <i class="fa fa-map-marker br-red"></i> <span>#768, 5th floor, N S Building,<br />Csm Block, Park Road,<br /> Bangalore - 234567</span>
+                            <i class="fa fa-map-marker br-red"></i> 
+                                    <span><?php echo $this->getSiteValues("siteaddress"); ?>
+                                    <br /><?php echo $this->getSiteValues("sitestate"); ?>,
+                                    <br /><?php echo $this->getSiteValues("sitecountry");?> - <?php echo $this->getSiteValues("sitezip"); ?>
+                                    </span>
                             <div class="clearfix"></div>
-                            <!-- Contact Number / Icon -->
-                            <i class="fa fa-phone br-green"></i> <span>+91 88-88-888888</span>
+                            <i class="fa fa-phone br-green"></i> <span><?php echo $this->getSiteValues("sitephone"); ?></span>
                             <div class="clearfix"></div>
-                            <!-- Email / Icon -->
-                            <i class="fa fa-envelope-o br-lblue"></i> <span><a href="#">abc@example.com</a></span>
+                            <i class="fa fa-envelope-o br-lblue"></i> <span><a href="mailto:<?php echo $this->getSiteValues("siteemail"); ?>"><?php echo $this->getSiteValues("siteemail"); ?></a></span>
                             <div class="clearfix"></div>
                     </div>
                     <!-- Social media icon -->
@@ -88,13 +78,11 @@
                 </div>
             </div>
         </div>
-        <!-- Copyright -->
+ 
         <div class="footer-copyright">
-                <!-- Paragraph -->
                 <p>&copy; Copyright 2014 <a href="<?php echo $this->basePath(); ?>"><?php echo $this->getSiteValues('sitename'); ?></a></p>
         </div>
     </div>
-    <span class="totop"><a href="#"><i class="fa fa-angle-up"></i></a></span>
 </div>
 <?php
 echo $this->inlineScript()

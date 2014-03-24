@@ -29,9 +29,10 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
     
     public function getLandingPage($site){
         return $this->_em->createQueryBuilder()
-                ->select("m","s")
+                ->select("m","p","s")
                 ->from($this->getClassName(),"m")
                 ->join("m.site","s")
+                ->join("m.page","p")
                 ->where("m.landing = 1")
                 ->andWhere("s.domainname = :site")
                 ->setParameter("site", $site)

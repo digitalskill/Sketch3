@@ -32,20 +32,29 @@ class Site
     /** @ORM\Column(length=255, nullable=true) */
     private $siteaddress;
 
-    /** @ORM\Column(length=255, nullable=true) */
+    /** @ORM\Column(length=50, nullable=true) */
     private $sitesuburb;
     
     /** @ORM\Column(length=50, nullable=true) */
     private $sitestate;
     
+    /** @ORM\Column(length=150, nullable=true) */
+    private $sitecity;
+    
     /** @ORM\Column(length=10, nullable=true) */
     private $sitezip;
+    
+    /** @ORM\Column(length=150, nullable=true) */
+    private $sitecountry;
     
     /** @ORM\Column(length=255, nullable=true) */
     private $sitelogo;
     
     /** @ORM\Column(type="string", nullable=true) */
     private $sitetagline;
+    
+    /** @ORM\Column(type="string", nullable=true) */
+    private $footertext;
     
     /** @ORM\Column(length=100, nullable=true) */
     private $domainname;
