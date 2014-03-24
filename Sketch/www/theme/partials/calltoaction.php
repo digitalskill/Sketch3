@@ -1,22 +1,18 @@
+<?php $cta = $this->getPageBlocks(1); // Call to action blocks 
+if(count($cta) > 0){ 
+    $size = 12 / count($cta); ?>
 <div class="showcase">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-sm-6">
+            <?php foreach($cta as $actionCall){ ?>
+            <div class="col-md-<?php echo $size; ?> col-sm-<?php echo $size; ?>">
                 <div class="showcase-item">
-                        <img class="img-responsive" src="img/fruit2.png" alt="" />
-                        <h3><a href="#">Equine Porno Sumos</a></h3>
-                        <p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>
-                        <div class="clearfix"></div>
+                    <?php echo $actionCall->content; ?>
+                    <div class="clearfix"></div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="showcase-item">
-                        <img class="img-responsive" src="img/fruit3.png" alt="" />
-                        <h3><a href="#">Equine Porno Sumos</a></h3>
-                        <p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>
-                        <div class="clearfix"></div>
-                </div>
-            </div>
+            <?php } // END FOR EACH $CTA ?>
         </div>
     </div>
 </div>
+<?php } ?>

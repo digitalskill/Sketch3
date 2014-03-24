@@ -9,7 +9,7 @@ Date Updated: 16 March 2014
 Sketch is the core class to load to manage the site
 */
 class Sketch {
-    private $config         = null;
+    public $config         = null;
     public static $instance;
     private $controllers    = [];
     public  $errors         = [];
@@ -17,6 +17,7 @@ class Sketch {
     private $endMemory      = 0;
     public  $url            = '';
     public  $node           = null;
+    public  $blocks         = [];
 
     /**
      * 

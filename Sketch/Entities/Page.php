@@ -73,6 +73,7 @@ class Page
   
     /**
      * @ORM\ManyToMany(targetEntity="Block")
+     * @ORM\OrderBy({"type" = "ASC","sort" = "ASC"})
      */
     private $blocks;
     
@@ -85,7 +86,14 @@ class Page
      * @ORM\ManyToMany(targetEntity="Tag")
      */
     private $tag;
-
+    
+    public function addBlock(\Sketch\Entities\Block $b) {
+        $this->blocks[] = $b;
+    }
+    
+    public function getBlocks(){
+        return $this->blocks->toArray();
+    }
     public function __construct() {
         $this->blocks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tag    = new \Doctrine\Common\Collections\ArrayCollection();

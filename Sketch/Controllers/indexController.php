@@ -10,12 +10,12 @@ class indexController extends Controller{
     }
     
     public function getPage(){
-        $this->view     = new \Sketch\Views\HTMLview($this);
         $em             = \Sketch\Sketch::$instance->getEntityManager()->entityManager;
         $s              = $em->getRepository("Sketch\Entities\Site")->getSite($_SERVER['HTTP_HOST']);           // Check that we have a site
         if($s){
             $stub   = trim(join("/",\Sketch\Sketch::$instance->url));                                           // Get Landing page or sub page
             \Sketch\Sketch::$instance->siteID = $s['id'];                                                       // Save the Site ID
+            \Sketch\Sketch::$instance->config = array_merge(\Sketch\Sketch::$instance->config,$s);
             if($stub == "" ){
                 $p      = $em->getRepository("Sketch\Entities\Menu")->getLandingPage($s['domainname']);         // Get Landing Page
             }else{
@@ -31,6 +31,10 @@ class indexController extends Controller{
                 \Sketch\Sketch::$instance->status   = 404;
             }
         }
+        if($p){
+            \Sketch\Sketch::$instance->blocks = $em->getRepository("Sketch\Entities\Page")->getBlocks($p['page']['id']);
+        }
+        $this->view     = new \Sketch\Views\HTMLview($this);                                                    // Load the view
         \Sketch\Sketch::$instance->node     = $p;
     }
 }

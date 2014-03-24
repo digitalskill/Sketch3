@@ -7,10 +7,15 @@ class View{
     public function __construct($controller){
         self::$instance      = $this;
         $this->controller    = $controller;
+        $this->layout        = \Sketch\Sketch::$instance->getPageValues("pageTemplate")  && is_file(SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."content".FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getPageValues("pageTemplate"))?
+                                SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."layouts".FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getPageValues("pageTemplate"):
+                                SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."layouts".FOLDER_SEPERATOR."index.php";
         
-        // Setup default layout and View for the page
-        $this->layout        = SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."layouts".FOLDER_SEPERATOR."index.php";
-        $this->view          = SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."content".FOLDER_SEPERATOR."index.php";
+        
+        
+        $this->view          = \Sketch\Sketch::$instance->getPageValues("pageView")  && is_file(SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."content".FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getPageValues("pageView"))? 
+                                SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."content".FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getPageValues("pageView"): 
+                                SITE_ROOT.FOLDER_SEPERATOR.\Sketch\Sketch::$instance->getConfig("themePath").FOLDER_SEPERATOR."content".FOLDER_SEPERATOR."index.php";
     }
    
     public function compress_page($buffer){
@@ -78,6 +83,16 @@ class View{
     
     public function doctype(){
         return "<!DOCTYPE html>";
+    }
+    
+    public function getPageBlocks($type=0){
+        $blocks = [];
+        foreach(\Sketch\Sketch::$instance->blocks as $b){
+            if($b->type==$type){
+               $blocks[] = $b; 
+            }
+        }
+        return $blocks;
     }
     
     public function __get($item){

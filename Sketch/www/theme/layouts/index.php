@@ -16,7 +16,6 @@
         <?php $this->content(); ?>
         
         <?php $this->partial('partials/calltoaction.php'); ?>
-        
     </div>
     <?php // $this->partial('partials/testimonials.php'); ?>
     <div class="push"></div>
