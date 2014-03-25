@@ -53,7 +53,7 @@
                                         <!-- Testimonial Content -->
                                         <div class="testimonial-item">
                                                 <!-- Quote -->
-                                                <span class="quote lblue">&#8220;</span> 
+                                                <span class="quote lblue">&#8220;</span>
                                                 <!-- Your comments -->
                                                 <blockquote>
                                                         <!-- Paragraph -->
@@ -68,7 +68,7 @@
                                         <!-- Testimonial Content -->
                                         <div class="testimonial-item">
                                                 <!-- Quote -->
-                                                <span class="quote lblue">&#8220;</span> 
+                                                <span class="quote lblue">&#8220;</span>
                                                 <!-- Your comments -->
                                                 <blockquote>
                                                         <!-- Paragraph -->
@@ -83,7 +83,7 @@
                                         <!-- Testimonial Content -->
                                         <div class="testimonial-item">
                                                 <!-- Quote -->
-                                                <span class="quote lblue">&#8220;</span> 
+                                                <span class="quote lblue">&#8220;</span>
                                                 <!-- Your comments -->
                                                 <blockquote>
                                                         <!-- Paragraph -->

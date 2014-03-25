@@ -1,17 +1,17 @@
-<?php $b = $this->getPageBlocks(0); 
+<?php $b = $this->getPageBlocks(0);
         $imageSize = 350;
         $height = 500;
 ?>
 <div class="tp-banner-container">
         <div class="tp-banner" >
         <ul>
-            <?php foreach($b as $key => $banner){ ?>
+            <?php foreach ($b as $key => $banner) { ?>
             <li data-transition="fade" data-slotamount="7" data-masterspeed="1500" >
                 <img src="<?php echo $this->basePath($banner->image); ?>"  alt=""  data-bgfit="cover" data-bgposition="center bottom" data-bgrepeat="no-repeat">
 
-                <?php if($banner->heading != ''){ ?>
+                <?php if ($banner->heading != '') { ?>
                     <div class="tp-caption lfl no-image bannerfont"
-                            data-x="20" 
+                            data-x="20"
                             data-y="100"
                             data-speed="1500"
                             data-start="1200"
@@ -21,8 +21,8 @@
                             style="z-index: 3"><h1><?php echo $banner->heading ;?></h1>
                     </div>
                 <?php } ?>
-                
-                <?php if($banner->content != ''){?>
+
+                <?php if ($banner->content != '') {?>
                 <div class="tp-caption lfl no-image bannerfont"
                         data-x="20"
                         data-y="200"
@@ -35,11 +35,11 @@
                 </div>
                 <?php } ?>
                 <?php $subbanner = $banner->getBlocks(); ?>
-                
-                <?php if(count($subbanner) > 0){
+
+                <?php if (count($subbanner) > 0) {
                      $startTopOffset = (($height - $imageSize) / count($subbanner)) / count($subbanner);
-                    
-                    foreach($subbanner as $k => $v){ ?>
+
+                    foreach ($subbanner as $k => $v) { ?>
                     <div class="tp-caption customin customout image<?php echo $imageSize; ?> whitebg"
                         data-x="right" data-hoffset="-<?php echo ($imageSize / count($subbanner)) * ($k); ?>"
                         data-y="<?php echo $startTopOffset + ($imageSize / count($subbanner)) * ($k) ?>"

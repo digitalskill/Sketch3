@@ -3,7 +3,8 @@ namespace Sketch\Entities\Repository;
 
 class SiteRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getSite($site){
+    public function getSite($site)
+    {
        return $this->_em->createQueryBuilder()
                 ->select("s")
                 ->from($this->getClassName(),"s")
@@ -13,8 +14,9 @@ class SiteRepository extends \Doctrine\ORM\EntityRepository
                 ->getQuery()
                 ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
-    
-    public function getSiteById($id){
+
+    public function getSiteById($id)
+    {
         return $this->_em->createQueryBuilder()
                 ->select("s")
                 ->from($this->getClassName(),"s")

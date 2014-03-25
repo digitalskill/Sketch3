@@ -10,7 +10,7 @@ class Block
 {
     use \Sketch\Traits\GetterSetter;
     /**
-     * @ORM\Id 
+     * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
@@ -20,32 +20,32 @@ class Block
      * @ORM\Column(type="string", nullable=true)
      */
     private $heading;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $content;
-    
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $sort;
-    
+
     /**
      * @ORM\Column(length=255, nullable=true)
      */
     private $image;
-    
+
     /**
      * @ORM\Column(length=255, nullable=true)
      */
     private $link;
-    
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $type = 0; // 0 = banner : 1 =  call to action : 2
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Block")
      * @ORM\OrderBy({"type" = "ASC","sort" = "ASC"})
@@ -55,15 +55,18 @@ class Block
      *      )
      */
     private $blocks;
-    
-    public function addBlock(\Sketch\Entities\Block $b) {
+
+    public function addBlock(\Sketch\Entities\Block $b)
+    {
         $this->blocks[] = $b;
     }
-    
-    public function getBlocks(){
+
+    public function getBlocks()
+    {
         return $this->blocks->toArray();
     }
-    public function __construct() {
+    public function __construct()
+    {
         $this->blocks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

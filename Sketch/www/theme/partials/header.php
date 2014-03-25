@@ -22,9 +22,9 @@
 <meta name="keywords" content="<?php echo $this->keywords; ?>">
 <meta name="description" content="<?php echo $this->description; ?>">
 <link rel="canonical" href="<?php echo $this->basePath($this->getMenuValues('path')); ?>" />
-<title><?php echo $this->title; ?></title> 
+<title><?php echo $this->title; ?></title>
 <link href="<?php echo $this->basePath("favicon.ico");?>" rel="shortcut icon" type="image/vnd.microsoft.icon">
-<?php 
+<?php
     echo $this->HeadLink()
                 ->prependFile($this->basePath("Assets/Normalize/v1/css/normalize.css"))
                 ->prependFile($this->basePath("Assets/Bootstrap/v1/css/bootstrap.min.css"))
@@ -47,5 +47,5 @@
 <![endif]-->
 <!--[if IE]><link rel="stylesheet" href="css/ie-style.css"><![endif]-->
 </head>
-<body>  
-<?php //echo $this->partial('partials/analytics.phtml'); ?>  
+<body>
+<?php //echo $this->partial('partials/analytics.phtml'); ?>

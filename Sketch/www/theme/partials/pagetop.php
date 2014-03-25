@@ -28,13 +28,13 @@
                     <ul class="dropdown-menu" role="menu">
                             <li>
                                 <div class="cart-item">
-                                        
+
                                         <a href="#"><i class="fa fa-times"></i></a>
-                                        
+
                                         <img class="img-responsive img-rounded" src="/img/nav-menu/nav1.jpg" alt="" />
-                                        
+
                                         <span class="cart-title"><a href="#">Exception Reins Evocative</a></span>
-                                       
+
                                         <span class="cart-price pull-right red">$200/-</span>
                                         <div class="clearfix"></div>
                                 </div>
@@ -54,19 +54,19 @@
                             </li>
                             <li>
                                 <div class="cart-item">
-                                    
+
                                     <a href="#"><i class="fa fa-times"></i></a>
-                                    
+
                                     <img class="img-responsive img-rounded" src="/img/nav-menu/nav3.jpg" alt="" />
-                                    
+
                                     <span class="cart-title"><a href="#">Sinter et Molests Perfectionist</a></span>
-                                    
+
                                     <span class="cart-price pull-right red">$99/-</span>
                                     <div class="clearfix"></div>
                                 </div>
                             </li>
                             <li>
-                                
+
                                 <div class="cart-item">
                                         <a class="btn btn-danger" data-toggle="modal" href="#shoppingcart1">Checkout</a>
                                 </div>
@@ -78,6 +78,3 @@
         </div>
     </div>
 </div>
-
-                
-                

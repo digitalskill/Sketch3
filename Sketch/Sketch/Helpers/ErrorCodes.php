@@ -1,8 +1,10 @@
 <?php
 namespace Sketch\Helpers;
 
-class ErrorCodes{
-    public static function getCodes(){
+class ErrorCodes
+{
+    public static function getCodes()
+    {
         return array(
             100 => 'Continue',
             101 => 'Switching Protocols',

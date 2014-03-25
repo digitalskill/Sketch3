@@ -29,7 +29,7 @@ $this->entityManager->persist($block);
 $block2 = new \Sketch\Entities\Block();
 $block2->image      = '/img/fruit3.png';
 $block2->content    = '<h3><a href="#">Equine Porno Sumos</a></h3>
-			<p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>';
+            <p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>';
 $block2->sort       = 1;
 $block2->type       = 1;
 
@@ -39,7 +39,7 @@ $this->entityManager->persist($block2);
 $block3 = new \Sketch\Entities\Block();
 $block3->image      = '/img/fruit3.png';
 $block3->content    = '<h3><a href="#">Equine Porno Sumos</a></h3>
-			<p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>';
+            <p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>';
 $block3->sort       = 2;
 $block3->type       = 1;
 
@@ -67,8 +67,6 @@ $banner2->addBlock($block3);
 $banner2->addBlock($block);
 
 $this->entityManager->persist($banner2);
-
-
 
 // Create Page
 $menu = new \Sketch\Entities\Menu();
@@ -108,8 +106,7 @@ $aboutPage->addBlock($banner);
 $aboutPage->addBlock($block);
 $aboutPage->addBlock($block2);
 $this->entityManager->persist($aboutPage);
-$this->entityManager->persist($about);        
-
+$this->entityManager->persist($about);
 
 $contact = new \Sketch\Entities\Menu();
 $contact->setTitle("Contact");

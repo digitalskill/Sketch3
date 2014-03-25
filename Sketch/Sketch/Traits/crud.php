@@ -1,8 +1,10 @@
 <?php
 namespace Sketch\Traits;
 
-trait CRUD {
-    public function get($id,$hydrate = \Doctrine\ORM\Query::HYDRATE_ARRAY){
+trait crud
+{
+    public function get($id,$hydrate = \Doctrine\ORM\Query::HYDRATE_ARRAY)
+    {
         return $this->_em->createQueryBuilder()
                     ->select("p")
                     ->from($this->getClassName(),"p")

@@ -10,12 +10,12 @@ class Tag
 {
     use \Sketch\Traits\GetterSetter;
     /**
-     * @ORM\Id 
+     * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
     private $id;
-    
+
     /**
      * @ORM\Column(length=255, nullable=true)
      */

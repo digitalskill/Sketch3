@@ -4,8 +4,9 @@ namespace Sketch\Entities\Repository;
 class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepository
 {
     use \Sketch\Traits\CRUD;
-    
-    public function getPageByStub($stub,$site){
+
+    public function getPageByStub($stub,$site)
+    {
        return $this->_em->createQueryBuilder()
                 ->select("m","p","s")
                 ->from($this->getClassName(),"m")
@@ -18,8 +19,9 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
                 ->getQuery()
                 ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
-    
-    public function getPageById($id){
+
+    public function getPageById($id)
+    {
         return $this->_em->createQueryBuilder()
                 ->select("m")
                 ->from($this->getClassName(),"m")
@@ -28,8 +30,9 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
                 ->getQuery()
                 ->getOneOrNullResult();
     }
-    
-    public function getLandingPage($site){
+
+    public function getLandingPage($site)
+    {
         return $this->_em->createQueryBuilder()
                 ->select("m","p","s")
                 ->from($this->getClassName(),"m")
@@ -41,8 +44,9 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
                 ->getQuery()
                 ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
-    
-    public function getHoldingPage($site){
+
+    public function getHoldingPage($site)
+    {
         return $this->_em->createQueryBuilder()
             ->select("m","p","s")
             ->from($this->getClassName(),"m")
@@ -54,8 +58,9 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
             ->getQuery()
             ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
-    
-    public function getTopLevelMenuItems($websiteID,$depth = 2){
+
+    public function getTopLevelMenuItems($websiteID,$depth = 2)
+    {
         $r = $this->_em->createQueryBuilder()
             ->select("materialized_path_entity")
             ->from($this->getClassName(),"materialized_path_entity")
@@ -68,9 +73,10 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
             ->andWhere("materialized_path_entity.site = :website")
             ->setParameter("website",$websiteID)
             ->andwhere("materialized_path_entity.level <= :depth")
-            ->setParameter("depth",$depth)    
+            ->setParameter("depth",$depth)
             ->getQuery()
             ->getArrayResult();
+
         return $this->buildTree($r);
     }
 }

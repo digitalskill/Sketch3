@@ -19,7 +19,7 @@ class Menu
 {
     use \Sketch\Traits\GetterSetter;
     /**
-     * @ORM\Id 
+     * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
@@ -30,7 +30,7 @@ class Menu
      * @ORM\Column(name="path", type="string", length=3000, nullable=true)
      */
     private $path;
-    
+
     /**
      * @Gedmo\TreePathSource
      * @ORM\Column(name="title", type="string", length=64)
@@ -51,7 +51,7 @@ class Menu
      * @ORM\Column(name="lvl", type="integer", nullable=true)
      */
     private $level;
-    
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -61,57 +61,57 @@ class Menu
      * @ORM\OneToMany(targetEntity="Menu", mappedBy="parent")
      */
     private $children;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="Page")
      */
     private $page;
-    
+
      /**
      * @ORM\ManyToOne(targetEntity="Site")
      */
     private $site;
-    
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $landing;
-    
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $holding = 0;
-    
+
     /**
      * @ORM\Column(type="integer")
      */
     private $onMenu = 1;
-    
+
     /**
      * @ORM\Column(length=80)
      */
     private $menuclass = "";
-    
+
     /**
      * @ORM\Column(length=80)
      */
     private $menuimage = "";
-    
+
     /**
      * @ORM\Column(type="integer")
      */
     private $deleted = 0;
-    
+
     /**
      * @ORM\Column(type="integer")
      */
     private $doMegaMenu = 0;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $menuDescription;
-    
+
     /**
      * @ORM\Column(type="float", precision=2, scale=10 )
      */
@@ -156,5 +156,5 @@ class Menu
     {
         return $this->level;
     }
-    
+
 }

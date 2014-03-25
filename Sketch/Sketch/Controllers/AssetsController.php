@@ -1,15 +1,17 @@
 <?php
 namespace Sketch\Controllers;
 
-class AssetsController extends Controller{
+class AssetsController extends Controller
+{
     public $type = "text/css";
-    
-    public function indexAction(){
+
+    public function indexAction()
+    {
         $this->view     =   new \Sketch\Views\AssetView($this);
         $url   = end(\Sketch\Sketch::$instance->url);
         $parts = explode(".",$url);
         $type  = end($parts);
-        switch(strtolower($type)){
+        switch (strtolower($type)) {
             case "js":
                 $this->type = "application/javascript";
                 break;
@@ -30,31 +32,34 @@ class AssetsController extends Controller{
                 break;
             default :
                 \Sketch\Sketch::$instance->status=404;
-        } 
-        $this->view->layout = SKETCH_CORE.DIRECTORY_SEPARATOR.join(DIRECTORY_SEPARATOR,\Sketch\Sketch::$instance->url); 
-        if(!is_file($this->view->layout)){
+        }
+        $this->view->layout = SKETCH_CORE.DIRECTORY_SEPARATOR.join(DIRECTORY_SEPARATOR,\Sketch\Sketch::$instance->url);
+        if (!is_file($this->view->layout)) {
            \Sketch\Sketch::$instance->status=404;
         }
+
         return $this;
     }
-    
-    public function render(){
+
+    public function render()
+    {
         $this->doHeaders();
         $this->view->render();
     }
-    
-    public function doHeaders() {
-        if(\Sketch\Sketch::$instance->status == 200){
+
+    public function doHeaders()
+    {
+        if (\Sketch\Sketch::$instance->status == 200) {
             header( 'Vary: Accept-Encoding' );
             header( 'Content-Type: '.$this->type );
             header( 'Last-Modified: ' . \gmdate( 'D, d M Y H:i:s',filemtime( $this->view->layout )  ) . ' GMT' );
             header( "Expires: " . \gmdate( "D, d M Y H:i:s", ( \time() + \Sketch\Sketch::$instance->getConfig('cacheseconds') ) ) . " GMT" );
             header( "Cache-Control: max-age=".\Sketch\Sketch::$instance->getConfig('cacheseconds') );
-            if ( isset( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) && ( strtotime( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) >= filemtime( $this->view->layout ) ) && \Sketch\Sketch::$instance->getConfig('cache')==true ) {  
+            if ( isset( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) && ( strtotime( $_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ] ) >= filemtime( $this->view->layout ) ) && \Sketch\Sketch::$instance->getConfig('cache')==true ) {
                 header( 'HTTP/1.1 304 Not Modified' );
                 exit( );
             }
-        }else{
+        } else {
             header( 'Vary: Accept-Encoding' );
             header( 'Content-Type: '.$this->type );
             $codes = \Sketch\Helpers\ErrorCodes::getCodes();

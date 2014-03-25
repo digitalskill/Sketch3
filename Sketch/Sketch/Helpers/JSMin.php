@@ -46,7 +46,8 @@ namespace Sketch\Helpers;
  * @link http://code.google.com/p/jsmin-php/
  */
 
-class JSMin {
+class JSMin
+{
   const ORD_LF    = 10;
   const ORD_SPACE = 32;
 
@@ -60,25 +61,29 @@ class JSMin {
 
   // -- Public Static Methods --------------------------------------------------
 
-  public static function minify($js) {
-    if(\Sketch\Sketch::$instance->getConfig('cache') != true){
+  public static function minify($js)
+  {
+    if (\Sketch\Sketch::$instance->getConfig('cache') != true) {
         return $js;
     }
     $jsmin = new JSMin($js);
+
     return $jsmin->min();
   }
 
   // -- Public Instance Methods ------------------------------------------------
 
-  public function __construct($input) {
+  public function __construct($input)
+  {
     $this->input       = str_replace("\r\n", "\n", $input);
     $this->inputLength = strlen($this->input);
   }
 
   // -- Protected Instance Methods ---------------------------------------------
 
-  protected function action($d) {
-    switch($d) {
+  protected function action($d)
+  {
+    switch ($d) {
       case 1:
         $this->output .= $this->a;
 
@@ -136,7 +141,8 @@ class JSMin {
     }
   }
 
-  protected function get() {
+  protected function get()
+  {
     $c = $this->lookAhead;
     $this->lookAhead = null;
 
@@ -160,11 +166,13 @@ class JSMin {
     return ' ';
   }
 
-  protected function isAlphaNum($c) {
+  protected function isAlphaNum($c)
+  {
     return ord($c) > 126 || $c === '\\' || preg_match('/^[\w\$]$/', $c) === 1;
   }
 
-  protected function min() {
+  protected function min()
+  {
     $this->a = "\n";
     $this->action(3);
 
@@ -195,8 +203,7 @@ class JSMin {
             default:
               if ($this->isAlphaNum($this->b)) {
                 $this->action(1);
-              }
-              else {
+              } else {
                 $this->action(2);
               }
           }
@@ -228,8 +235,7 @@ class JSMin {
                 default:
                   if ($this->isAlphaNum($this->a)) {
                     $this->action(1);
-                  }
-                  else {
+                  } else {
                     $this->action(3);
                   }
               }
@@ -245,11 +251,12 @@ class JSMin {
     return $this->output;
   }
 
-  protected function next() {
+  protected function next()
+  {
     $c = $this->get();
 
     if ($c === '/') {
-      switch($this->peek()) {
+      switch ($this->peek()) {
         case '/':
           for (;;) {
             $c = $this->get();
@@ -263,10 +270,11 @@ class JSMin {
           $this->get();
 
           for (;;) {
-            switch($this->get()) {
+            switch ($this->get()) {
               case '*':
                 if ($this->peek() === '/') {
                   $this->get();
+
                   return ' ';
                 }
                 break;
@@ -284,12 +292,13 @@ class JSMin {
     return $c;
   }
 
-  protected function peek() {
+  protected function peek()
+  {
     $this->lookAhead = $this->get();
+
     return $this->lookAhead;
   }
 }
 
 // -- Exceptions ---------------------------------------------------------------
 class JSMinException extends \Exception {}
-?>

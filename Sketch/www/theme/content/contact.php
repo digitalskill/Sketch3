@@ -6,7 +6,7 @@
                     <div class="col-md-6 col-sm-6">
                         <div class="contact-details">
                             <h4>Location</h4>
-                            <i class="fa fa-map-marker br-red"></i> 
+                            <i class="fa fa-map-marker br-red"></i>
                             <span>
                                     <?php echo $this->getSiteValues("siteaddress"); ?>
                                     <br /><?php echo $this->getSiteValues("sitestate"); ?>,
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">      
+                <div class="contact-form">
                     <h3>Contact Form</h3>
                     <form role="form" method="post">
                         <div class="form-group">

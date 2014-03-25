@@ -20,7 +20,7 @@
                            </button>
                         </div>
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <?php $this->partial("partials/mainnav.php"); ?> 
+                                <?php $this->partial("partials/mainnav.php"); ?>
                             </div>
                      </div>
              </nav>

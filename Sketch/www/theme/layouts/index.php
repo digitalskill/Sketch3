@@ -13,10 +13,10 @@
     </div>
     <div class="inner-page">
         <?php $this->content(); ?>
-        
+
         <?php $this->partial('partials/calltoaction.php'); ?>
     </div>
     <?php // $this->partial('partials/testimonials.php'); ?>
     <div class="push"></div>
 </div>
-<?php $this->partial('partials/footer.php'); ?> 
+<?php $this->partial('partials/footer.php'); ?>

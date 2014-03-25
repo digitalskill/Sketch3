@@ -10,7 +10,7 @@ class Wishlist
 {
     use \Sketch\Traits\GetterSetter;
     /**
-     * @ORM\Id 
+     * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
@@ -21,7 +21,8 @@ class Wishlist
      */
     private $product;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->product    = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

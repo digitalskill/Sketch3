@@ -8,22 +8,24 @@ Date Updated: 16 March 2014
 
 Sketch is the core class to load to manage the site
 */
-class Sketch {
+class Sketch
+{
     public $config         = null;
     public static $instance;
     private $controllers    = [];
-    public  $errors         = [];
-    public  $status         = 200;
+    public $errors         = [];
+    public $status         = 200;
     private $endMemory      = 0;
-    public  $url            = '';
-    public  $node           = null;
-    public  $blocks         = [];
+    public $url            = '';
+    public $node           = null;
+    public $blocks         = [];
 
     /**
-     * 
+     *
      * @param array $config
      */
-    public function __construct(array $config){
+    public function __construct(array $config)
+    {
         session_start();                        // Start the Session for the page
         self::$instance         = $this;        // Record Instance of Sketch
         $this->config           = $config;      // Save configuration
@@ -33,28 +35,30 @@ class Sketch {
         $this->endMemory        = memory_get_usage(false) - START_MEMORY;
         $this->benchmark();
     }
-    
-    private function benchmark(){
-        if(isset($_GET['benchmark'])){ ?>
+
+    private function benchmark()
+    {
+        if (isset($_GET['benchmark'])) { ?>
             <script type="text/javascript">
-                try{
+                try {
                 console.info("PHP Processing time:  <?php echo number_format((microtime(true)-START_TIME),3); ?> seconds");
                 console.info("Sketch Start Memory: <?php echo number_format(START_MEMORY/1048576,10); ?> MB");
                 console.info("Sketch End Memory: <?php echo number_format($this->endMemory/1048576,10); ?> MB");
-                <?php if(function_exists("memory_get_peak_usage")){ ?>
-                        console.info("Peak PHP Memory used: <?php echo number_format(memory_get_peak_usage()/1048576,10); ?> MB"); 
+                <?php if (function_exists("memory_get_peak_usage")) { ?>
+                        console.info("Peak PHP Memory used: <?php echo number_format(memory_get_peak_usage()/1048576,10); ?> MB");
                 <?php } ?>
-                }catch(e){}
+                } catch (e) {}
             </script>
         <?php
         }
     }
-    
-    private function clearCache(){
-        if(isset($_GET['clearCache']) || isset($_GET['deploy'])){
+
+    private function clearCache()
+    {
+        if (isset($_GET['clearCache']) || isset($_GET['deploy'])) {
             $files = scandir(SKETCH_CORE.DIRECTORY_SEPARATOR."cache".DIRECTORY_SEPARATOR);
-            foreach($files as $file){
-                if($file != ".." && $file != '.'){
+            foreach ($files as $file) {
+                if ($file != ".." && $file != '.') {
                     unlink(SKETCH_CORE.DIRECTORY_SEPARATOR."cache".DIRECTORY_SEPARATOR.$file);
                 }
             }
@@ -63,10 +67,11 @@ class Sketch {
     /**
      * Route - Decides what controller should be loaded
      */
-    private function route(){
+    private function route()
+    {
         list($url,)         = explode("?",trim($_SERVER['REQUEST_URI'],"/"));
-        $this->url          = explode("/",$url);  
-        switch (strtolower(trim($this->url[0]))){
+        $this->url          = explode("/",$url);
+        switch (strtolower(trim($this->url[0]))) {
             case "assets":
                 return $this->loadController("Assets");
             case "api":
@@ -87,100 +92,114 @@ class Sketch {
                 return $this->loadController("index");
         }
     }
-    
+
     /**
-     * 
+     *
      */
-    private function deploy(){
-        if(isset($_GET['deploy'])){
+    private function deploy()
+    {
+        if (isset($_GET['deploy'])) {
             $em = $this->getEntityManager()->buildDatabase();
         }
     }
-    
+
     /**
-     * 
+     *
      * @return Sketch\Helpers\Database
      */
-    public function getEntityManager(){
-        if(!Helpers\Database::$instance){
-            Helpers\Database::run(); 
+    public function getEntityManager()
+    {
+        if (!Helpers\Database::$instance) {
+            Helpers\Database::run();
         }
+
         return Helpers\Database::$instance;
     }
-    
+
     /**
-     * 
-     * @param mixed $item
+     *
+     * @param  mixed $item
      * @return mixed
      */
-    public function __get($item){
+    public function __get($item)
+    {
         return isset($this->$item)?$this->$item: false;
     }
-    
+
     /**
-     * 
-     * @param string $item
+     *
+     * @param  string $item
      * @return string
      */
-    public function getConfig($item){
+    public function getConfig($item)
+    {
         return isset($this->config[$item]) ? $this->config[$item] : $this->getSiteValues($item);
     }
-    
-    public function notFound(){
+
+    public function notFound()
+    {
         $this->status       = 404;
     }
-    
+
     /**
-     * 
-     * @param string $controller
+     *
+     * @param  string $controller
      * @return object Sketch\Controllers\Controller
      */
-    public function loadController($controller){
+    public function loadController($controller)
+    {
         $control = "\Sketch\Controllers\\".$controller."Controller";
-        if(isset($this->controllers[$control])){
+        if (isset($this->controllers[$control])) {
             $i = $this->controllers[$control];
+
             return $i::$instance;
-        }else{
-            $this->controllers[$control] = new $control(); 
+        } else {
+            $this->controllers[$control] = new $control();
+
             return $this->controllers[$control];
         }
     }
-    
+
     /**
-     * 
-     * @param type $file
+     *
+     * @param  type $file
      * @return type
      */
-    public function basePath($file=''){
+    public function basePath($file='')
+    {
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $domainName = $_SERVER['HTTP_HOST'].'/'.$file;
+
         return $protocol.$domainName;
     }
-    
+
     /**
-     * 
-     * @param type $item
+     *
+     * @param  type $item
      * @return type
      */
-    public function getMenuValues($item){
+    public function getMenuValues($item)
+    {
         return isset($this->node[$item])? $this->node[$item] : false;
     }
-    
+
     /**
-     * 
-     * @param type $item
+     *
+     * @param  type $item
      * @return type
      */
-    public function getSiteValues($item){
+    public function getSiteValues($item)
+    {
         return isset($this->node['site'][$item])? $this->node['site'][$item] : false;
     }
-    
+
     /**
-     * 
-     * @param string $item
+     *
+     * @param  string $item
      * @return mixed
      */
-    public function getPageValues($item){
+    public function getPageValues($item)
+    {
         return isset($this->node['page'][$item])? $this->node['page'][$item] : false;
     }
 } // END SKETCH CLASS

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * SETUP FOR WEBSITE
  */
@@ -20,10 +20,10 @@ return array(
     'user'              => "sketch",
     'password'          => "apple167",
     'driver'            => "pdo_mysql",
-    
+
     'entityFiles'       => 'Entities',
     'themePath'         => "theme",
-    'cache'             => true,
+    'cache'             => false,
     'cacheseconds'      => 31536000,
     'compress'          => false,
 );
