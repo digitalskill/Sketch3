@@ -9,6 +9,7 @@ use \Doctrine\ORM\Mapping as ORM;
 class Wishlist
 {
     use \Sketch\Traits\GetterSetter;
+    use \Sketch\Traits\Extensions;
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

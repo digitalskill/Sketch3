@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping AS ORM;
 class User
 {
     use \Sketch\Traits\GetterSetter;
+    use \Sketch\Traits\Extensions;
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping AS ORM;
 class Site
 {
     use \Sketch\Traits\GetterSetter;
+    use \Sketch\Traits\Extensions;
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
