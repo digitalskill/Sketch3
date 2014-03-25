@@ -23,7 +23,7 @@ return array(
     
     'entityFiles'       => 'Entities',
     'themePath'         => "theme",
-    'cache'             => false,
+    'cache'             => true,
     'cacheseconds'      => 31536000,
     'compress'          => false,
 );
