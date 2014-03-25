@@ -34,7 +34,8 @@ class indexController extends Controller{
         if($p){
             \Sketch\Sketch::$instance->blocks = $em->getRepository("Sketch\Entities\Page")->getBlocks($p['page']['id']);
         }
-        $this->view     = new \Sketch\Views\HTMLview($this);                                                    // Load the view
         \Sketch\Sketch::$instance->node     = $p;
+        $this->view     = new \Sketch\Views\HTMLview($this);                                                    // Load the view
+        
     }
 }

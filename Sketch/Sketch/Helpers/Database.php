@@ -25,7 +25,7 @@ class Database{
      */
     public function __construct(){
         $m = \Sketch\Sketch::$instance;
-        $this->entityFiles = array(SKETCH_CORE."/Entities");    
+        $this->entityFiles = array(SKETCH_CORE.DIRECTORY_SEPARATOR."Sketch".DIRECTORY_SEPARATOR."Entities");    
         $this->isDevMode   = $m->getConfig("devmode")? true : false;
         $this->getListeners();
         $this->init([
@@ -112,16 +112,16 @@ class Database{
      * 
      */
     public function buildDatabase(){
-        if(is_file(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php")){
+        if(is_file(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")){
             $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
             $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
             $schemaTool->dropDatabase();
             $schemaTool->createSchema($classes);
             
-            include_once(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php");
-            $r = unlink(SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php");
+            include_once(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
+            $r = unlink(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
             if(!$r){
-                echo "SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.FOLDER_SEPERATOR."setup".FOLDER_SEPERATOR."setup.php";
+                echo "SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php";
                 die();
             }
         }else{

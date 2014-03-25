@@ -7,7 +7,6 @@
             <?php $this->partial('partials/topmenu.php'); ?>
         </div>
     </div>
-    <?php //$this->partial('partials/bannerfancy.php'); ?>
     <?php $this->partial('partials/banner.php'); ?>
     <div class="container">
     <?php $this->partial('partials/breadcrumb.php'); ?>

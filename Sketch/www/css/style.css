@@ -895,11 +895,8 @@ table { background: #fff; }
 	max-width: 255px;
 }
 
-.showcase .showcase-item h3, .showcase .showcase-item p { margin-left: 270px; padding-right: 20px;}
-.showcase .showcase-item h3{	
-	padding-top: 10px;
-	font-size: 22px;
-}
+.showcase .showcase-item h3, .showcase .showcase-item p {padding-right:10px;}
+.showcase .showcase-item h3{ font-size: 22px;}
 
 .showcase .showcase-item p {
 	padding-bottom: 25px;

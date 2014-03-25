@@ -2,3 +2,8 @@
             background:#ffffff;
             border:1px solid #eee;    
 }
+.whitebg{background-color:#fff}
+
+.no-image img{display:none}
+.bannerfont{font-size:20px; color:#FFF; text-shadow:0 0 5 5 rgb(0,0,0,0.5)}
+.bannerfont p,.bannerfont h1, bannerfont h2{color:#fff}

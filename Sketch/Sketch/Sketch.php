@@ -35,9 +35,7 @@ class Sketch {
     }
     
     private function benchmark(){
-        if(isset($_GET['benchmark'])){
-            ob_start("ob_gzhandler");
-            ?>
+        if(isset($_GET['benchmark'])){ ?>
             <script type="text/javascript">
                 try{
                 console.info("PHP Processing time:  <?php echo number_format((microtime(true)-START_TIME),3); ?> seconds");
@@ -49,16 +47,15 @@ class Sketch {
                 }catch(e){}
             </script>
         <?php
-            ob_end_flush();
         }
     }
     
     private function clearCache(){
         if(isset($_GET['clearCache']) || isset($_GET['deploy'])){
-            $files = scandir(SKETCH_CORE.FOLDER_SEPERATOR."cache".FOLDER_SEPERATOR);
+            $files = scandir(SKETCH_CORE.DIRECTORY_SEPARATOR."cache".DIRECTORY_SEPARATOR);
             foreach($files as $file){
                 if($file != ".." && $file != '.'){
-                    unlink(SKETCH_CORE.FOLDER_SEPERATOR."cache".FOLDER_SEPERATOR.$file);
+                    unlink(SKETCH_CORE.DIRECTORY_SEPARATOR."cache".DIRECTORY_SEPARATOR.$file);
                 }
             }
         }
@@ -72,28 +69,22 @@ class Sketch {
         switch (strtolower(trim($this->url[0]))){
             case "assets":
                 return $this->loadController("Assets");
-                break;
+            case "api":
+                return $this->loadController("Api");
             case "files":
                 return $this->loadController("files");
-                break;
             case "upload":
                 return $this->loadController("upload");
-                break;
             case "download":
                 return $this->loadController("download");
-                break;
             case "images":
                 return $this->loadController("images");
-                break;
             case "minifycss":
                 return $this->loadController("Minifycss");
-                break;
             case "minifyjs":
                 return $this->loadController("Minifyjs");
-                break;
             default:
                 return $this->loadController("index");
-                break;
         }
     }
     

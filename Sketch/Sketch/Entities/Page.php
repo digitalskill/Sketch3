@@ -60,8 +60,7 @@ class Page
     private $pageStatus;        // Published / Deleted / Pending
     
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="Page")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User")
      **/
     private $updatedBy;         
     
@@ -76,11 +75,6 @@ class Page
      * @ORM\OrderBy({"type" = "ASC","sort" = "ASC"})
      */
     private $blocks;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="User")
-     */
-    private $author;
     
     /**
      * @ORM\ManyToMany(targetEntity="Tag")

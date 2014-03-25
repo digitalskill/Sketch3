@@ -15,22 +15,11 @@ $site->domainname   = $_SERVER['HTTP_HOST'];
 $site->themePath    = "theme";
 $this->entityManager->persist($site);
 
-// Create Banners
-$banner = new \Sketch\Entities\Block();
-$banner->heading    = "Sketch Banner";
-$banner->image      = "/img/banner.jpg";
-$banner->content    = '<img class="img-responsive" src="img/crown-white.png" alt=""><h2 class="white">General Info</h2>';
-$banner->sort       = 0;
-$banner->type       = 0;
-
-$this->entityManager->persist($banner);
-
-
-// Create Banners
+// Create Blocks
 $block = new \Sketch\Entities\Block();
-$block->content    = '<img class="img-responsive" src="/img/fruit2.png" alt="" />
-                        <h3><a href="#">Equine Porno Sumos</a></h3>
-                        <p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>';
+$block->image      = '/img/fruit2.png';
+$block->content    = '<h3><a href="#">Equine Porno Sumos</a></h3>
+                     <p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>';
 $block->sort       = 0;
 $block->type       = 1;
 
@@ -38,13 +27,48 @@ $this->entityManager->persist($block);
 
 // Create Call To Actions
 $block2 = new \Sketch\Entities\Block();
-$block2->content    = '<img class="img-responsive" src="/img/fruit3.png" alt="" />
-			<h3><a href="#">Equine Porno Sumos</a></h3>
+$block2->image      = '/img/fruit3.png';
+$block2->content    = '<h3><a href="#">Equine Porno Sumos</a></h3>
 			<p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>';
 $block2->sort       = 1;
 $block2->type       = 1;
 
 $this->entityManager->persist($block2);
+
+// Create Call To Actions
+$block3 = new \Sketch\Entities\Block();
+$block3->image      = '/img/fruit3.png';
+$block3->content    = '<h3><a href="#">Equine Porno Sumos</a></h3>
+			<p>Nam libero tempore, cum soluta nobis est minis voluptas assum simple and easy to distinguis quo.</p>';
+$block3->sort       = 2;
+$block3->type       = 1;
+
+$this->entityManager->persist($block3);
+
+// Create Banners
+$banner = new \Sketch\Entities\Block();
+$banner->heading    = "Sketch Banner";
+$banner->image      = "/img/banner.jpg";
+$banner->content    = '<img class="img-responsive" src="img/crown-white.png" alt=""><h2 class="white">General Info</h2>';
+$banner->sort       = 0;
+$banner->type       = 0;
+$banner->addBlock($block2);
+$banner->addBlock($block);
+$banner->addBlock($block3);
+$this->entityManager->persist($banner);
+
+$banner2 = new \Sketch\Entities\Block();
+$banner2->heading    = "Sketch Banner 2";
+$banner2->content    = "<p>Weclome to Sketch</p>";
+$banner2->image      = "/img/banner.jpg";
+$banner2->sort       = 0;
+$banner2->type       = 0;
+$banner2->addBlock($block3);
+$banner2->addBlock($block);
+
+$this->entityManager->persist($banner2);
+
+
 
 // Create Page
 $menu = new \Sketch\Entities\Menu();
@@ -60,8 +84,10 @@ $menu->site             = $site;
 $menu->menuclass        = "img-responsive";
 $menu->menuimage        = "img/nav-menu/nav1.jpg";
 $menuPage->addBlock($banner);
+$menuPage->addBlock($banner2);
 $menuPage->addBlock($block);
 $menuPage->addBlock($block2);
+$menuPage->addBlock($block3);
 
 $this->entityManager->persist($menuPage);
 $this->entityManager->persist($menu);

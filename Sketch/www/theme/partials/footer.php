@@ -2,55 +2,53 @@
     <div class="container">
         <div class="row hidden">
             <div class="col-md-3 col-sm-6">
-                    <!-- Footer widget -->
-                    <div class="footer-widget">
-                            <!-- Logo area -->
-                            <div class="logo">
-                                    <img class="img-responsive" src="img/logo.png" alt="" />
-                                    <h1><?php echo $this->getSiteValues('sitename'); ?></h1>
-                            </div>
-                            <p><?php echo $this->getSiteValues('footertext'); ?></p>
-                            <hr />
-                            <h6>On-line Payment Clients</h6>
-                            <!--<a href="#"><img class="payment img-responsive" src="img/payment/2co.gif" alt="" /></a>// !-->
-                            <!--<a href="#"><img class="payment img-responsive" src="img/payment/authorizenet.gif" alt="" /></a>// !-->
-                            <!--<a href="#"><img class="payment img-responsive" src="img/payment/discover.gif" alt="" /></a>// !-->
-                            <!-- <a href="#"><img class="payment img-responsive" src="img/payment/egold.gif" alt="" /></a> // !-->
-                            <a href="#"><img class="payment img-responsive" src="img/payment/mastercard.gif" alt="" /></a>
-                            <a href="#"><img class="payment img-responsive" src="img/payment/paypal.gif" alt="" /></a>
-                            <a href="#"><img class="payment img-responsive" src="img/payment/visa.gif" alt="" /></a>
-                            <!--<a href="#"><img class="payment img-responsive" src="img/payment/worldpay.gif" alt="" /></a>// !-->
+                <div class="footer-widget">
+                    <div class="logo">
+                            <img class="img-responsive" src="img/logo.png" alt="" />
+                            <h1><?php echo $this->getSiteValues('sitename'); ?></h1>
                     </div>
+                    <p><?php echo $this->getSiteValues('footertext'); ?></p>
+                    <hr />
+                    <h6>On-line Payment Clients</h6>
+                    <!--<a href="#"><img class="payment img-responsive" src="img/payment/2co.gif" alt="" /></a>// !-->
+                    <!--<a href="#"><img class="payment img-responsive" src="img/payment/authorizenet.gif" alt="" /></a>// !-->
+                    <!--<a href="#"><img class="payment img-responsive" src="img/payment/discover.gif" alt="" /></a>// !-->
+                    <!-- <a href="#"><img class="payment img-responsive" src="img/payment/egold.gif" alt="" /></a> // !-->
+                    <a href="#"><img class="payment img-responsive" src="img/payment/mastercard.gif" alt="" /></a>
+                    <a href="#"><img class="payment img-responsive" src="img/payment/paypal.gif" alt="" /></a>
+                    <a href="#"><img class="payment img-responsive" src="img/payment/visa.gif" alt="" /></a>
+                    <!--<a href="#"><img class="payment img-responsive" src="img/payment/worldpay.gif" alt="" /></a>// !-->
+                </div>
             </div>
             <div class="col-md-3 col-sm-6">
-                    <div class="footer-widget">
-                            <h4>Famous Dishes</h4>
-                            <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                            <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                            <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                            <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                            <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                            <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                            <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                            <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                            <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    </div>
+                <div class="footer-widget">
+                    <h4>Famous Dishes</h4>
+                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                </div>
             </div>
             <div class="clearfix visible-sm"></div>
             <div class="col-md-3 col-sm-6">
-                    <div class="footer-widget">
-                            <h4>Email Us Today</h4>
-                            <p>Fill out the form below to contact <?php echo $this->getSiteValues('sitename'); ?></p>
-                            <form role="form" method="post">
-                                    <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Your name" />
-                                    </div>
-                                    <div class="form-group">
-                                            <input class="form-control" type="email" placeholder="Your email" />
-                                    </div>
-                                    <button class="btn btn-danger" type="button">Subscribe</button>
-                            </form>
-                    </div>
+                <div class="footer-widget">
+                    <h4>Email Us Today</h4>
+                    <p>Fill out the form below to contact <?php echo $this->getSiteValues('sitename'); ?></p>
+                    <form role="form" method="post">
+                            <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="Your name" />
+                            </div>
+                            <div class="form-group">
+                                    <input class="form-control" type="email" placeholder="Your email" />
+                            </div>
+                            <button class="btn btn-danger" type="button">Subscribe</button>
+                    </form>
+                </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="footer-widget">

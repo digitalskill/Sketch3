@@ -3,6 +3,8 @@ namespace Sketch\Entities\Repository;
 
 class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepository
 {
+    use \Sketch\Traits\CRUD;
+    
     public function getPageByStub($stub,$site){
        return $this->_em->createQueryBuilder()
                 ->select("m","p","s")
