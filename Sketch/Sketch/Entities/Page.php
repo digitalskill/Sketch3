@@ -82,6 +82,31 @@ class Page
      */
     private $tag;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Comment")
+     */
+    private $comment;
+
+    public function addComment(\Sketch\Entities\Comment $b)
+    {
+        $this->comment[] = $b;
+    }
+
+    public function getComment()
+    {
+        return $this->comment->toArray();
+    }
+
+    public function addTag(\Sketch\Entities\Tag $b)
+    {
+        $this->tag[] = $b;
+    }
+
+    public function getTag()
+    {
+        return $this->tag->toArray();
+    }
+
     public function addBlock(\Sketch\Entities\Block $b)
     {
         $this->blocks[] = $b;
@@ -93,7 +118,8 @@ class Page
     }
     public function __construct()
     {
-        $this->blocks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tag    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comment  = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blocks   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tag      = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

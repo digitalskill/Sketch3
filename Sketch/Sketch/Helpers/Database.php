@@ -46,12 +46,20 @@ class Database
      */
     public function init(array $conn)
     {
-        $this->config = Setup::createConfiguration($this->isDevMode);
+        $this->config = Setup::createConfiguration($this->isDevMode,$_SERVER['HTTP_HOST']);
         $this->driver = new AnnotationDriver(new AnnotationReader(), $this->entityFiles);
 
         // registering noop annotation autoloader - allow all annotations by default
         AnnotationRegistry::registerLoader('class_exists');
         $this->config->setMetadataDriverImpl($this->driver);
+
+        if (isset($_GET['clearCache'])) {
+            $cacheDriver = $this->config->getMetadataCacheImpl();
+            if ($cacheDriver) {
+                $cacheDriver ->deleteAll();
+            }
+        }
+
         $this->entityManager = EntityManager::create($conn, $this->config,$this->listeners);
     }
 
@@ -104,44 +112,4 @@ class Database
         return $this->entityManager;
     }
 
-    public function updateDatabase()
-    {
-        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
-        $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
-        try {
-            $schemaTool->updateSchema($classes);
-        } catch (\Exception $e) {
-            die("Cannot update database: ". $e->getMessage());
-        }
-    }
-
-    /**
-     *
-     */
-    public function buildDatabase()
-    {
-        if (is_file(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
-            $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
-            $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
-            $schemaTool->dropDatabase();
-            $schemaTool->createSchema($classes);
-
-            include_once(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
-            $r = unlink(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
-            if (!$r) {
-                echo "SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php";
-                die();
-            }
-        } else {
-            header("HTTP/1.1 401 Unauthorized");
-            try {
-                $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
-                $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
-                $schemaTool->updateSchema($classes);
-            } catch (\Exception $e) {
-                die("Databases cannot be updated");
-            }
-            die("Site has been setup - Databases updated");
-        }
-    }
 }

@@ -37,7 +37,7 @@ class Comment
     private $commentdate;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\ManyToMany(targetEntity="User")
      */
     private $user;
 }

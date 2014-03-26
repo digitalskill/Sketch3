@@ -5,6 +5,11 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 {
     use \Sketch\Traits\Crud;
 
+    /**
+     *
+     * @param  type $id
+     * @return type
+     */
     public function getBlocks($id)
     {
         $p = $this->_em->createQueryBuilder()
@@ -17,5 +22,4 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
 
         return $p->getBlocks();
     }
-
 }

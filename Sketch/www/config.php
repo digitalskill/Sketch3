@@ -12,7 +12,7 @@ return array(
     'auth_username'      => "",
     'auth_password'      => "",
 
-    'devmode'           => true,   // Set to True if needing to show errors on the site -  into DEV MODE
+    'devmode'           => true,    // Set to True if needing to show errors on the site -  into DEV MODE
     'htaccess'          => false,   // Set this to false if  .htaccess or apache settings are not in effect
 
     // DATABASE CONNECTION

@@ -47,7 +47,7 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
 
     public function getHoldingPage($site)
     {
-        return $this->_em->createQueryBuilder()
+        return  $this->_em->createQueryBuilder()
             ->select("m","p","s")
             ->from($this->getClassName(),"m")
             ->join("m.page","p")

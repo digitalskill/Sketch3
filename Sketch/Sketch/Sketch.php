@@ -19,6 +19,7 @@ class Sketch
     public $url            = '';
     public $node           = null;
     public $blocks         = [];
+    public $benchMarkItems = [];
 
     /**
      *
@@ -29,7 +30,6 @@ class Sketch
         session_start();                        // Start the Session for the page
         self::$instance         = $this;        // Record Instance of Sketch
         $this->config           = $config;      // Save configuration
-        $this->deploy();                        // Create Website / update DB
         $this->clearCache();                    // Clear the cache if asked for
         $i = $this->route();                    // Route the URL
         $this->endMemory        = memory_get_usage(false) - START_MEMORY;
@@ -47,15 +47,21 @@ class Sketch
                 <?php if (function_exists("memory_get_peak_usage")) { ?>
                         console.info("Peak PHP Memory used: <?php echo number_format(memory_get_peak_usage()/1048576,10); ?> MB");
                 <?php } ?>
+                <?php foreach ($this->benchMarkItems as $k => $v) {?>
+                    console.info("<?php echo $k;?>: <?php echo number_format($v,3); ?> Seconds");
+                <?php } ?>
                 } catch (e) {}
             </script>
         <?php
         }
     }
 
+    /**
+     *
+     */
     private function clearCache()
     {
-        if (isset($_GET['clearCache']) || isset($_GET['deploy'])) {
+        if (isset($_GET['clearCache'])) {
             $files = scandir(SKETCH_CORE.DIRECTORY_SEPARATOR."cache".DIRECTORY_SEPARATOR);
             foreach ($files as $file) {
                 if ($file != ".." && $file != '.') {
@@ -64,6 +70,7 @@ class Sketch
             }
         }
     }
+
     /**
      * Route - Decides what controller should be loaded
      */
@@ -92,17 +99,6 @@ class Sketch
                 return $this->loadController("index");
         }
     }
-
-    /**
-     *
-     */
-    private function deploy()
-    {
-        if (isset($_GET['deploy'])) {
-            $em = $this->getEntityManager()->buildDatabase();
-        }
-    }
-
     /**
      *
      * @return Sketch\Helpers\Database
