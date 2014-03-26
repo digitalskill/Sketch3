@@ -58,6 +58,7 @@ class ApiController extends \Sketch\Helpers\API
         if ($page) {
             return "Success";
         }
+
         return $this->_response("Page not found update: ".$e->getMessage(),404);
     }
 }

@@ -3,7 +3,7 @@ namespace Sketch\Entities\Repository;
 
 class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepository
 {
-    use \Sketch\Traits\CRUD;
+    use \Sketch\Traits\Crud;
 
     public function getPageByStub($stub,$site)
     {

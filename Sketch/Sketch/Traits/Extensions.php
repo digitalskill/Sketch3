@@ -1,7 +1,8 @@
 <?php
 namespace Sketch\Traits;
 
-trait Extensions{
+trait Extensions
+{
     /**
      * @ORM\Column(type="json_array", nullable=true)
      */

@@ -3,6 +3,7 @@ namespace Sketch\Entities\Repository;
 
 class SiteRepository extends \Doctrine\ORM\EntityRepository
 {
+    use \Sketch\Traits\Crud;
     public function getSite($site)
     {
        return $this->_em->createQueryBuilder()
