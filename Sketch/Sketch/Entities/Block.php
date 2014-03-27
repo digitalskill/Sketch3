@@ -45,7 +45,7 @@ class Block
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $type = 0; // 0 = banner : 1 =  call to action : 2
+    private $type = 0; // 0 = banner : 1 =  call to action : 2 = gallery Image : 3 = block ; 4 = thread : 5 = post
 
     /**
      * @ORM\ManyToMany(targetEntity="Block")

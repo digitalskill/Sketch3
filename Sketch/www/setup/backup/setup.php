@@ -68,6 +68,51 @@ $banner2->addBlock($block);
 
 $this->entityManager->persist($banner2);
 
+// Create Gallery Images
+$block4 = new \Sketch\Entities\Block();
+$block4->image      = '/img/fruit3.png';
+$block4->content    = 'Gallery Image 1';
+$block4->sort       = 0;
+$block4->type       = 2;
+
+$this->entityManager->persist($block4);
+
+// Create Gallery Images
+$block5 = new \Sketch\Entities\Block();
+$block5->image      = '/img/fruit3.png';
+$block5->content    = 'Gallery Image 2';
+$block5->sort       = 1;
+$block5->type       = 2;
+
+$this->entityManager->persist($block5);
+
+// Create Gallery Images
+$block6 = new \Sketch\Entities\Block();
+$block6->image      = '/img/fruit3.png';
+$block6->content    = 'Gallery Image 3';
+$block6->sort       = 2;
+$block6->type       = 2;
+
+$this->entityManager->persist($block6);
+
+// Create Gallery Images
+$block7 = new \Sketch\Entities\Block();
+$block7->image      = '/img/fruit2.png';
+$block7->content    = 'Gallery Image 4';
+$block7->sort       = 3;
+$block7->type       = 2;
+
+$this->entityManager->persist($block7);
+
+// Create Gallery Images
+$block8 = new \Sketch\Entities\Block();
+$block8->image      = '/img/fruit2.png';
+$block8->content    = 'Gallery Image 5';
+$block8->sort       = 4;
+$block8->type       = 2;
+
+$this->entityManager->persist($block8);
+
 // Create Page
 $menu = new \Sketch\Entities\Menu();
 $menu->setTitle("Home");
@@ -134,6 +179,12 @@ $galleryPage->content   = "<h1>Welcome to Sketch Gallery</h1>";
 $galleryPage->edit      = "<h1>Welcome to Sketch</h1>";
 $gallery->page          = $galleryPage;
 $gallery->site          = $site;
+$galleryPage->extensions = array("imagesAccross"=>4);
+$galleryPage->addBlock($block4);
+$galleryPage->addBlock($block5);
+$galleryPage->addBlock($block6);
+$galleryPage->addBlock($block7);
+$galleryPage->addBlock($block8);
 
 $this->entityManager->persist($galleryPage);
 $this->entityManager->persist($gallery);
