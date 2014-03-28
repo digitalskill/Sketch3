@@ -57,7 +57,7 @@ class ApiController extends \Sketch\Helpers\API
 
     private function updatePageData($args)
     {
-        $page   =  $this->entityManager->getRepository("Sketch\Entities\Page")->set((int)$args[0],$this->request);
+        $page   =  $this->entityManager->getRepository("Sketch\Entities\Page")->set((int) $args[0],$this->request);
         if ($page) {
             return "Success";
         }

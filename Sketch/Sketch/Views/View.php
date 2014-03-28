@@ -70,9 +70,15 @@ class View
             $view->render(SITE_ROOT.DIRECTORY_SEPARATOR.\Sketch\Sketch::$instance->getConfig("themePath").DIRECTORY_SEPARATOR.$file);
         }
     }
-    
-    public function form($file,$data=''){
+
+    public function form($file,$data='')
+    {
         $form = new \Sketch\Helpers\Form($file,$data);
+        if (isset($_POST['hp']) && $_POST['hp']=='') {
+            if ($form->isValid()) {
+                return true;
+            }
+        }
         echo $form->showForm();
     }
 

@@ -12,7 +12,7 @@ return array(
     'auth_username'      => "",
     'auth_password'      => "",
 
-    'devmode'           => false,    // Set to True if needing to show errors on the site -  into DEV MODE
+    'devmode'           => false,   // Set to True if needing to update entities - will run slow until enabled again
     'htaccess'          => false,   // Set this to false if  .htaccess or apache settings are not in effect
 
     // DATABASE CONNECTION
@@ -23,7 +23,7 @@ return array(
 
     'entityFiles'       => 'Entities',
     'themePath'         => "theme",
-    'cache'             => true,
+    'cache'             => false,   // Set to true once finished to cache javascript files
     'cacheseconds'      => 31536000,
-    'compress'          => false,
+    'compress'          => false,   // Enable this to have php gzip the page - not needed if the server gzips already.
 );

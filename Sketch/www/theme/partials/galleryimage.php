@@ -1,4 +1,4 @@
-<?php 
+<?php
 $cta = $this->getPageBlocks(2); // Get Gallery Blocks
 if (count($cta) > 0) { ?>
 <div class="gallery">

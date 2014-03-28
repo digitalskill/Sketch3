@@ -196,12 +196,13 @@ class Sketch
      */
     public function getPageValues($item)
     {
-        if(isset($this->node['page'][$item])){
+        if (isset($this->node['page'][$item])) {
             return $this->node['page'][$item];
         }
-        if(isset($this->node['page']["extensions"][$item])){
+        if (isset($this->node['page']["extensions"][$item])) {
             return $this->node['page']["extensions"][$item];
         }
+
         return null;
     }
 } // END SKETCH CLASS
