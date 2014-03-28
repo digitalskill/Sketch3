@@ -13,7 +13,12 @@ class ApiController extends \Sketch\Helpers\API
         }
 
         try {
-            $this->startAPI($_REQUEST['request'], $_SERVER['HTTP_ORIGIN']);
+            $request = $_REQUEST;
+            $url     = \Sketch\Sketch::$instance->url;
+            unset($url[0]);
+            unset($url[1]);
+            $request['request'] = join("/",$url);
+            $this->startAPI($request,$_SERVER['HTTP_ORIGIN']);
         } catch (\Exception $e) {
             echo json_encode(Array('error' => $e->getMessage()));
         }
@@ -21,7 +26,7 @@ class ApiController extends \Sketch\Helpers\API
 
     public function startAPI($request, $origin)
     {
-        parent::process($request);
+        parent::process($request['request']);
         if (!array_key_exists('apiKey', $this->request)) {
             throw new \Exception('No API Key provided');
         }
@@ -32,27 +37,27 @@ class ApiController extends \Sketch\Helpers\API
      *
      * @return string
      */
-    protected function page()
+    protected function page($args)
     {
         switch (strtolower($this->method)) {
             case "get":
-                return $this->getPageData();
+                return $this->getPageData($args);
             case "put":
             case "post":
-                return $this->updatePageData();
+                return $this->updatePageData($args);
             default:
                 return "Invalid Method call";
         }
     }
 
-    private function getPageData()
+    private function getPageData($args=0)
     {
-        return  $this->entityManager->getRepository("Sketch\Entities\Page")->get((int) $this->request['id']);
+        return  $this->entityManager->getRepository("Sketch\Entities\Page")->get((int) $args[0]);
     }
 
-    private function updatePageData()
+    private function updatePageData($args)
     {
-        $page   =  $this->entityManager->getRepository("Sketch\Entities\Page")->set((int) $this->request['id'],$this->request);
+        $page   =  $this->entityManager->getRepository("Sketch\Entities\Page")->set((int)$args[0],$this->request);
         if ($page) {
             return "Success";
         }
@@ -60,7 +65,7 @@ class ApiController extends \Sketch\Helpers\API
         return $this->_response("Page not found update: ".$e->getMessage(),404);
     }
 
-    public function deploy()
+    public function deploy($args='')
     {
         if (is_file(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
             $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
@@ -72,7 +77,6 @@ class ApiController extends \Sketch\Helpers\API
                 $this->_response("SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
             }
         } else {
-            header("HTTP/1.1 401 Unauthorized");
             try {
                 $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
                 $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();

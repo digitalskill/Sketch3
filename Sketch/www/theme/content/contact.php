@@ -29,13 +29,14 @@
                     <h3>Contact Form</h3>
                     <form role="form" method="post">
                         <div class="form-group">
-                            <input class="form-control" type="text" placeholder="Name" />
+                            <input class="form-control" type="text" placeholder="Name" name="contactformname"/>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="email" placeholder="Email" />
+                            <input class="form-control" type="email" placeholder="Email" name="contactformemail"/>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="3" placeholder="Message..."></textarea>
+                            <input type="hidden" name="hp" value='' />
+                            <textarea class="form-control" rows="3" placeholder="Message..." name="contactformemail"></textarea>
                         </div>
                         <button class="btn btn-danger btn-sm" type="submit">Send</button>&nbsp;
                         <button class="btn btn-default btn-sm" type="reset">Reset</button>
