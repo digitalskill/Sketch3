@@ -70,6 +70,11 @@ class View
             $view->render(SITE_ROOT.DIRECTORY_SEPARATOR.\Sketch\Sketch::$instance->getConfig("themePath").DIRECTORY_SEPARATOR.$file);
         }
     }
+    
+    public function form($file,$data=''){
+        $form = new \Sketch\Helpers\Form($file,$data);
+        echo $form->showForm();
+    }
 
     public function headLink()
     {

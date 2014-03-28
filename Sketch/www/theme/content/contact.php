@@ -25,23 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <h3>Contact Form</h3>
-                    <form role="form" method="post">
-                        <div class="form-group">
-                            <input class="form-control" type="text" placeholder="Name" name="contactformname"/>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="email" placeholder="Email" name="contactformemail"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="hidden" name="hp" value='' />
-                            <textarea class="form-control" rows="3" placeholder="Message..." name="contactformemail"></textarea>
-                        </div>
-                        <button class="btn btn-danger btn-sm" type="submit">Send</button>&nbsp;
-                        <button class="btn btn-default btn-sm" type="reset">Reset</button>
-                    </form>
-                </div>
+                <?php $this->form("forms/contact.php",$_POST); ?>
             </div>
             <div class="col-md-6">
                 <div class="map-container">

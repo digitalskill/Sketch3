@@ -24,22 +24,25 @@
 <link rel="canonical" href="<?php echo $this->basePath($this->getMenuValues('path')); ?>" />
 <title><?php echo $this->title; ?></title>
 <link href="<?php echo $this->basePath("favicon.ico");?>" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/css/bootstrap.min.css" />
+<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' />
+<link rel='stylesheet' href='//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css' />
 <?php
     echo $this->HeadLink()
-                ->prependFile($this->basePath("Assets/Normalize/v1/css/normalize.css"))
-                ->prependFile($this->basePath("Assets/Bootstrap/v1/css/bootstrap.min.css"))
+                //->prependFile($this->basePath("Assets/Normalize/v1/css/normalize.css"))
+                //->prependFile($this->basePath("Assets/Bootstrap/v1/css/bootstrap.min.css"))
                 ->prependFile($this->basePath("Assets/Stickyfooter/v1/css/stickyfooter.css"))
                 ->prependFile($this->basePath("css/import.css"))
                 ->appendFile($this->basePath("Assets/Prettyphoto/v1/css/prettyphoto.css"))
-                ->appendFile($this->basePath("Assets/Fontawesome/v1/css/font-awesome.min.css"))
+                //->appendFile($this->basePath("Assets/Fontawesome/v1/css/font-awesome.min.css"))
                 ->appendFile($this->basePath("css/less-style.css"))
                 ->appendFile($this->basePath("css/style.css"))
                 ->appendFile($this->basePath("Assets/Revolution/v1/css/settings.css"))
                 ->appendFile($this->basePath("Assets/Flexslider/v1/css/flexslider.css"))
                 ->appendFile($this->basePath("css/custom-styles.css"))
                 ->minify();
-    echo $this->headScript()
-                ->appendFile($this->basePath("Assets/modernizr/v1/js/modernizr.js"));
+    echo $this->headScript()->appendFile($this->basePath("Assets/modernizr/v1/js/modernizr.js"));
 ?>
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

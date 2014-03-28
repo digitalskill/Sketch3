@@ -62,5 +62,11 @@ $(document).ready(function () {
         overlay_gallery: false,
         social_tools: false
     });
-
+    
+    // Form validation
+    $.validate({borderColorOnError : '#ebccd1', 
+                validateOnBlur : true,
+                showHelpOnFocus : true,
+                addSuggestions : true,
+                onSuccess: function(){}});
 });
