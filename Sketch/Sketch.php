@@ -76,8 +76,7 @@ class Sketch
      */
     private function route()
     {
-        list($lft,$rght)    = explode("/www",$_SERVER['REQUEST_URI']);
-        list($url,)         = explode("?",trim($rght,"/"));
+        list($url,)         = explode("?",trim($_SERVER['REQUEST_URI'],"/"));
         $this->url          = explode("/",$url);
         switch (strtolower(trim($this->url[0]))) {
             case "assets":
