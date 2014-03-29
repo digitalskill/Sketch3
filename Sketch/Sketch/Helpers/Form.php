@@ -9,7 +9,7 @@ class Form
     private $tmpMessages= [];
     private $data       = [];
     private $file       = '';
-    public $isValid    = true;
+    public $valid      = true;
     private $validation = "data-validation";
     /**
      *
@@ -19,7 +19,7 @@ class Form
      */
     public function __construct($file,$data='')
     {
-        $this->file = file_get_html(SITE_ROOT.DIRECTORY_SEPARATOR.\Sketch\Sketch::$instance->getConfig("themePath").DIRECTORY_SEPARATOR.$file);
+        $this->file = file_get_html($file);
         if ($data != '') {
             $this->addData($data);
         }
@@ -37,26 +37,26 @@ class Form
         foreach ($this->data as $key => $value) {
             foreach ($this->file->find("input[name='".$key."']") as $elm) {
                 $elm->value = $value;
-                $this->validate($elm,$value);
+                $this->data[$key] = $this->validate($elm,$value);
             }
 
             foreach ($this->file->find("textarea[name='".$key."']") as $elm) {
                 $elm->innertext = $value;
-                $this->validate($elm,$value);
+                $this->data[$key] = $this->validate($elm,$value);
             }
 
             foreach ($this->file->find("checkbox[name='".$key."']") as $elm) {
                 if ($elm->value == $value) {
                     $elm->checked = "checked";
                 }
-                $this->validate($elm,$value);
+                $this->data[$key] = $this->validate($elm,$value);
             }
 
             foreach ($this->file->find("radio[name='".$key."']") as $elm) {
                 if ($elm->value == $value) {
                     $elm->checked = "checked";
                 }
-                $this->validate($elm,$value);
+                $this->data[$key] = $this->validate($elm,$value);
             }
 
             foreach ($this->file->find("select[name='".$key."']") as $elm) {
@@ -73,7 +73,7 @@ class Form
                     $innertext .= $option."</option>";
                 }
                 $elm->innertext = $innertext;
-                $this->validate($elm,$value);
+                $this->data[$key] = $this->validate($elm,$value);
             }
         }
     }
@@ -85,14 +85,17 @@ class Form
      */
     public function validate($elm,$value)
     {
+        // TODO - ADD TYPES OF VALIDATION email | number | text
         if ($elm->getAttribute($this->validation) == 'required') {
             if (trim($value)=='') {
                 $msg = $elm->getAttribute('data-validation-error-msg') != ''? $elm->getAttribute('data-validation-error-msg') :
                                         "Please fill in ". $elm->getAttribute('name');
                 $this->tmpMessages[] = array($elm,$msg);
-                $this->isValid = false;
+                $this->valid = false;
             }
         }
+
+        return $value;
     }
 
     /**
@@ -101,7 +104,7 @@ class Form
      */
     public function isValid()
     {
-        if ($this->isValid != true) {
+        if ($this->valid != true) {
             foreach ($this->tmpMessages as $items) {
                 $items[0]->parent()->class .= " has-error";
                 $items[0]->class         =  $items[0]->class . " error";
@@ -109,9 +112,13 @@ class Form
             }
         }
 
-        return $this->isValid;
+        return $this->valid;
     }
 
+    public function getValues()
+    {
+        return $this->data;
+    }
     /**
      *
      * @return HTML

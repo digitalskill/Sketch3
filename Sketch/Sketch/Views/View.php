@@ -71,15 +71,17 @@ class View
         }
     }
 
-    public function form($file,$data='')
+    /**
+     *
+     * @param  string $formname
+     * @return string
+     */
+    public function form($formname)
     {
-        $form = new \Sketch\Helpers\Form($file,$data);
-        if (isset($_POST['hp']) && $_POST['hp']=='') {
-            if ($form->isValid()) {
-                return true;
-            }
+        $form = \Sketch\Sketch::$instance->getForm($formname);
+        if ($form) {
+            return $form->showForm();
         }
-        echo $form->showForm();
     }
 
     public function headLink()
@@ -142,6 +144,6 @@ class View
     {
         $em     = \Sketch\Sketch::$instance->getEntityManager()->entityManager;
 
-        return $em->getRepository("Sketch\Entities\Menu")->getTopLevelMenuItems(\Sketch\Sketch::$instance->node['site']['id'],$depth);
+        return $em->getRepository("Sketch\Entities\Menu")->getMenuLevelItems(\Sketch\Sketch::$instance->node['site']['id'],$depth);
     }
 }

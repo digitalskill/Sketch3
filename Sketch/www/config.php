@@ -12,7 +12,7 @@ return array(
     'auth_username'      => "",
     'auth_password'      => "",
 
-    'devmode'           => false,   // Set to True if needing to update entities - will run slow until enabled again
+    'devmode'           => true,   // Set to True if needing to update entities - will run slow until enabled again
     'htaccess'          => false,   // Set this to false if  .htaccess or apache settings are not in effect
 
     // DATABASE CONNECTION

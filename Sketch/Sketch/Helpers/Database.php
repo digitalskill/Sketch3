@@ -72,6 +72,9 @@ class Database
         $this->listeners = new \Doctrine\Common\EventManager();
         // gedmo extension listeners, remove which are not used
 
+        $menuListiner   = new \Sketch\Helpers\MenuOrder;
+        $this->listeners->addEventSubscriber($menuListiner);
+
         // sluggable
         $sluggableListener = new \Gedmo\Sluggable\SluggableListener;
         // you should set the used annotation reader to listener, to avoid creating new one for mapping drivers

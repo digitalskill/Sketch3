@@ -5,6 +5,12 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
 {
     use \Sketch\Traits\Crud;
 
+    /**
+     *
+     * @param  string  $stub
+     * @param  integer $site
+     * @return array   \Sketch\Entities\Menu
+     */
     public function getPageByStub($stub,$site)
     {
        return $this->_em->createQueryBuilder()
@@ -20,6 +26,11 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
                 ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
+    /**
+     *
+     * @param  type                  $id
+     * @return \Sketch\Entities\Menu
+     */
     public function getPageById($id)
     {
         return $this->_em->createQueryBuilder()
@@ -31,6 +42,11 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
                 ->getOneOrNullResult();
     }
 
+    /**
+     *
+     * @param  string $site
+     * @return array
+     */
     public function getLandingPage($site)
     {
         return $this->_em->createQueryBuilder()
@@ -45,6 +61,11 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
                 ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
+    /**
+     *
+     * @param  string $site
+     * @return array
+     */
     public function getHoldingPage($site)
     {
         return  $this->_em->createQueryBuilder()
@@ -59,13 +80,19 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
             ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
-    public function getTopLevelMenuItems($websiteID,$depth = 2)
+    /**
+     *
+     * @param  integer $websiteID
+     * @param  integer $depth
+     * @return array
+     */
+    public function getMenuLevelItems($websiteID,$depth = 2)
     {
         $r = $this->_em->createQueryBuilder()
             ->select("materialized_path_entity")
             ->from($this->getClassName(),"materialized_path_entity")
             ->join("materialized_path_entity.page","p")
-            ->orderBy("materialized_path_entity.id","asc")
+            ->orderBy("materialized_path_entity.pid","asc")
             ->addOrderBy("materialized_path_entity.level","asc")
             ->addOrderBy("materialized_path_entity.sort","asc")
             ->where("materialized_path_entity.deleted = 0")

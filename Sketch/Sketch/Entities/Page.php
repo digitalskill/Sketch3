@@ -66,10 +66,13 @@ class Page
     private $updatedBy;
 
     /** @ORM\Column(length=255, nullable=true) */
-    private $pageView;          // View for Page
+    private $pageView;
 
      /** @ORM\Column(length=255, nullable=true) */
-    private $pageTemplate;      // Template for Page
+    private $pageTemplate;
+
+    /** @ORM\Column(length=255, nullable=true) */
+    private $plugin;
 
     /**
      * @ORM\ManyToMany(targetEntity="Block")

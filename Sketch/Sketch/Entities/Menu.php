@@ -26,6 +26,11 @@ class Menu
     private $id;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pid;
+
+    /**
      * @Gedmo\TreePath(appendId=false, separator="/", startsWithSeparator=false, endsWithSeparator=false)
      * @ORM\Column(name="path", type="string", length=3000, nullable=true)
      */

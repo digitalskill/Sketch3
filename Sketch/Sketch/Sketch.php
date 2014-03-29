@@ -20,6 +20,7 @@ class Sketch
     public $node           = null;
     public $blocks         = [];
     public $benchMarkItems = [];
+    public $forms          = [];
 
     /**
      *
@@ -189,6 +190,20 @@ class Sketch
         return isset($this->node['site'][$item])? $this->node['site'][$item] : false;
     }
 
+    /**
+     *
+     * @param  string               $formname
+     * @return \Sketch\Helpers\Form
+     */
+    public function getForm($formname)
+    {
+        return isset($this->forms[$formname]) ?  $this->forms[$formname] : false;
+    }
+
+    public function setForm($formname,$form)
+    {
+        $this->forms[$formname] = $form;
+    }
     /**
      *
      * @param  string $item

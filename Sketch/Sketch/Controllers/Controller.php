@@ -3,10 +3,11 @@ namespace Sketch\Controllers;
 /**
  * Controller Class
  */
-class Controller
+abstract class Controller
 {
     public static $instance;
     public $view    = "";
+    public $plugin;
     public function __construct()
     {
         self::$instance =  $this;
@@ -17,10 +18,7 @@ class Controller
         $this->finish();
     }
 
-    public function indexAction()
-    {
-        $this->sketch->errors[] = "You must create an Index action";
-    }
+    abstract public function indexAction();
 
     public function doHeaders()
     {
@@ -58,6 +56,14 @@ class Controller
     {
         if ( \Sketch\Sketch::$instance->getConfig('compress') && \Sketch\Sketch::$instance->status == 200 ) {
             ob_end_flush();
+        }
+    }
+
+    public function runPlugin($plugin)
+    {
+        if ($plugin != '') {
+            $pluginPath = "\Sketch\Plugins\\".$plugin;
+            $this->plugin = new $pluginPath();
         }
     }
 }

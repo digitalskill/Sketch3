@@ -56,6 +56,13 @@ trait Crud
         return true;
     }
 
+    public function update($current,$data)
+    {
+        $this->addData($current,$data);
+        $this->_em->persist($current);
+        $this->_em->flush();
+    }
+
     /**
      *
      * @param  type    $data
@@ -66,10 +73,13 @@ trait Crud
         $repo = "\\".$this->getClassName();
         $new = new $repo;
         $this->addData($new,$data);
-        $this->_em->persist($new);
-        $this->_em->flush();
-
-        return true;
+        //try {
+            $this->_em->persist($new);
+            $this->_em->flush();
+        //} catch (\Exception $e) {
+        //    die($e->getMessage());
+        //}
+        return $new;
     }
 
     /**
@@ -81,13 +91,12 @@ trait Crud
     {
         $cmf                = $this->_em->getMetadataFactory();
         $mapping            = $cmf->getMetadataFor($this->getClassName());  // Get Mapping Data
-        $obj->extensions    = [];                                           // Empty Json Arrays
-
         foreach ($data as $key => $value) {
             if (isset($mapping->fieldMappings[$key])) {
                 $obj->$key = $this->prepareData($mapping->fieldMappings[$key],$value);
             } elseif (isset($mapping->fieldMappings['extensions'])) {
-                $obj->extensions  = $this->prepareData($mapping->fieldMappings['extensions'],$value,$key,$obj->extensions);
+                $currentExtensions = is_array($obj->extensions) ? $obj->extensions : array();
+                $obj->extensions  = $this->prepareData($mapping->fieldMappings['extensions'],$value,$key,$currentExtensions);
             }
         }
     }
@@ -107,6 +116,9 @@ trait Crud
         }
         if ($dataType['type'] == "json_array") {
             return array_merge($currValue,[$key => $value]);
+        }
+        if ($dataType['type']=="datetime") {
+            return $value;
         }
     }
 }
