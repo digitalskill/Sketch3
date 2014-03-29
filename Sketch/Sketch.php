@@ -76,8 +76,15 @@ class Sketch
      */
     private function route()
     {
-        list($url,)         = explode("?",trim($_SERVER['REQUEST_URI'],"/"));
-        $this->url          = explode("/",$url);
+        list($url,)         = explode("?",trim($_SERVER['REQUEST_URI'],"/"));        
+        $this->url          = explode("/",trim($url,"/"));
+        if($this->url[0]=="index.php"){
+            array_shift($this->url);
+        }    
+        if(strtolower($this->url[0])==strtolower($this->getConfig('landingstub'))){
+            header("location: /");
+            exit;
+        }
         switch (strtolower(trim($this->url[0]))) {
             case "assets":
                 return $this->loadController("Assets");
@@ -155,9 +162,17 @@ class Sketch
      */
     public function basePath($file='')
     {
+        $file = trim($file,"/");
+        if(strtolower($file)==strtolower($this->getConfig('landingstub'))){
+            return "/";
+        }
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        if($this->getConfig('htaccess')==false){
+            if(!is_file(SITE_ROOT.DIRECTORY_SEPARATOR.$file)){
+                $file = "index.php/".$file;
+            }
+        }
         $domainName = $_SERVER['HTTP_HOST'].'/'.$file;
-
         return $protocol.$domainName;
     }
 

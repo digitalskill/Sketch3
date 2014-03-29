@@ -11,7 +11,7 @@ class HeadLink
     }
     private function createLink($path,$media)
     {
-        return array('<link href="'.$path.'" media="'.$media.'" rel="stylesheet" type="text/css">');
+        return array('<link href="'.\Sketch\Views\View::$instance->basePath($path).'" media="'.$media.'" rel="stylesheet" type="text/css">');
     }
     public function appendFile($path,$media="screen")
     {
@@ -40,11 +40,14 @@ class HeadLink
     public function minify()
     {
         $this->links = array();
-        $base = \Sketch\Views\View::$instance->basePath();
+        $base = \Sketch\Views\View::$instance->basePath('minifycss');
+        $base2 = str_replace("/index.php","",\Sketch\Views\View::$instance->basePath());
         foreach ($this->files as $media => $files) {
-            $this->links[] = '<link href="/minifycss/'.str_replace($base,"",join(":",$files)).'" media="'.$media.'" rel="stylesheet" type="text/css">';
-        }
-
+            $this->links[] = '<link href="'.$base.'/'.
+                    str_replace(
+                        array(str_replace('minifycss','',$base),$base2),"",
+                    join(":",$files)).'" media="'.$media.'" rel="stylesheet" type="text/css">';
+        };
         return $this;
     }
 }

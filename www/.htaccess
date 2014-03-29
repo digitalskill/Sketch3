@@ -263,9 +263,8 @@ AddCharset utf-8 .html .css .js .xml .json .rss .atom
 # IF WORKING ON THE MAIN FOLDER OF THE WEBSITE
 # PUT IN A SLASH:   /
 # ELSE PUT IN THE FOLDER NAME
-RewriteBase /www/
+RewriteBase /
 
-RewriteCond %{REQUEST_URI} !^/(admin|files|images)/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l

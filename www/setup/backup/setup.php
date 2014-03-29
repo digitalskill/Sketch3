@@ -13,6 +13,7 @@ $site->siteemail    = "husko2006@gmail.com";
 $site->siteaddress  = "15 Address Place";
 $site->domainname   = $_SERVER['HTTP_HOST'];
 $site->themePath    = "theme";
+$site->landingstub  = "home";
 $this->entityManager->persist($site);
 
 // Create Blocks
@@ -49,7 +50,7 @@ $this->entityManager->persist($block3);
 $banner = new \Sketch\Entities\Block();
 $banner->heading    = "Sketch Banner";
 $banner->image      = "/img/banner.jpg";
-$banner->content    = '<img class="img-responsive" src="img/crown-white.png" alt=""><h2 class="white">General Info</h2>';
+$banner->content    = '<img class="img-responsive" src="/img/crown-white.png" alt=""><h2 class="white">General Info</h2>';
 $banner->sort       = 0;
 $banner->type       = 0;
 $banner->addBlock($block2);

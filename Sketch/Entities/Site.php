@@ -83,6 +83,9 @@ class Site
 
     /** @ORM\Column(length=255, nullable=true) */
     private $paymentFetch;
+    
+    /** @ORM\Column(length=255, nullable=true) */
+    private $landingstub;
 
     /** @ORM\Column(length=255) */
     private $themePath = "theme";

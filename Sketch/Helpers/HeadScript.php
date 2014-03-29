@@ -11,7 +11,7 @@ class HeadScript
     }
     private function createLink($path,$media)
     {
-        return array('<script src="'.$path.'"></script>');
+        return array('<script src="'.\Sketch\Views\View::$instance->basePath($path).'"></script>');
     }
     public function appendFile($path,$media="screen")
     {
@@ -42,11 +42,14 @@ class HeadScript
     public function minify()
     {
         $this->links = array();
-        $base = \Sketch\Views\View::$instance->basePath();
+        $base = \Sketch\Views\View::$instance->basePath('minifyjs');
+        $base2 = str_replace("/index.php","",\Sketch\Views\View::$instance->basePath());
         foreach ($this->files as $media => $files) {
-            $this->links[] = '<script src="/minifyjs/'.str_replace($base,"",join(":",$files)).'"></script>';
-        }
-
+            $this->links[] = '<script src="'.$base.'/'.
+                    str_replace(
+                        array(str_replace('minifyjs','',$base),$base2),"",
+                    join(":",$files)).'"></script>';
+        };
         return $this;
     }
 }
