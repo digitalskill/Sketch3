@@ -5,12 +5,6 @@
 return array(
     'version'            => "4",
 
-    // Site Security                // Restrict access to site using basic auth
-    'auth'               => false,
-    'realm'              =>"sketch",
-    'auth_username'      => "",
-    'auth_password'      => "",
-
     'devmode'           => false,  // Set to True if needing to update entities - will run slow until enabled again
     'htaccess'          => false,  // Set this to false if  .htaccess or apache settings are not in effect
 
