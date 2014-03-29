@@ -258,14 +258,12 @@ AddCharset utf-8 .html .css .js .xml .json .rss .atom
 
 # Turning on the rewrite engine is necessary for the following rules and features.
 # FollowSymLinks must be enabled for this to work.
-
-
   
 
 # IF WORKING ON THE MAIN FOLDER OF THE WEBSITE
 # PUT IN A SLASH:   /
 # ELSE PUT IN THE FOLDER NAME
-RewriteBase /
+RewriteBase /www/
 
 RewriteCond %{REQUEST_URI} !^/(admin|files|images)/
 RewriteCond %{REQUEST_FILENAME} !-f
