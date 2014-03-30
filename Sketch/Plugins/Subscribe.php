@@ -11,14 +11,14 @@ class Subscribe extends Contact
     
     public function __construct() {
         parent::__construct();
-        $this->to           = isset($_POST['email']) ? $_POST['email'] : $this->to;
         if(isset($_GET['verifykey']) && isset($_GET['verifykey'])){
             $this->sendEmail();
         }
     }
     
-    public function sendEmail() {        
+    public function sendEmail() {  
         if(!isset($_GET['verifykey'])){
+            $this->to           = $_POST['email'];
             $this->contactForm  = $this;
             $this->thanksPage   = "Contact/Verify";
             $this->subject      = "Please verify your email address";
@@ -28,7 +28,6 @@ class Subscribe extends Contact
             $person = $em->getRepository("Sketch\Entities\EmailMessage")
                             ->getByVericationEmail($_GET['email'],$_GET['verifykey']); 
             if($person){
-                print_r($person);
                 $details = $person['extensions'];
                 $details['subscribed'] = 1;
                 $details['firstname']  = $details['name'];
@@ -36,8 +35,16 @@ class Subscribe extends Contact
                 $details['password']   = 'New_Subscriber';
                 $details['type']       = 'subscriber';
                 $em->getRepository("Sketch\Entities\User")->add($details);
-                $this->contactForm  = $this;
-                $this->doThanksMessage = true;
+                $this->contactForm      = $this;
+                $this->doThanksMessage  = true;
+                $this->to               = $details['email'];
+                $message                = parent::prepareMessage(array(
+                    "Name"  => $details['name'],
+                    "Email" => $details['email'],
+                    "subscribed Date" => \Date("Y-m-d h:i:s"),
+                    "Verified Email"  => "Yes",
+                ));
+                $this->sendAdminEmail("A new subscriber", $details['email'], $message);
             }else{
                 header("location: /Contact/Verify/Failed");
                 exit;
@@ -47,7 +54,7 @@ class Subscribe extends Contact
     }
     
     public function prepareMessage($data){
-        $messsage = '';
+        $message = '';
         foreach($data as $key => $value){
             $message .= $value;
         }

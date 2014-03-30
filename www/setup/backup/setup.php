@@ -283,6 +283,7 @@ $this->entityManager->persist($failed);
 
 $unsubscribe = new \Sketch\Entities\Menu();
 $unsubscribe->sort            = 3;
+$unsubscribe->setTitle("Unsubscribe");
 $unsubscribe->setParent($contact);
 $unsubscribe->menuimage       = "img/nav-menu/nav5.jpg";
 $unsubscribe->menuclass       = "img-responsive";

@@ -818,6 +818,14 @@ body.outlook p {
                   <tr>
                     <td class="wrapper last">
 
+                    <table class="twelve columns">
+                        <tr>
+                          <td>
+                            <h4>You have a message from your website:</h4>
+                          </td>
+                          <td class="expander"></td>
+                        </tr>
+                      </table>
                       <table class="twelve columns">
                         <tr>
                           <td>
@@ -830,42 +838,6 @@ body.outlook p {
                     </td>
                   </tr>
                 </table>
-
-                <table class="row callout">
-                  <tr>
-                    <td class="wrapper last">
-
-                      <table class="twelve columns">
-                        <tr>
-                          <td class="panel">
-                            #ACTIONLINK#
-                          </td>
-                          <td class="expander"></td>
-                        </tr>
-                      </table>
-
-                    </td>
-                  </tr>
-                </table>
-                <table class="row">
-                  <tr>
-                    <td class="wrapper last">
-
-                      <table class="twelve columns">
-                        <tr>
-                          <td align="center">
-                            <center>
-                                #FOOTERLINKS#
-                            </center>
-                          </td>
-                          <td class="expander"></td>
-                        </tr>
-                      </table>
-
-                    </td>
-                  </tr>
-                </table>
-
               <!-- container end below -->
               </td>
             </tr>

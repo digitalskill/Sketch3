@@ -8,7 +8,7 @@ class Contact extends Plugin
     public $contactForm;
     public $form           = "Contact.php";
     public $subject        = "Website Comments";
-    public $emailTemplate  = "index.php";
+    public $emailTemplate  = "adminemail.php";
     public $thanksPage     = "Contact/Thankyou";
     public $to;
     public $from;
@@ -33,7 +33,7 @@ class Contact extends Plugin
     }
     
     public function prepareMessage($data){
-        $messsage = '<table class="twelve columns">';
+        $message = '<table class="twelve columns">';
         foreach($data as $key => $value){
             if($key != "hp"){
                 $message .= '<tr><td class="three sub-columns">'.$key.'</td>';
@@ -50,7 +50,6 @@ class Contact extends Plugin
         $emailContent   = file_get_contents(SITE_ROOT.DIRECTORY_SEPARATOR.
                             \Sketch\Sketch::$instance->getConfig("themePath").
                             DIRECTORY_SEPARATOR."emails".DIRECTORY_SEPARATOR.$this->emailTemplate);
-
         $data           = $this->contactForm->getValues();
         $message        = $this->prepareMessage($data);
         $to             = $this->to;
@@ -64,7 +63,7 @@ class Contact extends Plugin
                                                 \Sketch\Sketch::$instance->getConfig('siteemail'),$footerlinks,
                                         $subject,date("j, F Y h:i"),\Sketch\Sketch::$instance->getConfig('sitelogo')),
                                         $emailContent);
-        $mail           = new Email($to, $from, $subject, $htmlMessage);
+        $mail           = new Email($to,$from, $subject, $htmlMessage);
         $mail->addReplyTo($replyto);
         if ($mail->sendEmail()) {
             $path = \Sketch\Sketch::$instance->basePath($this->thanksPage);
@@ -74,5 +73,26 @@ class Contact extends Plugin
             \Sketch\Sketch::$instance->status   = "404";
             \Sketch\Sketch::$instance->errors[] = "Cannot send Email";
         }
+    }
+    
+    public function sendAdminEmail($subject,$from,$message){
+        $emailContent   = file_get_contents(SITE_ROOT.DIRECTORY_SEPARATOR.
+                                    \Sketch\Sketch::$instance->getConfig("themePath").
+                                    DIRECTORY_SEPARATOR."emails".DIRECTORY_SEPARATOR."adminemail.php");   
+        $htmlMessage    = str_replace(array("#MESSAGE#","#SUBJECT#","#DATE#","#SITELOGO#"),
+                                array($message,
+                                        $subject,date("j, F Y h:i"),
+                                        \Sketch\Sketch::$instance->basePath(\Sketch\Sketch::$instance->getConfig('sitelogo'))),
+                                        $emailContent);
+
+        $adminEmail             = new Email(\Sketch\Sketch::$instance->getConfig('siteemail'),
+                                            \Sketch\Sketch::$instance->getConfig('siteemail'), 
+                                            $subject, 
+                                            $htmlMessage);
+        $adminEmail->addReplyTo($from);
+        $adminEmail->sendEmail();
+        
+        
+        
     }
 }
