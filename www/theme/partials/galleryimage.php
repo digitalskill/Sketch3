@@ -1,12 +1,14 @@
 <?php
 $cta = $this->getPageBlocks(2); // Get Gallery Blocks
+$num      = (int)$this->imagesAccross > 0 ?  $this->imagesAccross : 1 ;
+$iAccross = 12 / $num;
 if (count($cta) > 0) { ?>
 <div class="gallery">
     <div class="container">
         <div class="gallery-content">
             <div class="row">
                 <?php foreach ($cta as $actionCall) { ?>
-                    <div class="col-md-<?php echo $this->imagesAccross; ?> col-sm-<?php echo $this->imagesAccross; ?>">
+                    <div class="col-md-<?php echo $iAccross; ?> col-sm-<?php echo $iAccross; ?>">
                         <div class="element">
                             <img class="img-responsive img-thumbnail" src="<?php echo $this->basePath($actionCall->image); ?>" alt=""/>
                             <span class="gallery-img-hover"></span>
