@@ -11,14 +11,14 @@ class HeadScript
     }
     private function createLink($path,$media)
     {
-        return array('<script src="'.\Sketch\Views\View::$instance->basePath($path).'"></script>');
+        return array('<script src="'.$path.'"></script>');
     }
     public function appendFile($path,$media="screen")
     {
         if (!isset($this->files[$media])) {
             $this->files[$media] = array();
         }
-        $this->files[$media] = array_merge($this->files[$media],array(str_replace("Assets/","",$path)));
+        $this->files[$media] = array_merge($this->files[$media],array(str_replace("assets/","",$path)));
         $this->links = array_merge($this->links,$this->createLink($path,$media));
 
         return $this;

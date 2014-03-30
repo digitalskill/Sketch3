@@ -4,7 +4,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="footer-widget">
                     <div class="logo">
-                            <img class="img-responsive" src="img/logo.png" alt="" />
+                            <img class="img-responsive" src="<?php echo $this->basePath("img/logo.png");?>" alt="" />
                             <h1><?php echo $this->getSiteValues('sitename'); ?></h1>
                     </div>
                     <p><?php echo $this->getSiteValues('footertext'); ?></p>
@@ -14,24 +14,24 @@
                     <!--<a href="#"><img class="payment img-responsive" src="img/payment/authorizenet.gif" alt="" /></a>// !-->
                     <!--<a href="#"><img class="payment img-responsive" src="img/payment/discover.gif" alt="" /></a>// !-->
                     <!-- <a href="#"><img class="payment img-responsive" src="img/payment/egold.gif" alt="" /></a> // !-->
-                    <a href="#"><img class="payment img-responsive" src="img/payment/mastercard.gif" alt="" /></a>
-                    <a href="#"><img class="payment img-responsive" src="img/payment/paypal.gif" alt="" /></a>
-                    <a href="#"><img class="payment img-responsive" src="img/payment/visa.gif" alt="" /></a>
+                    <a href="#"><img class="payment img-responsive" src="<?php echo $this->basePath("img/payment/mastercard.gif"); ?>" alt="" /></a>
+                    <a href="#"><img class="payment img-responsive" src="<?php echo $this->basePath("img/payment/paypal.gif"); ?>" alt="" /></a>
+                    <a href="#"><img class="payment img-responsive" src="<?php echo $this->basePath("img/payment/visa.gif"); ?>" alt="" /></a>
                     <!--<a href="#"><img class="payment img-responsive" src="img/payment/worldpay.gif" alt="" /></a>// !-->
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="footer-widget">
                     <h4>Famous Dishes</h4>
-                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
-                    <a href="#"><img class="dish img-responsive" src="img/dish/dish1.jpg" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="<?php echo $this->basePath("img/dish/dish1.jpg"); ?>" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="<?php echo $this->basePath("img/dish/dish1.jpg"); ?>" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="<?php echo $this->basePath("img/dish/dish1.jpg"); ?>" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="<?php echo $this->basePath("img/dish/dish1.jpg"); ?>" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="<?php echo $this->basePath("img/dish/dish1.jpg"); ?>" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="<?php echo $this->basePath("img/dish/dish1.jpg"); ?>" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="<?php echo $this->basePath("img/dish/dish1.jpg"); ?>" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="<?php echo $this->basePath("img/dish/dish1.jpg"); ?>" alt="" /></a>
+                    <a href="#"><img class="dish img-responsive" src="<?php echo $this->basePath("img/dish/dish1.jpg"); ?>" alt="" /></a>
                 </div>
             </div>
             <div class="clearfix visible-sm"></div>
@@ -87,15 +87,15 @@
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <?php
 echo $this->inlineScript()
-                ->prependFile($this->basePath('Assets/Bootstrap/v1/js/bootstrap.min.js'))
-                ->prependFile($this->basePath('Assets/Stickyfooter/v1/js/stickyfooter.js'))
-                //->prependFile($this->basePath('Assets/jquery/v11/js/jquery-ui-1.10.4.custom.min.js'))
-                //->prependFile($this->basePath('Assets/jquery/v11/js/jquery.11.js'))
-                ->appendFile($this->basePath("Assets/Prettyphoto/v1/js/prettyphoto.js"))
-                ->appendFile($this->basePath("Assets/Tools/v1/js/tools.min.js"))
-                ->appendFile($this->basePath("Assets/Revolution/v1/js/revolution.min.js"))
-                ->appendFile($this->basePath("Assets/Flexslider/v1/js/flexslider.min.js"))
-                ->appendFile($this->basePath('Assets/form-validator/v1/js/jquery.form-validator.min.js'))
+                ->prependFile($this->basePath('assets/Bootstrap/v1/js/bootstrap.min.js'))
+                ->prependFile($this->basePath('assets/Stickyfooter/v1/js/stickyfooter.js'))
+                //->prependFile($this->basePath('assets/jquery/v11/js/jquery-ui-1.10.4.custom.min.js'))
+                //->prependFile($this->basePath('assets/jquery/v11/js/jquery.11.js'))
+                ->appendFile($this->basePath("assets/Prettyphoto/v1/js/prettyphoto.js"))
+                ->appendFile($this->basePath("assets/Tools/v1/js/tools.min.js"))
+                ->appendFile($this->basePath("assets/Revolution/v1/js/revolution.min.js"))
+                ->appendFile($this->basePath("assets/Flexslider/v1/js/flexslider.min.js"))
+                ->appendFile($this->basePath('assets/form-validator/v1/js/jquery.form-validator.min.js'))
                 ->appendFile($this->basePath('js/custom.js'))
                 ->minify();
 ?>

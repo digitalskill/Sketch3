@@ -76,12 +76,13 @@ class Sketch
      */
     private function route()
     {
-        list($url,)         = explode("?",trim($_SERVER['REQUEST_URI'],"/"));        
+        $uri                = str_replace($this->getConfig('ignoreFolder'),'',$_SERVER['REQUEST_URI']);
+        list($url,)         = explode("?",trim($uri,"/"));        
         $this->url          = explode("/",trim($url,"/"));
         if($this->url[0]=="index.php"){
             array_shift($this->url);
-        }    
-        if(strtolower($this->url[0])==strtolower($this->getConfig('landingstub'))){
+        }
+        if(count($this->url)==0 || (isset($this->url[0]) && strtolower($this->url[0])==strtolower($this->getConfig('landingstub')))){
             header("location: /");
             exit;
         }
@@ -164,7 +165,7 @@ class Sketch
     {
         $file = trim($file,"/");
         if(strtolower($file)==strtolower($this->getConfig('landingstub'))){
-            return "/";
+            return "/".trim($this->getConfig('addtourl')."/","/");
         }
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         if($this->getConfig('htaccess')==false){
@@ -172,6 +173,7 @@ class Sketch
                 $file = "index.php/".$file;
             }
         }
+        $file = $this->getConfig('addtourl') . $file;
         $domainName = $_SERVER['HTTP_HOST'].'/'.$file;
         return $protocol.$domainName;
     }

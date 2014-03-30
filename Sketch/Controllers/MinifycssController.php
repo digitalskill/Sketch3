@@ -30,12 +30,12 @@ class MinifycssController extends Controller
             foreach ($files as $file) {
                 list($folder,) = explode("css/",$file);
                 $checkcss = explode(".",$file);
-                if (is_file(SKETCH_CORE.DIRECTORY_SEPARATOR."Assets".DIRECTORY_SEPARATOR.$file) && end($checkcss)=="css") {
-                    $folder = \Sketch\Sketch::$instance->basePath("Assets/".$folder);
-                    $this->css .= (str_replace("../",$folder,file_get_contents(SKETCH_CORE.DIRECTORY_SEPARATOR."Assets".DIRECTORY_SEPARATOR.$file)));
+                if (is_file(SKETCH_CORE.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR.$file) && end($checkcss)=="css") {
+                    $folder = \Sketch\Sketch::$instance->basePath("assets/".$folder);
+                    $this->css .= str_replace("../",trim($folder,"/")."/",file_get_contents(SKETCH_CORE.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR.$file));
                 } elseif (is_file(SITE_ROOT.DIRECTORY_SEPARATOR.$file) && end($checkcss)=="css") {
-                    $folder = \Sketch\Sketch::$instance->basePath($folder);
-                    $this->css .= (str_replace("../",$folder,file_get_contents(SITE_ROOT.DIRECTORY_SEPARATOR.$file)));
+                    $folder = trim(\Sketch\Sketch::$instance->getConfig("addtourl"),"/") . "/";
+                    $this->css .= str_replace("../",$folder,file_get_contents(SITE_ROOT.DIRECTORY_SEPARATOR.$file));
                 }
             }
             $this->css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', str_replace(': ', ':',preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->css)));

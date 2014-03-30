@@ -15,8 +15,8 @@ class ApiController extends \Sketch\Helpers\API
         try {
             $request = $_REQUEST;
             $url     = \Sketch\Sketch::$instance->url;
-            unset($url[0]);
-            unset($url[1]);
+            unset($url[0]);         // Remove API
+            unset($url[1]);         // Remove Version
             $request['request'] = join("/",$url);
             $this->startAPI($request,$_SERVER['HTTP_ORIGIN']);
         } catch (\Exception $e) {
@@ -70,18 +70,28 @@ class ApiController extends \Sketch\Helpers\API
         if (is_file(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
             $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
             $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
-            $schemaTool->dropDatabase();
-            $schemaTool->createSchema($classes);
-            include_once(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
-            if (!unlink(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
-                $this->_response("SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
+            try{
+                $schemaTool->dropDatabase();
+                $schemaTool->createSchema($classes);
+                include_once(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
+                if (!unlink(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
+                    $this->_response("SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
+                }
+            }catch(\Exception $e){
+                return $this->_response(array("Cannot Create database: ". $e->getMessage()),500);
+            }catch(\PDOException $e){
+                return $this->_response(array("Cannot Create database: ". $e->getMessage()),500);
             }
+            
         } else {
             try {
                 $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
                 $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
                 $schemaTool->updateSchema($classes);
             } catch (\Exception $e) {
+                return $this->_response(array("Cannot update database: ". $e->getMessage()),500);
+            }
+            catch(\PDOException $e){
                 return $this->_response(array("Cannot update database: ". $e->getMessage()),500);
             }
 

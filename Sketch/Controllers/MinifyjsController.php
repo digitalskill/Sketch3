@@ -29,8 +29,8 @@ class MinifyjsController extends MinifycssController
             $files = explode(":",str_replace("minifyjs/","",join("/",\Sketch\Sketch::$instance->url)));
             foreach ($files as $file) {
                 $checkjs = explode(".",$file);
-                if (is_file(SKETCH_CORE.DIRECTORY_SEPARATOR."Assets".DIRECTORY_SEPARATOR.$file) && end($checkjs)=="js") {
-                    $this->js .= ";". \Sketch\Helpers\JSMin::minify(file_get_contents(SKETCH_CORE.DIRECTORY_SEPARATOR."Assets".DIRECTORY_SEPARATOR.$file));
+                if (is_file(SKETCH_CORE.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR.$file) && end($checkjs)=="js") {
+                    $this->js .= ";". \Sketch\Helpers\JSMin::minify(file_get_contents(SKETCH_CORE.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR.$file));
                 } elseif (is_file(SITE_ROOT.DIRECTORY_SEPARATOR.$file) && end($checkjs)=="js") {
                     $this->js .=";". \Sketch\Helpers\JSMin::minify(file_get_contents(SITE_ROOT.DIRECTORY_SEPARATOR.$file));
                 }

@@ -43,7 +43,11 @@ class Contact extends Plugin
                                         $emailContent);
         $mail           = new Email($to, $from, $subject, $htmlMessage);
         if ($mail->sendEmail()) {
-            header("Location: /Contact/Thankyou");
+            $path = "Contact/Thankyou";
+            if(\Sketch\Sketch::$instance->getConfig('htaccess')==false){
+                $path =  trim(\Sketch\Sketch::$instance->getConfig('addtourl'),"/") . '/index.php/Contact/Thankyou';
+            }
+            header("Location: ".$path);
             exit;
         } else {
             \Sketch\Sketch::$instance->status   = "404";
