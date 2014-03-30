@@ -26,7 +26,7 @@ class Menu
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=3000, nullable=true)
      */
     private $pid;
 

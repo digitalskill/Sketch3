@@ -93,7 +93,6 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
             ->from($this->getClassName(),"materialized_path_entity")
             ->join("materialized_path_entity.page","p")
             ->orderBy("materialized_path_entity.pid","asc")
-            ->addOrderBy("materialized_path_entity.level","asc")
             ->addOrderBy("materialized_path_entity.sort","asc")
             ->where("materialized_path_entity.deleted = 0")
             ->andWhere("p.published <= CURRENT_TIMESTAMP() OR p.published IS NULL")

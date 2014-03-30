@@ -1,8 +1,5 @@
 <?php
-/**
- * Get Menu
- */
-$menuArray = $this->getMenu(1); // 0 = Get No Children - Top Level Only | 1 = get Top Level and their children | 2 = keep going to get all the depths needed
+$menuArray = $this->getMenu(2); // 0 = Get No Children - Top Level Only | 1 = get Top Level and their children | 2 = keep going to get all the depths needed
 ?>
 
 <ul class="nav navbar-nav">
