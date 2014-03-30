@@ -7,7 +7,7 @@ use \Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Sketch\Entities\Repository\MenuRepository")
  * @ORM\Table(name="Menu",indexes={
- *      @ORM\Index(name="sort_idx",     columns={"sort"}),
+ *      @ORM\Index(name="pid_idx",     columns={"pid"}),
  *      @ORM\Index(name="lvl_idx",      columns={"lvl"}),
  *      @ORM\Index(name="onmenu_idx",   columns={"onMenu"}),
  *      @ORM\Index(name="path_idx",     columns={"path"})

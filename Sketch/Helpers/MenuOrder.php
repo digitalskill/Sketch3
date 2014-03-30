@@ -14,7 +14,7 @@ class MenuOrder implements \Doctrine\Common\EventSubscriber
         $entity = $eventArgs->getEntity();
         $em = $eventArgs->getEntityManager();
         if ($entity instanceof \Sketch\Entities\Menu) {
-            $entity->pid = $entity->parent != null ? $entity->parent->pid ."." . $entity->parent->id . "." . $entity->sort : $entity->id;
+            $entity->pid  = $entity->parent != null ? $entity->parent->pid .".". $entity->parent->id .".". $entity->sort : $entity->id;
             $em->persist($entity);
             $em->flush();
         }
