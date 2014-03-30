@@ -1,4 +1,5 @@
 Sketch3
 =======
 
-Sketch updated
+Welcome to Sketch.
+A Full Fledged CMS framework and system for any server environment.
