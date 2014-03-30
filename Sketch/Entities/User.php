@@ -64,6 +64,9 @@ class User
 
     /** @ORM\Column(type="datetime", nullable=true) */
     private $datejoined;
+    
+    /** @ORM\Column(type="integer") */
+    private $subscribed = 0;
 
     /** @ORM\Column(type="integer") */
     private $loginattempts = 0;

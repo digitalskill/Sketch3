@@ -5,14 +5,23 @@ use Sketch\Helpers\Email;
 
 class Contact extends Plugin
 {
-    private $contactForm;
-
+    public $contactForm;
+    public $form           = "Contact.php";
+    public $subject        = "Website Comments";
+    public $emailTemplate  = "index.php";
+    public $thanksPage     = "Contact/Thankyou";
+    public $to;
+    public $from;
+    public $replyto;
     public function __construct()
     {
         parent::__construct();
+        $this->to       = \Sketch\Sketch::$instance->getConfig('siteemail');
+        $this->from     = \Sketch\Sketch::$instance->getConfig('siteemail');
+        $this->replyto  = \Sketch\Sketch::$instance->getConfig('siteemail');
         $formPath = SITE_ROOT.DIRECTORY_SEPARATOR.
                     \Sketch\Sketch::$instance->getConfig("themePath").
-                    DIRECTORY_SEPARATOR."forms".DIRECTORY_SEPARATOR."Contact.php";
+                    DIRECTORY_SEPARATOR."forms".DIRECTORY_SEPARATOR.$this->form;
 
         $this->contactForm   = new \Sketch\Helpers\Form($formPath,$_POST);
         if (isset($_POST['email']) && isset($_POST['hp']) && $_POST['hp']=='') {
@@ -20,33 +29,45 @@ class Contact extends Plugin
                 $this->sendEmail();
             }
         }
-        \Sketch\Sketch::$instance->setForm("contact",$this->contactForm);
+        \Sketch\Sketch::$instance->setForm(str_replace(".php",'',$this->form),$this->contactForm);
     }
-
-    private function sendEmail()
+    
+    public function prepareMessage($data){
+        $messsage = '<table class="twelve columns">';
+        foreach($data as $key => $value){
+            if($key != "hp"){
+                $message .= '<tr><td class="three sub-columns">'.$key.'</td>';
+                $message .= '<td class="nine sub-columns last">'.$value.'</td>';
+                $message .= '<td class="expander"></td></tr>';
+            }
+        }
+        $message .= '</table>';
+        return $message;
+    }
+    
+    public function sendEmail()
     {
         $emailContent   = file_get_contents(SITE_ROOT.DIRECTORY_SEPARATOR.
                             \Sketch\Sketch::$instance->getConfig("themePath").
-                            DIRECTORY_SEPARATOR."emails".DIRECTORY_SEPARATOR."index.php");
+                            DIRECTORY_SEPARATOR."emails".DIRECTORY_SEPARATOR.$this->emailTemplate);
 
         $data           = $this->contactForm->getValues();
-        $data['message']= "<h2>Hello from ".$data['name']."</h2><p>The contact form has been filled in and this is what ".$data['name']." has said: </p>".$data['message'];
-        $to             = \Sketch\Sketch::$instance->getConfig('siteemail');
-        $subject        = 'Welcome to Sketch';
-        $from           = $data['email'];
-        $footerlinks    = "";
+        $message        = $this->prepareMessage($data);
+        $to             = $this->to;
+        $subject        = $this->subject;
+        $from           = $this->from;
+        $replyto        = $this->replyto;
+        $footerlinks    = '<p><a href="'.\Sketch\Sketch::$instance->basePath("Contact\Unsubscribe").'"><unsubscribe>Unsubscribe</unsubscribe></a></p>';
         $actionlink     = "<p>Visit our site <a href='".\Sketch\Sketch::$instance->basePath()."'>".\Sketch\Sketch::$instance->getConfig('sitename')."</a></p>";
         $htmlMessage    = str_replace(array("#MESSAGE#","#ACTIONLINK#","#SITEPHONE#","#SITEEMAIL#","#FOOTERLINKS#","#SUBJECT#","#DATE#","#SITELOGO#"),
-                                        array($data['message'],$actionlink,\Sketch\Sketch::$instance->getConfig('sitephone'),
+                                        array($message,$actionlink,\Sketch\Sketch::$instance->getConfig('sitephone'),
                                                 \Sketch\Sketch::$instance->getConfig('siteemail'),$footerlinks,
                                         $subject,date("j, F Y h:i"),\Sketch\Sketch::$instance->getConfig('sitelogo')),
                                         $emailContent);
         $mail           = new Email($to, $from, $subject, $htmlMessage);
+        $mail->addReplyTo($replyto);
         if ($mail->sendEmail()) {
-            $path = "Contact/Thankyou";
-            if(\Sketch\Sketch::$instance->getConfig('htaccess')==false){
-                $path =  trim(\Sketch\Sketch::$instance->getConfig('addtourl'),"/") . '/index.php/Contact/Thankyou';
-            }
+            $path = \Sketch\Sketch::$instance->basePath($this->thanksPage);
             header("Location: ".$path);
             exit;
         } else {

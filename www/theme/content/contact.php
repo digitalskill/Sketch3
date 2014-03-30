@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <?php echo $this->form("contact"); ?>
+                <?php echo $this->form("Contact"); ?>
             </div>
             <div class="col-md-6">
                 <div class="map-container">

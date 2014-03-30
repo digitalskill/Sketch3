@@ -1,6 +1,6 @@
 <div class="footer padd">
     <div class="container">
-        <div class="row hidden">
+        <div class="row">
             <div class="col-md-3 col-sm-6">
                 <div class="footer-widget">
                     <div class="logo">
@@ -39,15 +39,7 @@
                 <div class="footer-widget">
                     <h4>Email Us Today</h4>
                     <p>Fill out the form below to contact <?php echo $this->getSiteValues('sitename'); ?></p>
-                    <form role="form" method="post">
-                            <div class="form-group">
-                                    <input class="form-control" type="text" placeholder="Your name" />
-                            </div>
-                            <div class="form-group">
-                                    <input class="form-control" type="email" placeholder="Your email" />
-                            </div>
-                            <button class="btn btn-danger" type="button">Subscribe</button>
-                    </form>
+                    <?php echo $this->form("Subscribe"); ?>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">

@@ -228,4 +228,74 @@ $shop->site          = $site;
 $this->entityManager->persist($shopPage);
 $this->entityManager->persist($shop);
 
+$subscribe = new \Sketch\Entities\Menu();
+$subscribe->setTitle("Subscribe");
+$subscribe->sort            = 1;
+$subscribe->setParent($contact);
+$subscribe->menuimage       = "img/nav-menu/nav5.jpg";
+$subscribe->menuclass       = "img-responsive";
+$subscribePage = new \Sketch\Entities\Page();
+$subscribePage->title       = "Subscribe";
+$subscribePage->plugin      = "Subscribe";
+$subscribePage->description = "Welcome to Sketch";
+$subscribePage->content     = "<h1>Thanks for subscribing</h1><p>We haved added you email to our contacts database</p>";
+$subscribePage->edit        = "<h1>Thanks for subscribing</h1><p>We haved added you email to our contacts database</p>";
+$subscribe->page            = $subscribePage;
+$subscribe->site            = $site;
+
+$this->entityManager->persist($subscribePage);
+$this->entityManager->persist($subscribe);
+
+$verify = new \Sketch\Entities\Menu();
+$verify->setTitle("Verify");
+$verify->sort            = 2;
+$verify->setParent($contact);
+$verify->menuimage       = "img/nav-menu/nav5.jpg";
+$verify->menuclass       = "img-responsive";
+$verifyPage = new \Sketch\Entities\Page();
+$verifyPage->plugin      = "Subscribe";
+$verifyPage->title       = "Verify";
+$verifyPage->description = "Verify your email address";
+$verifyPage->content     = "<h1>Please verify your email address</h1><p>For us to add you to our fantastic maillist - we need you to verify your email address first.</p><p>Please check your inbox and follow its instuctions to contine</p>";
+$verifyPage->edit        = $verifyPage->content;
+$verify->page            = $verifyPage;
+$verify->site            = $site;
+
+$this->entityManager->persist($verifyPage);
+$this->entityManager->persist($verify);
+
+$failed = new \Sketch\Entities\Menu();
+$failed->setTitle("Failed");
+$failed->sort            = 0;
+$failed->setParent($verify);
+$failed->menuimage       = "img/nav-menu/nav5.jpg";
+$failed->menuclass       = "img-responsive";
+$failedPage = new \Sketch\Entities\Page();
+$failedPage->title       = "Verify";
+$failedPage->description = "Verify your email address";
+$failedPage->content     = "<h1>Sorry - That email and link combination cannot be found</h1><p>Please try to subscribe again. You must respond to the link within 24 hours.</p>";
+$failedPage->edit        = $failedPage->content;
+$failed->page            = $failedPage;
+$failed->site            = $site;
+
+$this->entityManager->persist($failedPage);
+$this->entityManager->persist($failed);
+
+$unsubscribe = new \Sketch\Entities\Menu();
+$unsubscribe->sort            = 3;
+$unsubscribe->setParent($contact);
+$unsubscribe->menuimage       = "img/nav-menu/nav5.jpg";
+$unsubscribe->menuclass       = "img-responsive";
+$unsubscribePage = new \Sketch\Entities\Page();
+$unsubscribePage->plugin      = "UnSubscribe";
+$unsubscribePage->title       = "Unsubscribe";
+$unsubscribePage->description = "Unsubscribe from website";
+$unsubscribePage->content     = "<h1>We're sorry to see you go...</h1><p>You can always subscibe to our mailing list again..</p>";
+$unsubscribePage->edit        = $unsubscribePage->content;
+$unsubscribe->page            = $unsubscribePage;
+$unsubscribe->site            = $site;
+
+$this->entityManager->persist($unsubscribePage);
+$this->entityManager->persist($unsubscribe);
+
 $this->entityManager->flush();

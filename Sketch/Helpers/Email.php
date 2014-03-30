@@ -55,7 +55,7 @@ class Email extends \Swift_Message
         if ($textMessage == '') {
             $textMessage = strip_tags(str_replace(array("</p>","</li>","<br />","</h1>","<h2>","</h3>","</h4>"),"\r\n",$htmlMessage));
         }
-        $data               = array();
+        $data               = $_REQUEST;
         $data["sendto"]     = $to;
         $data["sentfrom"]   = $from;
         $data["subject"]    = $subject;
@@ -66,11 +66,11 @@ class Email extends \Swift_Message
         $this->em           = \Sketch\Sketch::$instance->getEntityManager()->entityManager;
         $this->emailBackup  = $this->em->getRepository("Sketch\Entities\EmailMessage")->add($data);
         $this->createTransport();
-        $this->setSubject($subject)->setFrom(array($from))
-                ->setTo(array($to))
+        $this->setSubject($subject)
+                ->setFrom($from)
+                ->setTo($to)
                 ->setBody($textMessage)
                 ->addPart($htmlMessage, 'text/html');
-
         return $this;
     }
 

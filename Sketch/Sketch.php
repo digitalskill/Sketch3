@@ -108,7 +108,6 @@ class Sketch
         if (!Helpers\Database::$instance) {
             Helpers\Database::run();
         }
-
         return Helpers\Database::$instance;
     }
 
@@ -205,7 +204,17 @@ class Sketch
      */
     public function getForm($formname)
     {
-        return isset($this->forms[$formname]) ?  $this->forms[$formname] : false;
+        if(isset($this->forms[$formname])){
+            return $this->forms[$formname];
+        }else{
+            $pluginPath = "\Sketch\Plugins\\".$formname;
+            if(class_exists($pluginPath)){
+                new $pluginPath();
+                return $this->forms[$formname];
+            }else{
+                return false;
+            }
+        }
     }
 
     public function setForm($formname,$form)
