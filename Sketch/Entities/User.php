@@ -74,6 +74,12 @@ class User
     /** @ORM\Column(length=80) */
     private $type;      // Admin | Member | Contributor
 
+    /** @ORM\Column(type="datetime", nullable=true) */
+    private $tokenExpiry;
+    
+    /** @ORM\Column(length=255, nullable=true) */
+    private $token;
+    
     /**
      * @ORM\ManyToOne(targetEntity="Wishlist")
      */

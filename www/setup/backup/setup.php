@@ -354,4 +354,22 @@ $unsubscribe4->site            = $site;
 $this->entityManager->persist($unsubscribePage4);
 $this->entityManager->persist($unsubscribe4);
 
+
+$underhome = new \Sketch\Entities\Menu();
+$underhome->sort            = 1;
+$underhome->setTitle("UnderHome");
+$underhome->setParent($menu);
+$underhome->menuimage       = "img/nav-menu/nav5.jpg";
+$underhome->menuclass       = "img-responsive";
+$underhomePage = new \Sketch\Entities\Page();
+$underhomePage->title       = "Under home";
+$underhomePage->description = "Under Home page";
+$underhomePage->content     = "<h1>We're sorry to see you go...</h1><p>You can always subscibe to our mailing list again..</p>";
+$underhomePage->edit        = $underhomePage->content;
+$underhome->page            = $underhomePage;
+$underhome->site            = $site;
+
+$this->entityManager->persist($underhomePage);
+$this->entityManager->persist($underhome);
+
 $this->entityManager->flush();

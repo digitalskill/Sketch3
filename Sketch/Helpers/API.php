@@ -39,7 +39,9 @@ abstract class API
     public function process($request)
     {
         header("Access-Control-Allow-Orgin: *");
-        header("Access-Control-Allow-Methods: *");
+        header("Access-Control-Allow-Credentials: true");
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
         header("Content-Type: application/json");
 
         $this->args = explode('/', rtrim($request, '/'));
@@ -55,10 +57,14 @@ abstract class API
             } elseif ($_SERVER['HTTP_X_HTTP_METHOD'] == 'PUT') {
                 $this->method = 'PUT';
             } else {
-                throw new Exception("Unexpected Header");
+                if($this->method == 'OPTIONS'){
+                    header( "HTTP/1.1 200 OK" );
+                    exit();
+                }else{
+                    throw new Exception("Unexpected Header");
+                }
             }
         }
-
         switch ($this->method) {
             case 'DELETE':
             case 'POST':
@@ -75,14 +81,35 @@ abstract class API
                 $this->_response('Invalid Method', 405);
                 break;
         }
+        
+        $headervars = \apache_request_headers();
+        if(isset($headervars['token'])){
+            $this->request['token'] = $headervars['token'];
+        }
+        if(isset($headervars['login'])){
+            $this->request['login'] = $headervars['login'];
+        }
+        if(isset($headervars['password'])){
+            $this->request['password'] = $headervars['password'];
+        }
+        
     }
     public function processAPI()
     {
         if ((int) method_exists($this, $this->endpoint) > 0) {
             return $this->_response($this->{$this->endpoint}($this->args));
         }
-
-        return $this->_response("No Endpoint: ". $this->endpoint, 404);
+        try{
+            $endpoint = "\Sketch\Entities\\".$this->endpoint;
+            $this->class = new $endpoint();
+            if(method_exists($this->class,"processAPI")){
+                return $this->class->processAPI($this->args);
+            }else{
+                return $this->_response("No Endpoint Method", 404);
+            }
+        }catch(\Exception $e){
+            return $this->_response("No Endpoint", 404);
+        }
     }
 
     public function _response($data, $status = 200)
@@ -110,6 +137,7 @@ abstract class API
     {
         $status = array(
             200 => 'OK',
+            401 => 'Unauthorized',
             404 => 'Not Found',
             405 => 'Method Not Allowed',
             500 => 'Internal Server Error',
