@@ -57,10 +57,10 @@ abstract class API
             } elseif ($_SERVER['HTTP_X_HTTP_METHOD'] == 'PUT') {
                 $this->method = 'PUT';
             } else {
-                if($this->method == 'OPTIONS'){
+                if ($this->method == 'OPTIONS') {
                     header( "HTTP/1.1 200 OK" );
                     exit();
-                }else{
+                } else {
                     throw new Exception("Unexpected Header");
                 }
             }
@@ -81,33 +81,33 @@ abstract class API
                 $this->_response('Invalid Method', 405);
                 break;
         }
-        
+
         $headervars = \apache_request_headers();
-        if(isset($headervars['token'])){
+        if (isset($headervars['token'])) {
             $this->request['token'] = $headervars['token'];
         }
-        if(isset($headervars['login'])){
+        if (isset($headervars['login'])) {
             $this->request['login'] = $headervars['login'];
         }
-        if(isset($headervars['password'])){
+        if (isset($headervars['password'])) {
             $this->request['password'] = $headervars['password'];
         }
-        
+
     }
     public function processAPI()
     {
         if ((int) method_exists($this, $this->endpoint) > 0) {
             return $this->_response($this->{$this->endpoint}($this->args));
         }
-        try{
+        try {
             $endpoint = "\Sketch\Entities\\".$this->endpoint;
             $this->class = new $endpoint();
-            if(method_exists($this->class,"processAPI")){
+            if (method_exists($this->class,"processAPI")) {
                 return $this->class->processAPI($this->args);
-            }else{
+            } else {
                 return $this->_response("No Endpoint Method", 404);
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->_response("No Endpoint", 404);
         }
     }

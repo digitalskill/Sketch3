@@ -335,7 +335,6 @@ $unsubscribe3->site            = $site;
 $this->entityManager->persist($unsubscribePage3);
 $this->entityManager->persist($unsubscribe3);
 
-
 $unsubscribe4 = new \Sketch\Entities\Menu();
 $unsubscribe4->sort            = 0;
 $unsubscribe4->setTitle("Unsubscribe4");
@@ -353,7 +352,6 @@ $unsubscribe4->site            = $site;
 
 $this->entityManager->persist($unsubscribePage4);
 $this->entityManager->persist($unsubscribe4);
-
 
 $underhome = new \Sketch\Entities\Menu();
 $underhome->sort            = 1;

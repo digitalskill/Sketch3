@@ -31,20 +31,22 @@ class Contact extends Plugin
         }
         \Sketch\Sketch::$instance->setForm(str_replace(".php",'',$this->form),$this->contactForm);
     }
-    
-    public function prepareMessage($data){
+
+    public function prepareMessage($data)
+    {
         $message = '<table class="twelve columns">';
-        foreach($data as $key => $value){
-            if($key != "hp"){
+        foreach ($data as $key => $value) {
+            if ($key != "hp") {
                 $message .= '<tr><td class="three sub-columns">'.$key.'</td>';
                 $message .= '<td class="nine sub-columns last">'.$value.'</td>';
                 $message .= '<td class="expander"></td></tr>';
             }
         }
         $message .= '</table>';
+
         return $message;
     }
-    
+
     public function sendEmail()
     {
         $emailContent   = file_get_contents(SITE_ROOT.DIRECTORY_SEPARATOR.
@@ -74,11 +76,12 @@ class Contact extends Plugin
             \Sketch\Sketch::$instance->errors[] = "Cannot send Email";
         }
     }
-    
-    public function sendAdminEmail($subject,$from,$message){
+
+    public function sendAdminEmail($subject,$from,$message)
+    {
         $emailContent   = file_get_contents(SITE_ROOT.DIRECTORY_SEPARATOR.
                                     \Sketch\Sketch::$instance->getConfig("themePath").
-                                    DIRECTORY_SEPARATOR."emails".DIRECTORY_SEPARATOR."adminemail.php");   
+                                    DIRECTORY_SEPARATOR."emails".DIRECTORY_SEPARATOR."adminemail.php");
         $htmlMessage    = str_replace(array("#MESSAGE#","#SUBJECT#","#DATE#","#SITELOGO#"),
                                 array($message,
                                         $subject,date("j, F Y h:i"),
@@ -86,13 +89,11 @@ class Contact extends Plugin
                                         $emailContent);
 
         $adminEmail             = new Email(\Sketch\Sketch::$instance->getConfig('siteemail'),
-                                            \Sketch\Sketch::$instance->getConfig('siteemail'), 
-                                            $subject, 
+                                            \Sketch\Sketch::$instance->getConfig('siteemail'),
+                                            $subject,
                                             $htmlMessage);
         $adminEmail->addReplyTo($from);
         $adminEmail->sendEmail();
-        
-        
-        
+
     }
 }

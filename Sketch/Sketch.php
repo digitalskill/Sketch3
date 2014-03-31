@@ -30,7 +30,7 @@ class Sketch
         session_start();                        // Start the Session for the page
         self::$instance         = $this;        // Record Instance of Sketch
         $this->config           = $config;      // Save configuration
-        if(isset($this->config['timezone'])){
+        if (isset($this->config['timezone'])) {
             date_default_timezone_set($this->config['timezone']);
         }
         $this->clearCache();                    // Clear the cache if asked for
@@ -80,12 +80,12 @@ class Sketch
     private function route()
     {
         $uri                = str_replace($this->getConfig('ignoreFolder'),'',$_SERVER['REQUEST_URI']);
-        list($url,)         = explode("?",trim($uri,"/"));        
+        list($url,)         = explode("?",trim($uri,"/"));
         $this->url          = explode("/",trim($url,"/"));
-        if($this->url[0]=="index.php"){
+        if ($this->url[0]=="index.php") {
             array_shift($this->url);
         }
-        if(count($this->url)==0 || (isset($this->url[0]) && strtolower($this->url[0])==strtolower($this->getConfig('landingstub')))){
+        if (count($this->url)==0 || (isset($this->url[0]) && strtolower($this->url[0])==strtolower($this->getConfig('landingstub')))) {
             header("location: /");
             exit;
         }
@@ -111,6 +111,7 @@ class Sketch
         if (!Helpers\Database::$instance) {
             Helpers\Database::run();
         }
+
         return Helpers\Database::$instance;
     }
 
@@ -166,17 +167,18 @@ class Sketch
     public function basePath($file='')
     {
         $file = trim($file,"/");
-        if(strtolower($file)==strtolower($this->getConfig('landingstub'))){
+        if (strtolower($file)==strtolower($this->getConfig('landingstub'))) {
             return "/".trim($this->getConfig('addtourl')."/","/");
         }
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-        if($this->getConfig('htaccess')==false){
-            if(!is_file(SITE_ROOT.DIRECTORY_SEPARATOR.$file)){
+        if ($this->getConfig('htaccess')==false) {
+            if (!is_file(SITE_ROOT.DIRECTORY_SEPARATOR.$file)) {
                 $file = "index.php/".$file;
             }
         }
         $file = $this->getConfig('addtourl') . $file;
         $domainName = $_SERVER['HTTP_HOST'].'/'.$file;
+
         return $protocol.$domainName;
     }
 
@@ -207,14 +209,15 @@ class Sketch
      */
     public function getForm($formname)
     {
-        if(isset($this->forms[$formname])){
+        if (isset($this->forms[$formname])) {
             return $this->forms[$formname];
-        }else{
+        } else {
             $pluginPath = "\Sketch\Plugins\\".$formname;
-            if(class_exists($pluginPath)){
+            if (class_exists($pluginPath)) {
                 new $pluginPath();
+
                 return $this->forms[$formname];
-            }else{
+            } else {
                 return false;
             }
         }

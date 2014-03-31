@@ -71,6 +71,7 @@ class Email extends \Swift_Message
                 ->setTo($to)
                 ->setBody($textMessage)
                 ->addPart($htmlMessage, 'text/html');
+
         return $this;
     }
 

@@ -64,7 +64,7 @@ class User
 
     /** @ORM\Column(type="datetime", nullable=true) */
     private $datejoined;
-    
+
     /** @ORM\Column(type="integer") */
     private $subscribed = 0;
 
@@ -76,10 +76,10 @@ class User
 
     /** @ORM\Column(type="datetime", nullable=true) */
     private $tokenExpiry;
-    
+
     /** @ORM\Column(length=255, nullable=true) */
     private $token;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Wishlist")
      */

@@ -26,7 +26,7 @@ class IndexController extends Controller
     {
         $em     = \Sketch\Sketch::$instance->getEntityManager()
                     ->entityManager;
-        $stub   = trim(join("/",\Sketch\Sketch::$instance->url));       // Get Landing page or sub page        
+        $stub   = trim(join("/",\Sketch\Sketch::$instance->url));       // Get Landing page or sub page
         if ($stub == "") {
             $p      = $em->getRepository("Sketch\Entities\Menu")
                     ->getLandingPage($_SERVER['HTTP_HOST']);            // Get Landing Page
@@ -37,7 +37,7 @@ class IndexController extends Controller
         if (!$p) {
             $p = $em->getRepository("Sketch\Entities\Menu")
                     ->getHoldingPage($_SERVER['HTTP_HOST']);
-            if (!$p) {                
+            if (!$p) {
                 \Sketch\Sketch::$instance->errors[] = "Page not Found";
                 \Sketch\Sketch::$instance->status   = 404;
             }

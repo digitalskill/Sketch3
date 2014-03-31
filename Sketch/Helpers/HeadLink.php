@@ -48,6 +48,7 @@ class HeadLink
                         array(str_replace('minifycss','',$base),$base2),"",
                     join(":",$files)).'" media="'.$media.'" rel="stylesheet" type="text/css">';
         };
+
         return $this;
     }
 }

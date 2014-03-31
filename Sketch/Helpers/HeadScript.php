@@ -50,6 +50,7 @@ class HeadScript
                         array(str_replace('minifyjs','',$base),$base2),"",
                     join(":",$files)).'"></script>';
         };
+
         return $this;
     }
 }

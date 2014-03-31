@@ -1,6 +1,6 @@
 <?php
 $cta = $this->getPageBlocks(2); // Get Gallery Blocks
-$num      = (int)$this->imagesAccross > 0 ?  $this->imagesAccross : 1 ;
+$num      = (int) $this->imagesAccross > 0 ?  $this->imagesAccross : 1 ;
 $iAccross = 12 / $num;
 if (count($cta) > 0) { ?>
 <div class="gallery">
