@@ -37,8 +37,8 @@
             <div class="clearfix visible-sm"></div>
             <div class="col-md-3 col-sm-6">
                 <div class="footer-widget">
-                    <h4>Email Us Today</h4>
-                    <p>Fill out the form below to contact <?php echo $this->getSiteValues('sitename'); ?></p>
+                    <h4>Subscribe with Us Today</h4>
+                    <p>Fill out the form below to Subscribe to our mail-list</p>
                     <?php echo $this->form("Subscribe"); ?>
                 </div>
             </div>

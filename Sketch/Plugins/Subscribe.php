@@ -22,7 +22,7 @@ class Subscribe extends Contact
         if (!isset($_GET['verifykey'])) {
             $this->to           = $_POST['email'];
             $this->contactForm  = $this;
-            $this->thanksPage   = "Contact/Verify";
+            $this->thanksPage   = "Contact/Subscribe/Verify";
             $this->subject      = "Please verify your email address";
         } else {
             // Get person from the database
@@ -48,7 +48,7 @@ class Subscribe extends Contact
                 ));
                 $this->sendAdminEmail("A new subscriber", $details['email'], $message);
             } else {
-                header("location: /Contact/Verify/Failed");
+                header("location: /Contact/Subscribe/Verify/Failed");
                 exit;
             }
         }

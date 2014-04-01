@@ -57,7 +57,7 @@ class Email extends \Swift_Message
         }
         $data               = $_REQUEST;
         $data["sendto"]     = $to;
-        $data["sentfrom"]   = $from;
+        $data["sentfrom"]   = \Sketch\Sketch::$instance->getConfig('sitefromemail') != '' ? \Sketch\Sketch::$instance->getConfig('sitefromemail') : $from;
         $data["subject"]    = $subject;
         $data["datesent"]   = new \DateTime();
         $data["message"]    = $htmlMessage;

@@ -34,5 +34,5 @@ return array(
     // Enable if the server is not gzipping - most do.
     'compress'          => false,   // Enable this to have php gzip the page - not needed if the server gzips already.
 
-    'timezone'          => 'Pacific/Auckland', // Force the server to the right timezone - delete if not needed
+    //'timezone'          => 'Pacific/Auckland', // Force sketch to a timezone - uncomment if not needed
 );

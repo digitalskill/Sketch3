@@ -30,7 +30,7 @@ class Sketch
         session_start();                        // Start the Session for the page
         self::$instance         = $this;        // Record Instance of Sketch
         $this->config           = $config;      // Save configuration
-        if (isset($this->config['timezone'])) {
+        if (isset($this->config['timezone']) && $this->config['timezone'] != '') {
             date_default_timezone_set($this->config['timezone']);
         }
         $this->clearCache();                    // Clear the cache if asked for

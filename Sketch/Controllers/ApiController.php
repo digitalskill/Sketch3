@@ -93,6 +93,13 @@ class ApiController extends \Sketch\Helpers\API
     public function startAPI(array $request, $origin)
     {
         parent::process($request['request']);
+        if($this->request['setup']=="setup" 
+                && $this->endpoint=="deploy"  
+                && is_file(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php") 
+                && $this->method=="POST"){
+            echo $this->deploy();
+            die();
+        }
         if (!$this->authenticate()) {
             echo $this->_response("Not Authorised",401);
             die();
@@ -102,8 +109,9 @@ class ApiController extends \Sketch\Helpers\API
 
     public function deploy($args='')
     {
-        if($this->User->type=="Admin"){
-            if (is_file(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
+        $setupFile = SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php";
+        if($this->User->type=="Admin" || (isset($this->request['setup']) && $this->request['setup']=="setup" && is_file($setupFile) && $this->endpoint == "deploy")){
+            if (is_file($setupFile)) {
                 $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
                 $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
                 try {

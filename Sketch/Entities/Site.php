@@ -23,6 +23,9 @@ class Site
 
     /** @ORM\Column(length=255, nullable=true) */
     private $siteemail;
+    
+    /** @ORM\Column(length=255, nullable=true) */
+    private $sitefromemail;
 
     /** @ORM\Column(length=15, nullable=true) */
     private $sitephone;
