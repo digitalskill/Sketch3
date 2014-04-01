@@ -5,7 +5,12 @@ class ApiController extends \Sketch\Helpers\API
 {
     protected $User;
     protected $em;
-
+    protected $roles = ["Admin"         =>  ["GET","POST","PUT","DELETE"],
+                        "Member"        =>  [""],
+                        "Viewer"        =>  ["GET"],
+                        "Contributor"   =>  ["GET","POST","PUT"],
+                        "Editor"        =>  ['GET',"POST"]
+                ];
     /**
      *
      */
@@ -35,11 +40,15 @@ class ApiController extends \Sketch\Helpers\API
         $user           = false;
         $browserDetails = $_SERVER['HTTP_USER_AGENT'];
         $browserDetails .= $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-        $token          = sha1($browserDetails.$_SERVER['REMOTE_ADDR']);
         if (isset($this->request['token'])) {         // Get token from database
-            $user = $this->entityManager->getRepository("Sketch\Entities\User")->getToken($this->request['token']);
-            if (!$user || $this->request['token'] != $token || $user->token != $token) {  // Lets be really aggressive
+            $user           = $this->entityManager->getRepository("Sketch\Entities\User")->getToken($this->request['token']);
+            $userid         = $user != null? $user->id : '';
+            $tokenExpiry    = $user != null? $user->tokenExpiry->format('dmyhis') : '';
+            $token          = sha1($userid.$browserDetails.$_SERVER['REMOTE_ADDR']);
+            if (!$user || $this->request['token'] != $token || $user->token != $token || $_SESSION['ch'] != sha1($tokenExpiry.$token)) {  // Lets be really aggressive
                 echo $this->_response("Not Authorised",401);
+                unset($_SESSION['ch']);
+                session_destroy();
                 die();
             } else {
                 $user->tokenExpiry  = new \DateTime();
@@ -47,26 +56,32 @@ class ApiController extends \Sketch\Helpers\API
                 $this->entityManager->persist($user);       // Update the token Expiry time
                 $this->entityManager->flush();              // Commit the new time to the db
                 $this->User = $user;
-
                 return true;                                // User is Valid
             }
         } elseif (isset($this->request['login']) && isset($this->request['password'])) {
             $user = $this->entityManager->getRepository("Sketch\Entities\User")->login($this->request['login'],$this->request['password']);
             if (!$user) {
                 echo $this->_response("Wrong login credentials provided",401);
+                unset($_SESSION['ch']);
+                session_destroy();
                 die();
             } else {
-                $user->token        = $token;
                 $user->tokenExpiry  = new \DateTime();
                 $user->tokenExpiry->setTimestamp(strtotime('+20 minutes'));
+                
+                $userid         = $user != null? $user->id : '';
+                $tokenExpiry    = $user != null? $user->tokenExpiry->format('dmyhis') : '';
+                $token          = sha1($userid.$browserDetails.$_SERVER['REMOTE_ADDR']);
+                $user->token        = $token;
                 $this->entityManager->persist($user);       // Update the token Expiry time
                 $this->entityManager->flush();              // Commit the new time to the db
                 $this->User = $user;
+                
+                $_SESSION['ch']     = sha1($tokenExpiry.$token);
                 echo $this->_response(["token"=>$token],200);
                 die();
             }
         }
-
         return false;
     }
 
@@ -78,10 +93,6 @@ class ApiController extends \Sketch\Helpers\API
     public function startAPI(array $request, $origin)
     {
         parent::process($request['request']);
-        if ($this->endpoint == 'deploy' && isset($this->request['token']) && $this->request['token'] == 'sketchstart') {
-            echo $this->deploy();
-            die();
-        }
         if (!$this->authenticate()) {
             echo $this->_response("Not Authorised",401);
             die();
@@ -91,47 +102,47 @@ class ApiController extends \Sketch\Helpers\API
 
     public function deploy($args='')
     {
-        if (is_file(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
-            $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
-            $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
-            try {
-                $schemaTool->dropDatabase();
-                $schemaTool->createSchema($classes);
-                include_once(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
-                if (!unlink(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
-                    return $this->_response("SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
-                }
-            } catch (\Exception $e) {
-                return $this->_response(array("Cannot Create database: ". $e->getMessage()),500);
-            } catch (\PDOException $e) {
-                return $this->_response(array("Cannot Create database: ". $e->getMessage()),500);
-            }
-
-        } else {
-            try {
+        if($this->User->type=="Admin"){
+            if (is_file(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
                 $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
                 $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
-                $schemaTool->updateSchema($classes);
-            } catch (\Exception $e) {
-                return $this->_response(array("Cannot update database: ". $e->getMessage()),500);
-            } catch (\PDOException $e) {
-                return $this->_response(array("Cannot update database: ". $e->getMessage()),500);
+                try {
+                    $schemaTool->dropDatabase();
+                    $schemaTool->createSchema($classes);
+                    include_once(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
+                    if (!unlink(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php")) {
+                        return $this->_response("SITE SETUP - PLEASE DELETE THE SETUP FILE: ".SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php");
+                    }
+                } catch (\Exception $e) {
+                    return $this->_response("Cannot Create database: ". $e->getMessage(),500);
+                }
+            } else {
+                try {
+                    $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
+                    $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
+                    $schemaTool->updateSchema($classes);
+                } catch (\Exception $e) {
+                    return $this->_response("Cannot update database: ". $e->getMessage(),500);
+                }
+                return $this->_response("Database Entities Updated",200);
             }
-
-            return $this->_response(array("Database Entities Updated"),200);
+            return $this->_response("Site setup Complete",200);
         }
-
-        return $this->_response(array("Site setup Complete"),200);
+        return $this->_response("Not Authorised",401);
     }
 
     public function updateDatabase()
     {
-        $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
-        $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
-        try {
-            $schemaTool->updateSchema($classes);
-        } catch (\Exception $e) {
-            return $this->_response("Cannot update database: ". $e->getMessage(),500);
+        if($this->User->type=="Admin"){
+            $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
+            $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();
+            try {
+                $schemaTool->updateSchema($classes);
+            } catch (\Exception $e) {
+                return $this->_response("Cannot update database: ". $e->getMessage(),500);
+            }
+        }else{
+            return $this->_response("Not Authorised",401); 
         }
     }
 }
