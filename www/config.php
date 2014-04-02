@@ -28,7 +28,7 @@ return array(
     'landingstub'       => "home",
 
     // Cache
-    'cache'             => false,   // Set to true once finished to cache javascript files
+    'cache'             => true,   // Set to true once finished to cache javascript files
     'cacheseconds'      => 31536000,
 
     // Enable if the server is not gzipping - most do.

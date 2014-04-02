@@ -92,6 +92,9 @@ trait Crud
         $cmf                = $this->_em->getMetadataFactory();
         $mapping            = $cmf->getMetadataFor($this->getClassName());  // Get Mapping Data
         foreach ($data as $key => $value) {
+            if($key=="password"){
+                $value = \password_hash($value,PASSWORD_DEFAULT);
+            }
             if (isset($mapping->fieldMappings[$key])) {
                 $obj->$key = $this->prepareData($mapping->fieldMappings[$key],$value);
             } elseif (isset($mapping->fieldMappings['extensions'])) {

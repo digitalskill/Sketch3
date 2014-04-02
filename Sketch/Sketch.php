@@ -35,28 +35,6 @@ class Sketch
         }
         $this->clearCache();                    // Clear the cache if asked for
         $i = $this->route();                    // Route the URL
-        $this->endMemory        = memory_get_usage(false) - START_MEMORY;
-        $this->benchmark();
-    }
-
-    private function benchmark()
-    {
-        if (isset($_GET['benchmark'])) { ?>
-            <script type="text/javascript">
-                try {
-                console.info("PHP Processing time:  <?php echo number_format((microtime(true)-START_TIME),3); ?> seconds");
-                console.info("Sketch Start Memory: <?php echo number_format(START_MEMORY/1048576,10); ?> MB");
-                console.info("Sketch End Memory: <?php echo number_format($this->endMemory/1048576,10); ?> MB");
-                <?php if (function_exists("memory_get_peak_usage")) { ?>
-                        console.info("Peak PHP Memory used: <?php echo number_format(memory_get_peak_usage()/1048576,10); ?> MB");
-                <?php } ?>
-                <?php foreach ($this->benchMarkItems as $k => $v) {?>
-                    console.info("<?php echo $k;?>: <?php echo number_format($v,3); ?> Seconds");
-                <?php } ?>
-                } catch (e) {}
-            </script>
-        <?php
-        }
     }
 
     /**
@@ -90,6 +68,8 @@ class Sketch
             exit;
         }
         switch (strtolower(trim($this->url[0]))) {
+            case "admin":
+                return $this->loadController("Admin");
             case "assets":
                 return $this->loadController("Assets");
             case "api":

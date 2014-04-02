@@ -110,7 +110,7 @@ class ApiController extends \Sketch\Helpers\API
     public function deploy($args='')
     {
         $setupFile = SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php";
-        if($this->User->type=="Admin" || (isset($this->request['setup']) && $this->request['setup']=="setup" && is_file($setupFile) && $this->endpoint == "deploy")){
+        if(($this->User && $this->User->type=="Admin") || (isset($this->request['setup']) && $this->request['setup']=="setup" && is_file($setupFile) && $this->endpoint == "deploy")){
             if (is_file($setupFile)) {
                 $schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
                 $classes    = $this->entityManager->getMetadataFactory()->getAllMetadata();

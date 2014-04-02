@@ -6,8 +6,9 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     use \Sketch\Traits\Crud;
     public function login($username,$password)
     {
+        $password = \password_hash($password,1);
         try {
-            return $this->_em->createQueryBuilder()
+            $check =  $this->_em->createQueryBuilder()
                         ->select("p")
                         ->from($this->getClassName(),"p")
                         ->where("p.login = :login")
@@ -16,6 +17,9 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
                         ->setParameter("password", $password)
                         ->getQuery()
                         ->getOneOrNullResult();
+            if($check){
+                return \password_verify($password, $check->password)? $check : null;
+            }
         } catch (\Doctrine\ODM\PHPCR\Query\QueryException $e) {
             return null;
         } catch (\Exception $e) {
