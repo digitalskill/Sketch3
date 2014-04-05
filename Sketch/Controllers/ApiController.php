@@ -93,7 +93,8 @@ class ApiController extends \Sketch\Helpers\API
     public function startAPI(array $request, $origin)
     {
         parent::process($request['request']);
-        if($this->request['setup']=="setup" 
+        if(isset($this->request['setup']) 
+                && $this->request['setup']=="setup" 
                 && $this->endpoint=="deploy"  
                 && is_file(SITE_ROOT.DIRECTORY_SEPARATOR."setup".DIRECTORY_SEPARATOR."setup.php") 
                 && $this->method=="POST"){
