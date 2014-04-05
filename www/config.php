@@ -5,7 +5,7 @@
 return array(
     'version'            => "4",
 
-    'devmode'           => false,  // Set to True if needing to update entities - will run slow until enabled again
+    'devmode'           => false,  // Set to True if needing to update entities
     'htaccess'          => true,   // Set this to false if  .htaccess or apache settings are not in effect
 
     // Ignore in URI for Paths
@@ -32,7 +32,7 @@ return array(
     'cacheseconds'      => 31536000,
 
     // Enable if the server is not gzipping - most do.
-    'compress'          => false,   // Enable this to have php gzip the page - not needed if the server gzips already.
+    'compress'          => false,   // Enable this to have php gzip the page
 
-    //'timezone'          => 'Pacific/Auckland', // Force sketch to a timezone - uncomment if not needed
+    //'timezone'          => 'Pacific/Auckland', // Force sketch to a timezone
 );
