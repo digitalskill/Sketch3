@@ -7,8 +7,10 @@ class AdminView extends View
        parent::__construct($controller);
 
        // GET Template
-       $template = \Sketch\Sketch::$instance->url;
+       $template = \Sketch\Sketch::$instance->url;       
        $view = strtolower(end($template));
-       $this->layout    = SKETCH_CORE.DIRECTORY_SEPARATOR."Sketch".DIRECTORY_SEPARATOR."Admin".DIRECTORY_SEPARATOR.$view.".html";
+       $this->layout    = SKETCH_CORE.DIRECTORY_SEPARATOR."Sketch".
+                        DIRECTORY_SEPARATOR."Admin".DIRECTORY_SEPARATOR
+                        .$view.".html";
    }
 }

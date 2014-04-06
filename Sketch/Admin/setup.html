@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Language" content="en">
+        <meta name="author" content="Sketch">
+        <meta name="robots" content="INDEX,FOLLOW">
+        <title>Sketch Site Setup</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/css/bootstrap.min.css" />
+        <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' />
+        <link rel='stylesheet' href='//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css' />
+        <link rel='stylesheet' href='//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.min.css' />
+        <link rel='stylesheet' href='/assets/Admin/v1/css/AdminLTE.css' />
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+    </head>
+    <body class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>Website Setup</h1>
+                </div>
+            </div>
+            <form role="form" method="post" action="/api/v1/deploy">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <input type="hidden" name="setup" value="setup" />
+                            <h3 class="box-title">Site Setup</h3>
+                        </div>
+                        
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="username">Admin username</label>
+                                <input type="text" class="form-control" id="username" name="login" placeholder="email address" data-validation="email" data-validation-error-msg="Please provide an email address for your login name">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Admin Password</label>
+                                <input type="text" class="form-control" id="password" name="password" placeholder="Password" data-validation="required" data-validation-error-msg="Please provide a 6 character password" data-validation-length="min6" >
+                            </div>
+                            <div class="form-group">
+                                <label for="Firstname">Firstname</label>
+                                <input type="text" class="form-control" id="Firstname" name="Firstname" placeholder="Firstname" data-validation="required" data-validation-error-msg="Please provide a 6 character password">
+                            </div>
+                            <div class="form-group">
+                                <label for="Lastname">Lastname</label>
+                                <input type="text" class="form-control" id="Lastname" name="Lastname" placeholder="Lastname" data-validation="required" data-validation-error-msg="Please provide a 6 character password" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">Site Settings</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="sitename">Site Name</label>
+                                <input type="text" class="form-control" name="sitename" id="sitename" placeholder="site name" data-validation="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="sitetagline">Site Tagline</label>
+                                <input type="text" class="form-control" name="sitetagline" id="sitetagline" placeholder="site Tag line">
+                            </div>
+                            <div class="form-group">
+                                <label for="sitephone">Site Phone</label>
+                                <input type="text" class="form-control" name="sitephone" id="sitephone" placeholder="site Phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="sitecountry">Site Country</label>
+                                <input type="text" class="form-control" name="sitecountry" id="sitecountry" placeholder="site country">
+                            </div>
+                            <div class="form-group">
+                                <label for="siteemail">Site email</label>
+                                <input type="text" class="form-control" name="siteemail" id="siteemail" placeholder="Site Email address">
+                            </div>
+                            <div class="form-group">
+                                <label for="siteaddress">Site Address</label>
+                                <input type="text" class="form-control" name="siteaddress" id="siteaddress" placeholder="Site Street address">
+                            </div>
+                            <div class="form-group">
+                                <label for="sitestate">Site State</label>
+                                <input type="text" class="form-control" name="sitestate" id="sitestate" placeholder="Site state">
+                            </div>
+                            <div class="form-group">
+                                <label for="sitezip">Site Post Code</label>
+                                <input type="text" class="form-control" name="sitezip" id="sitezip" placeholder="Site postcode">
+                            </div>
+                            <div class="form-group">
+                                <label for="footertext">Footer Text</label>
+                                <input type="text" class="form-control" name="footertext" id="footertext" placeholder="Footer text">
+                            </div>
+                            <div class="form-group">
+                                <label for="domainname">Domain Name of the site (somedomain.co.nz)</label>
+                                <input type="text" class="form-control" name="domainname" id="domainname" placeholder="Domain name" data-validation="required">
+                            </div>
+                            <div class="form-group">
+                                <label></label>
+                                <input type="submit" class="button" value="Create Site"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+            </div>
+        </form>
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+        <script src="/assets/Bootstrap/v1/js/bootstrap.min.js"></script>
+        <script src="/assets/form-validator/v1/js/jquery.form-validator.min.js"></script>
+        <script>// Form validation
+            $.validate({
+                    borderColorOnError : '#ebccd1', 
+                    validateOnBlur : true,
+                    showHelpOnFocus : true,
+                    addSuggestions : true,
+                    onSuccess: function(){}}
+                );
+            </script>
+    </body>
+</html>

@@ -29,8 +29,8 @@ class Site
 
     /** @ORM\Column(length=15, nullable=true) */
     private $sitephone;
-
-     /** @ORM\Column(length=15, nullable=true) */
+    
+    /** @ORM\Column(length=15, nullable=true) */
     private $sitemobile;
 
     /** @ORM\Column(length=255, nullable=true) */
@@ -50,6 +50,9 @@ class Site
 
     /** @ORM\Column(length=150, nullable=true) */
     private $sitecountry;
+    
+    /** @ORM\Column(type="integer") */
+    private $sitepublished = 1;
 
     /** @ORM\Column(length=255, nullable=true) */
     private $sitelogo;
@@ -62,12 +65,6 @@ class Site
 
     /** @ORM\Column(length=100, nullable=true) */
     private $domainname;
-
-    /** @ORM\Column(type="integer") */
-    private $published = 0;
-
-    /** @ORM\Column(length=255, nullable=true) */
-    private $placeholderPage;
 
     /** @ORM\Column(length=255, nullable=true) */
     private $paymentPage;
@@ -86,9 +83,6 @@ class Site
 
     /** @ORM\Column(length=255, nullable=true) */
     private $paymentFetch;
-
-    /** @ORM\Column(length=255, nullable=true) */
-    private $landingstub;
 
     /** @ORM\Column(length=255) */
     private $themePath = "theme";

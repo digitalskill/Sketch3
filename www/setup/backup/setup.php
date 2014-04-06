@@ -1,19 +1,10 @@
 <?php
 // Create Site
 $site = new \Sketch\Entities\Site();
-$site->sitename     = 'Sketch';
-$site->sitetagline  = "Welcome to Sketch CMS system";
-$site->footertext   = "Sketch is built server first, for fast and flexible web sites";
+foreach($_POST as $key => $value){
+    $site->$key         = $value;
+}
 $site->published    = 1;
-$site->sitephone    = "000-111-1010";
-$site->sitecountry  = "New Zealand";
-$site->sitezip      = "3210";
-$site->sitestate    = "Waikato";
-$site->siteemail    = "husko2006@gmail.com";
-$site->siteaddress  = "15 Address Place";
-$site->domainname   = $_SERVER['HTTP_HOST'];
-$site->themePath    = "theme";
-$site->landingstub  = "home";
 $this->entityManager->persist($site);
 
 // Create Blocks
@@ -175,6 +166,7 @@ $this->entityManager->persist($contact);
 
 $thanks = new \Sketch\Entities\Menu();
 $thanks->setTitle("Thankyou");
+$thanks->onMenu          = 0;
 $thanks->menuimage       = "img/nav-menu/nav3.jpg";
 $thanks->menuclass       = "img-responsive";
 $thanksPage = new \Sketch\Entities\Page();
@@ -231,6 +223,7 @@ $this->entityManager->persist($shop);
 $subscribe = new \Sketch\Entities\Menu();
 $subscribe->setTitle("Subscribe");
 $subscribe->sort            = 1;
+$subscribe->onMenu          = 0;
 $subscribe->setParent($contact);
 $subscribe->menuimage       = "img/nav-menu/nav5.jpg";
 $subscribe->menuclass       = "img-responsive";
@@ -249,6 +242,7 @@ $this->entityManager->persist($subscribe);
 $verify = new \Sketch\Entities\Menu();
 $verify->setTitle("Verify");
 $verify->sort            = 2;
+$verify->onMenu          = 0;
 $verify->setParent($subscribe);
 $verify->menuimage       = "img/nav-menu/nav5.jpg";
 $verify->menuclass       = "img-responsive";
@@ -267,6 +261,7 @@ $this->entityManager->persist($verify);
 $failed = new \Sketch\Entities\Menu();
 $failed->setTitle("Failed");
 $failed->sort            = 0;
+$failed->onMenu          = 0;
 $failed->setParent($verify);
 $failed->menuimage       = "img/nav-menu/nav5.jpg";
 $failed->menuclass       = "img-responsive";
@@ -285,6 +280,7 @@ $unsubscribe = new \Sketch\Entities\Menu();
 $unsubscribe->sort            = 3;
 $unsubscribe->setTitle("Unsubscribe");
 $unsubscribe->setParent($subscribe);
+$unsubscribe->onMenu          = 0;
 $unsubscribe->menuimage       = "img/nav-menu/nav5.jpg";
 $unsubscribe->menuclass       = "img-responsive";
 $unsubscribePage = new \Sketch\Entities\Page();
@@ -299,75 +295,9 @@ $unsubscribe->site            = $site;
 $this->entityManager->persist($unsubscribePage);
 $this->entityManager->persist($unsubscribe);
 
-$unsubscribe2 = new \Sketch\Entities\Menu();
-$unsubscribe2->sort            = 0;
-$unsubscribe2->setTitle("Unsubscribe2");
-$unsubscribe2->setParent($unsubscribe);
-$unsubscribe2->menuimage       = "img/nav-menu/nav5.jpg";
-$unsubscribe2->menuclass       = "img-responsive";
-$unsubscribePage2 = new \Sketch\Entities\Page();
-$unsubscribePage2->plugin      = "UnSubscribe";
-$unsubscribePage2->title       = "Unsubscribe";
-$unsubscribePage2->description = "Unsubscribe from website";
-$unsubscribePage2->content     = "<h1>We're sorry to see you go...</h1><p>You can always subscibe to our mailing list again..</p>";
-$unsubscribePage2->edit        = $unsubscribePage2->content;
-$unsubscribe2->page            = $unsubscribePage2;
-$unsubscribe2->site            = $site;
-
-$this->entityManager->persist($unsubscribePage2);
-$this->entityManager->persist($unsubscribe2);
-
-$unsubscribe3 = new \Sketch\Entities\Menu();
-$unsubscribe3->sort            = 1;
-$unsubscribe3->setTitle("Unsubscribe3");
-$unsubscribe3->setParent($unsubscribe);
-$unsubscribe3->menuimage       = "img/nav-menu/nav5.jpg";
-$unsubscribe3->menuclass       = "img-responsive";
-$unsubscribePage3 = new \Sketch\Entities\Page();
-$unsubscribePage3->plugin      = "UnSubscribe";
-$unsubscribePage3->title       = "Unsubscribe";
-$unsubscribePage3->description = "Unsubscribe from website";
-$unsubscribePage3->content     = "<h1>We're sorry to see you go...</h1><p>You can always subscibe to our mailing list again..</p>";
-$unsubscribePage3->edit        = $unsubscribePage3->content;
-$unsubscribe3->page            = $unsubscribePage3;
-$unsubscribe3->site            = $site;
-
-$this->entityManager->persist($unsubscribePage3);
-$this->entityManager->persist($unsubscribe3);
-
-$unsubscribe4 = new \Sketch\Entities\Menu();
-$unsubscribe4->sort            = 0;
-$unsubscribe4->setTitle("Unsubscribe4");
-$unsubscribe4->setParent($unsubscribe3);
-$unsubscribe4->menuimage       = "img/nav-menu/nav5.jpg";
-$unsubscribe4->menuclass       = "img-responsive";
-$unsubscribePage4 = new \Sketch\Entities\Page();
-$unsubscribePage4->plugin      = "UnSubscribe";
-$unsubscribePage4->title       = "Unsubscribe";
-$unsubscribePage4->description = "Unsubscribe from website";
-$unsubscribePage4->content     = "<h1>We're sorry to see you go...</h1><p>You can always subscibe to our mailing list again..</p>";
-$unsubscribePage4->edit        = $unsubscribePage4->content;
-$unsubscribe4->page            = $unsubscribePage4;
-$unsubscribe4->site            = $site;
-
-$this->entityManager->persist($unsubscribePage4);
-$this->entityManager->persist($unsubscribe4);
-
-$underhome = new \Sketch\Entities\Menu();
-$underhome->sort            = 1;
-$underhome->setTitle("UnderHome");
-$underhome->setParent($menu);
-$underhome->menuimage       = "img/nav-menu/nav5.jpg";
-$underhome->menuclass       = "img-responsive";
-$underhomePage = new \Sketch\Entities\Page();
-$underhomePage->title       = "Under home";
-$underhomePage->description = "Under Home page";
-$underhomePage->content     = "<h1>We're sorry to see you go...</h1><p>You can always subscibe to our mailing list again..</p>";
-$underhomePage->edit        = $underhomePage->content;
-$underhome->page            = $underhomePage;
-$underhome->site            = $site;
-
-$this->entityManager->persist($underhomePage);
-$this->entityManager->persist($underhome);
+// Setup Admin User
+$data = $_POST;
+$data['type'] = "Admin";
+$user = $this->entityManager->getRepository("Sketch\Entities\User")->add($data);
 
 $this->entityManager->flush();

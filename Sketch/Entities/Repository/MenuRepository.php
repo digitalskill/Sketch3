@@ -20,7 +20,7 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
                 ->join("m.site","s")
                 ->where("m.path = :stub")
                 ->setParameter("stub", $stub)
-                ->andWhere("s.domainname = :site")
+                ->andWhere("s.domainname = :site OR s.id=1")
                 ->setParameter("site", $site)
                 ->getQuery()
                 ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
@@ -55,7 +55,7 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
                 ->join("m.site","s")
                 ->join("m.page","p")
                 ->where("m.landing = 1")
-                ->andWhere("s.domainname = :site")
+                ->andWhere("s.domainname = :site OR s.id = 1")
                 ->setParameter("site", $site)
                 ->getQuery()
                 ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
@@ -96,6 +96,7 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\MaterializedPathRepos
             ->where("materialized_path_entity.deleted = 0")
             ->andWhere("p.published <= CURRENT_TIMESTAMP() OR p.published IS NULL")
             ->andWhere("materialized_path_entity.site = :website")
+            ->andWhere("materialized_path_entity.onMenu = 1")
             ->setParameter("website",$websiteID)
             ->andwhere("materialized_path_entity.level <= :depth")
             ->setParameter("depth",$depth)
