@@ -68,7 +68,7 @@ body > .header {
 }
 @media screen and (min-width: 992px) {
   .left-side {
-    top: 50px;
+    top: 51px;
   }
   /*Right side strech mode*/
   .right-side.strech {
@@ -409,21 +409,25 @@ body > .header .logo {
 body > .header .logo .icon {
   margin-right: 10px;
 }
-.right-side > .content-header {
+.right-side > .content-header,
+.top > .content-header{
   position: relative;
   padding: 15px 15px 10px 20px;
 }
-.right-side > .content-header > h1 {
+.right-side > .content-header > h1,
+.top .content-header > h1 {
   margin: 0;
   font-size: 24px;
 }
-.right-side > .content-header > h1 > small {
+.right-side > .content-header > h1 > small,
+.top > .content-header > h1 > small{
   font-size: 15px;
   display: inline-block;
   padding-left: 4px;
   font-weight: 300;
 }
-.right-side > .content-header > .breadcrumb {
+.right-side > .content-header > .breadcrumb,
+.top > .content-header .breadcrumb{
   float: right;
   background: transparent;
   margin-top: 0px;
@@ -2464,7 +2468,8 @@ Component: timeline
   background: #357ca5;
 }
 /* skin-blue content header */
-.skin-blue .right-side > .content-header {
+.skin-blue .right-side > .content-header,
+.skin-blue .top > .content-header{
   background: #fbfbfb;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
@@ -2615,7 +2620,7 @@ Component: timeline
   background: #303030;
 }
 /* skin-black content header */
-.skin-black .right-side > .content-header {
+.skin-black .right-side > .content-header{
   background: transparent;
   box-shadow: none;
 }

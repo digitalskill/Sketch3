@@ -32,7 +32,11 @@ sketch.controller('LoginCtrl', function($scope, $http, $location, authentication
           .success(function(data){
               authentication.isAuthenticated = true;
               authentication.token = data.token;
+              authentication.name  = $scope.formData.login;
               $location.url("/");
+              $('#adminbody').removeClass('bg-black');
+              $('#adminbody').addClass('skin-blue');
+              $(window).trigger('load');
         })
           .error(function(){
               $scope.loginError = "Invalid login";
@@ -41,12 +45,13 @@ sketch.controller('LoginCtrl', function($scope, $http, $location, authentication
 });
 
 sketch.controller('HomeCtrl', function($scope, authentication) {
-    $scope.user = authentication.user.name;
+    $scope.user = authentication.name;
 });
 
 sketch.factory('authentication', function() {
     return {
         isAuthenticated: false,
-        token: null
+        token: null,
+        name: null
     }
 });
