@@ -67,8 +67,7 @@ class ApiController extends \Sketch\Helpers\API
                 die();
             } else {
                 $user->tokenExpiry  = new \DateTime();
-                $user->tokenExpiry->setTimestamp(strtotime('+20 minutes'));
-                
+                $user->tokenExpiry->setTimestamp(strtotime('+20 minutes')); 
                 $userid         = $user != null? $user->id : '';
                 $tokenExpiry    = $user != null? $user->tokenExpiry->format('dmyhis') : '';
                 $token          = sha1($userid.$browserDetails.$_SERVER['REMOTE_ADDR']);
